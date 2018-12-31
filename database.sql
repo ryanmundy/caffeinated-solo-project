@@ -16,9 +16,7 @@ CREATE TABLE "reviews"
 CREATE TABLE "categories"
 (
     "id" serial primary key NOT NULL,
-    "energy_drink" varchar(100) NOT NULL,
-    "coffee" varchar(100) NOT NULL,
-    "tea" varchar(100) NOT NULL
+    "category" varchar(100) NOT NULL
 );
 
 
@@ -39,11 +37,15 @@ CREATE TABLE "products"
     "name" varchar(100) NOT NULL,
     "description" varchar(5000),
     "caffeine_content" int,
-    "rating" int NOT NULL,
+    "rating" int,
     "image_url" varchar(5000),
-    "featured" BOOLEAN NOT NULL,
-    "review_id" int NOT NULL references "reviews",
+    "featured" BOOLEAN default false NOT NULL,
+    "review_id" int references "reviews",
     "added_by" int NOT NULL references "person",
     "category_id" int NOT NULL references "categories",
-    "location_id" int NOT NULL references "location"
+    "location_id" int references "location"
 );
+
+SELECT *
+FROM "products"
+ORDER BY "products".name ASC;
