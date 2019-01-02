@@ -5,11 +5,13 @@ const router = express.Router();
 
 //GET featured product
 router.get('/featured', (req, res) => {
-    const queryText = `SELECT * FROM "products" WHERE "products".featured=true;`;
+    const queryText = `SELECT * FROM "products"
+    JOIN "person" ON "products".added_by = "person".id
+    WHERE "products".featured=true;`;
     pool.query(queryText)
         .then((result) => {
             res.send(result.rows);
-            res.sendStatus(200);
+            // res.sendStatus(200);
         })
         .catch((error) => {
             console.log(error);

@@ -1,4 +1,4 @@
-const featuredProduct = (state = {}, action) => {
+const featuredProduct = (state = [], action) => {
     switch (action.type) {
         case 'SET_FEATURED':
             return action.payload;
