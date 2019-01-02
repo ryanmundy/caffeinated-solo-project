@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 
 class Main extends Component {
     componentDidMount() {
+        this.getFeatured();
+    }
 
+    getFeatured = () => {
+        this.props.dispatch({ type: 'FETCH_FEATURED' })
     }
 
     render() {
@@ -15,4 +19,8 @@ class Main extends Component {
     }
 }
 
-export default connect()(Main);
+const mapStateToProps = reduxStore => ({
+    reduxStore
+});
+
+export default connect(mapStateToProps)(Main);
