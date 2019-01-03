@@ -11,7 +11,19 @@ router.get('/featured', (req, res) => {
     pool.query(queryText)
         .then((result) => {
             res.send(result.rows);
-            // res.sendStatus(200);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+        });
+});//end GET
+
+//GET products
+router.get('/', (req, res) => {
+    const queryText = `SELECT * FROM "products" ORDER BY "products".name ASC;`;
+    pool.query(queryText)
+        .then((result) => {
+            res.send(result.rows);
         })
         .catch((error) => {
             console.log(error);

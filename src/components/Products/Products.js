@@ -3,8 +3,13 @@ import { connect } from 'react-redux';
 
 class Products extends Component {
     componentDidMount() {
-       
+       this.getProducts();
     }
+
+    getProducts = () => {
+        this.props.dispatch({ type: 'FETCH_PRODUCTS' })
+    }
+    
 
     render() {
         return (
