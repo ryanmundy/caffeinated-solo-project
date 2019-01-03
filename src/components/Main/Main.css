@@ -1,10 +1,27 @@
-#product{
-    margin: 50px;
+#productImage{
+    margin-left: 150px;
     padding: 5px;
     text-align: center;
 }
 
-#welcome{
+#productInfo{
+    margin-left: 5px;
+    padding: 5px;
+    text-align: center;
+}
+
+#welcomeMain{
     color: #92E601;
     text-align: center;
+}
+
+#featuredDiv{
+    align-items: center;
+}
+
+#needCaffeine{
+    float: right;
+    margin-right: 150px;
+    text-align: center;
+    padding: 5px;
 }
