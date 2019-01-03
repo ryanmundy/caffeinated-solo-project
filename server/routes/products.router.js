@@ -34,5 +34,22 @@ router.get('/', (req, res) => {
         });
 });//end GET
 
+//POST review
+router.post('/review', (req, res) => {
+    const newReview = req.body;
+    const queryText = `INSERT INTO reviews ()
+                    VALUES ($1, $2, $3, $4, $5, $6, $7)`;
+    const queryValues = [
+        newProject.name,
+        newProject.description
+    ];
+    pool.query(queryText, queryValues)
+        .then(() => { res.sendStatus(201); })
+        .catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+        });
+});//end POST
+
 
 module.exports = router;

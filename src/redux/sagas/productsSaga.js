@@ -5,7 +5,6 @@ function* fetchProducts() {
     console.log('in fetchProducts');
     try {
         const currentProducts = yield call(axios.get, '/api/products');
-        console.log('the featured product is', currentProducts.data);
         yield dispatch({ type: 'SET_PRODUCTS', payload: currentProducts.data });
     } catch (error) {
         console.log(error);

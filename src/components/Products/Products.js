@@ -41,6 +41,12 @@ class Products extends Component {
         });
         console.log('state is', this.state.newReview);
     }
+
+    handleClick = (event) => {
+        console.log('in handleClick');
+        this.props.dispatch({ type: 'ADD_REVIEW', payload: this.state.newReview })
+    }
+
     
 
     render() {
@@ -73,7 +79,7 @@ class Products extends Component {
                             <option value="5">5</option>
                         </select>
                             <br/>
-                            <Button variant="contained">Submit Review</Button>
+                            <Button variant="contained" onClick={this.handleClick}>Submit Review</Button>
                         </Card> 
                         </CardActionArea> 
                 </div>
