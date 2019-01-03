@@ -20,7 +20,10 @@ router.get('/featured', (req, res) => {
 
 //GET products
 router.get('/', (req, res) => {
-    const queryText = `SELECT * FROM "products" ORDER BY "products".name ASC;`;
+    const queryText = `SELECT * FROM "products"
+    JOIN "reviews" ON "products".id = "reviews".product_id
+    JOIN "person" ON "products".added_by = "person".id
+    ORDER BY "products".name ASC;`;
     pool.query(queryText)
         .then((result) => {
             res.send(result.rows);
