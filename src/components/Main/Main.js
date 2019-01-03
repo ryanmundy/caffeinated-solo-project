@@ -29,7 +29,7 @@ class Main extends Component {
         let featuredProduct = this.props.reduxStore.featured.map(product => {
             return (
                 <div>
-                    <Grid>
+                    {/* <Grid> */}
                         <Card style={cardStyle} id="productImage" key={product.id}>
                             {/* <h1>Featured Product</h1>
                     <h2>{product.name}</h2>
@@ -50,7 +50,7 @@ class Main extends Component {
                             <h3>Click below to find nearest location to purchase!</h3>
                             <Button variant="contained">Find Caffeine!</Button>
                         </Card>
-                    </Grid>
+                    {/* </Grid> */}
                 </div>
             );
         })
@@ -63,7 +63,13 @@ class Main extends Component {
                     {/* {JSON.stringify(this.props.reduxStore.featured[0])} */}
                 </div>
                 <div id="featuredDiv">
+                    <Grid
+                        container
+                        direction="row"
+                        justify="center"
+                        alignItems="center">
                     {featuredProduct}
+                    </Grid>
                 </div>
             </div>
         )

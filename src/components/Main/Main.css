@@ -1,13 +1,13 @@
 #productImage{
-    margin-left: 150px;
     padding: 5px;
     text-align: center;
+    margin: 5px;
 }
 
 #productInfo{
-    margin-left: 5px;
     padding: 5px;
     text-align: center;
+    margin: 5px;
 }
 
 #welcomeMain{
@@ -20,8 +20,10 @@
 }
 
 #needCaffeine{
-    float: right;
-    margin-right: 150px;
+    /* margin-left: 50px; */
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 150px;
     text-align: center;
     padding: 5px;
 }
