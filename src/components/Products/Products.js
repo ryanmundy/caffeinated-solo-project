@@ -11,7 +11,9 @@ class Products extends Component {
     state = {
         newReview: {
             rating: 1,
-            review_content: ''
+            review_content: '',
+            product_id: 0,
+            completed: false
         }
     }
 
@@ -42,7 +44,7 @@ class Products extends Component {
         console.log('state is', this.state.newReview);
     }
 
-    handleClick = (event) => {
+    handleClick = () => {
         console.log('in handleClick');
         this.props.dispatch({ type: 'ADD_REVIEW', payload: this.state.newReview })
     }
@@ -59,7 +61,6 @@ class Products extends Component {
         let products = this.props.reduxStore.currentProducts.map(product=> {
             return (
                 <div>
-                    <CardActionArea>
                     <Card style={cardStyle} key={product.id} id="product">
                             <h2>{product.name}</h2>
                             <img src={product.image_url} height="400" alt=''></img>
@@ -79,9 +80,8 @@ class Products extends Component {
                             <option value="5">5</option>
                         </select>
                             <br/>
-                            <Button variant="contained" onClick={this.handleClick}>Submit Review</Button>
-                        </Card> 
-                        </CardActionArea> 
+                        <Button variant="contained" onClick={this.handleClick}>Submit Review</Button>
+                        </Card>
                 </div>
             );
         })

@@ -1,6 +1,5 @@
 const express = require('express');
 const pool = require('../modules/pool');
-
 const router = express.Router();
 
 //GET featured product
@@ -37,11 +36,12 @@ router.get('/', (req, res) => {
 //POST review
 router.post('/review', (req, res) => {
     const newReview = req.body;
-    const queryText = `INSERT INTO reviews ()
-                    VALUES ($1, $2, $3, $4, $5, $6, $7)`;
+    const queryText = `INSERT INTO "reviews" ("review_content", "rating", "product_id")
+VALUES ($1, $2, $3);`;
     const queryValues = [
-        newProject.name,
-        newProject.description
+        newReview.review_content,
+        newReview.rating,
+        newReview.product_id
     ];
     pool.query(queryText, queryValues)
         .then(() => { res.sendStatus(201); })
