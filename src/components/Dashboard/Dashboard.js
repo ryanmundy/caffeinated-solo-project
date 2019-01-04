@@ -7,12 +7,22 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { withTheme } from '@material-ui/core';
-// import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
 // import DeleteIcon from '@material-ui/icons/Delete';
 
 
 class Dashboard extends Component {
+
+    state = {
+        newProduct: {
+            name: '',
+            caffeine_content: 0,
+            description: '',
+            image_url: '',
+            added_by: this.props.id,
+            category_id: 1
+        }
+    }
 
     componentDidMount() {
         this.getProducts();
@@ -27,14 +37,33 @@ class Dashboard extends Component {
         this.props.dispatch({ type: 'FETCH_USERS' })
     }
 
+    //change handler for inputs
+    handleChangeFor = (propertyName) => (event) => {
+        event.preventDefault();
+        console.log('in handleChangeFor', this.state.newProduct)
+        this.setState({
+            newProduct: {
+                ...this.state.newProduct,
+                [propertyName]: event.target.value
+            }
+        });
+    }
+
+    //click handler for adding product
+    handleSubmit = event => {
+        console.log('this is state', this.state.newProduct);
+        this.props.dispatch({ type: 'ADD_PRODUCT', payload: this.state.newProduct })
+    }
+
 
     render() {
-        
+
         //maps over products  and creates new table rows
         let newProductRow =
-            this.props.reduxStore.currentProducts.map(product => {
+            this.props.reduxStore.currentProducts.map((product, i )=> {
                 return (
-                    <TableRow key={product.id} id={product.id}>
+                    <TableRow key={i} id={product.id}>
+                        <TableCell id="tableCell"><img src={product.image_url} height="75" alt=''></img></TableCell>
                         <TableCell id="tableCell">{product.name}</TableCell>
                         <TableCell id="tableCell">{product.rating}</TableCell>
                         <TableCell id="tableCell">{product.username}</TableCell>
@@ -45,34 +74,55 @@ class Dashboard extends Component {
             })
 
         let newReviewsRow =
-            this.props.reduxStore.currentProducts.map(product => {
+            this.props.reduxStore.currentProducts.map((product, i) => {
                 return (
-                    <TableRow key={product.id} id={product.id}>
+                    <TableRow key={i} id={product.id}>
                         <TableCell id="tableCell">{product.name}</TableCell>
                         <TableCell id="tableCell">{product.review_content}</TableCell>
                         <TableCell><Button variant="contained" color="secondary">Delete Review</Button></TableCell>
                     </TableRow>
                 );
-            })   
+            })
 
         let newUserRow =
-            this.props.reduxStore.currentUsers.map(user => {
+            this.props.reduxStore.currentUsers.map((user, i) => {
                 return (
-                    <TableRow key={user.id} id={user.id}>
+                    <TableRow key={i} id={user.id}>
                         <TableCell id="tableCell">{user.username}</TableCell>
                         <TableCell><Button variant="contained" color="secondary">Delete User</Button></TableCell>
                     </TableRow>
                 );
             })
 
+        let cardStyle = {
+            width: 500,
+            height: 200,
+            display: 'inline-block'
+        }
+
         return (
             <div>
-                <p>this is from the dashboard</p>
-                <p>The user is {this.props.user} and their id is {this.props.id}</p>
-                <h2 id="dashboardHeader">Current Products</h2>
+                {/* <p>this is from the dashboard</p>
+                <p>The user is {this.props.user} and their id is {this.props.id}</p> */}
+                <Card style={cardStyle} id="addNew">
+                    <h2>Add New Product</h2>
+                    <input type="text" placeholder="name" onChange={this.handleChangeFor('name')}></input>
+                    <input type="number" placeholder="caffeine content" onChange={this.handleChangeFor('caffeine_content')}></input>
+                    <input type="text" placeholder="description" onChange={this.handleChangeFor('description')}></input>
+                    <input type="text" placeholder="image url" onChange={this.handleChangeFor('image_url')}></input>
+                    <select onChange={this.handleChangeFor('name')}>
+                        <option value={1}>Energy Drink</option>
+                        <option value="2">Coffee</option>
+                        <option value="3">Tea</option>
+                    </select>
+                    <br/>
+                    <button className="log-in" onClick={this.handleSubmit}>Add Product</button>
+                </Card>
+                <h2 id="currentProductsHeader">Current Products</h2>
                 <Table class="center" id="productTable">
                     <TableHead>
                         <TableRow>
+                            <th></th>
                             <th>Name</th>
                             <th>Rating</th>
                             <th>Added By</th>

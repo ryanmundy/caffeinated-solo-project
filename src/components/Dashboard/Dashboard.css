@@ -3,10 +3,17 @@
     width: auto; */
     margin-left: auto;
     margin-right: auto;
+    /* margin-top: 50px; */
+    margin-bottom: 100px;
+}
+
+#currentProductsHeader{
+    margin-top: 100px;
 }
 
 #tableCell{
     color: #92E601;
+    text-align: center;
 }
 
 #dashboardHeader{

@@ -11,6 +11,8 @@ function* fetchProducts() {
     }
 }//end fetchFeatured
 
+
+
 function* products() {
     yield takeEvery('FETCH_PRODUCTS', fetchProducts)
 }
