@@ -4,7 +4,6 @@ import { Grid } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import './Products.css';
 import Button from '@material-ui/core/Button';
-import CardActionArea from '@material-ui/core/CardActionArea';
 
 class Products extends Component {
 
@@ -28,6 +27,7 @@ class Products extends Component {
     handleRatingChange = (event) => {
         this.setState({
             newReview: {
+                ...this.state.newReview,
                 rating: event.target.value
             }
         });
@@ -38,14 +38,16 @@ class Products extends Component {
     handleReviewChange = (event) => {
         this.setState({
             newReview: {
+                ...this.state.newReview,
                 review_content: event.target.value
             }
         });
         console.log('state is', this.state.newReview);
     }
 
+
     handleClick = () => {
-        console.log('in handleClick');
+        console.log('in handleClick', this.state);
         this.props.dispatch({ type: 'ADD_REVIEW', payload: this.state.newReview })
     }
 
@@ -71,7 +73,7 @@ class Products extends Component {
                             <h3>Reviews:</h3>
                             <p>{product.review_content}</p>
                             <h4>Review this product!</h4>
-                            <input type="text" onChange={this.handleReviewChange}></input>
+                            <input type="text" onChange={()=>this.handleReviewChange}></input>
                         <select onChange={this.handleRatingChange}>
                             <option value="1">1</option>
                             <option value="2">2</option>
