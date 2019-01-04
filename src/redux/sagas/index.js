@@ -5,6 +5,7 @@ import userSaga from './userSaga';
 import featured from './featuredSaga';
 import products from './productsSaga';
 import review from './reviewSaga';
+import users from './userListSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -20,6 +21,7 @@ export default function* rootSaga() {
     userSaga(),
     featured(),
     products(),
-    review()
+    review(),
+    users()
   ]);
 }

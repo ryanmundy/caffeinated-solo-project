@@ -1,0 +1,14 @@
+#productTable{
+    /* width: 75%;
+    width: auto; */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#tableCell{
+    color: #92E601;
+}
+
+#dashboardHeader{
+    text-align: center;
+}

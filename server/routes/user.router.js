@@ -40,4 +40,17 @@ router.post('/logout', (req, res) => {
   res.sendStatus(200);
 });
 
+router.get('/userList', (req, res) => {
+  const queryText = `SELECT "person".id, "person".username, "person".admin FROM "person"
+ORDER BY "person".username ASC;`;
+  pool.query(queryText)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.sendStatus(500);
+    });
+});//end GET
+
 module.exports = router;
