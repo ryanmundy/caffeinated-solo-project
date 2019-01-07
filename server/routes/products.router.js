@@ -20,7 +20,6 @@ router.get('/featured', (req, res) => {
 //GET products
 router.get('/', (req, res) => {
     const queryText = `SELECT * FROM "products"
-    
     JOIN "person" ON "products".added_by = "person".id
     ORDER BY "products".name ASC;`;
     pool.query(queryText)
@@ -67,6 +66,7 @@ ORDER BY "products".name ASC
         });
 });//end GET
 
+//POST new product
 router.post('/', (req, res) => {
     const newProduct = req.body;
     const queryText = `INSERT INTO "products" ("name", "description", "caffeine_content", "image_url", "added_by", "category_id")
