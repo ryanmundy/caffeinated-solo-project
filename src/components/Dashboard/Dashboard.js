@@ -39,7 +39,7 @@ class Dashboard extends Component {
     }
 
     getReviews = () => {
-        this.props.dispatch({ type: 'FETCH_REVIEWS' })
+        this.props.dispatch({ type: 'FETCH_ALL_REVIEWS' })
     }
 
     //change handler for inputs
@@ -79,11 +79,10 @@ class Dashboard extends Component {
             })
 
         let newReviewsRow =
-            this.props.reduxStore.reviews.map((review, i) => {
+            this.props.reduxStore.allReviews.map((review, i) => {
                 return (
                     <TableRow key={i} id={review.id}>
                         <TableCell id="tableCell">{review.name}</TableCell>
-                        <TableCell id="tableCell">{review.rating}</TableCell>
                         <TableCell id="tableCell">{review.review_content}</TableCell>
                         <TableCell><Button variant="contained" color="secondary">Delete Review</Button></TableCell>
                     </TableRow>
@@ -146,7 +145,6 @@ class Dashboard extends Component {
                     <TableHead>
                         <TableRow>
                             <th>Product</th>
-                            <th>Rating</th>
                             <th>Review</th>
                             <th>Action</th>
                         </TableRow>

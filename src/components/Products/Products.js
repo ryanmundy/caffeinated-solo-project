@@ -113,13 +113,13 @@ class Products extends Component {
                 <div>
                     <Card style={cardStyle} key={i} id="product">
                         <h2>{product.name}</h2>
+                        <h3>({product.category})</h3>
                         <img src={product.image_url} height="300" alt=''></img>
                         <h3>Rating: {product.round}</h3>
                         <p><em>Added By: {product.username}</em></p>
                         <p>Caffeine Content: {product.caffeine_content} mg</p>
                         <p>{product.description}</p>
-                        <p>id is {product.product_table_id}</p>
-                        <Button onClick={() => this.handleReviewsClick(product)}>Reviews</Button>
+                        <Button variant="contained" onClick={() => this.handleReviewsClick(product)}>Reviews</Button>
                     </Card>
                 </div>
             );

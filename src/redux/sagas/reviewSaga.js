@@ -6,6 +6,7 @@ function* addReview(action) {
     try {
         yield call(axios.post, '/api/products/review', action.payload);
         yield dispatch({ type: 'FETCH_REVIEWS', payload: action.payload.product_id });
+        yield dispatch({ type: 'FETCH_PRODUCTS' });
     } catch (error) {
         console.log(error);
     }

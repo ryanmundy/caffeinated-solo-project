@@ -22,11 +22,15 @@ router.get('/', (req, res) => {
     const queryText = `SELECT "products".product_table_id, "products"."name", "products".added_by,
 "products".caffeine_content, "products".description, "products".category_id,
 "products".image_url, "products".featured,
+"person".username, "categories".category,
 ROUND(AVG("rating"), 1) FROM "products"
 LEFT JOIN "reviews" on "products".product_table_id = "reviews".product_id
-GROUP BY "products".product_table_id
+JOIN "person" on "products".added_by = "person".id
+JOIN "categories" on "products".category_id = "categories".id
+GROUP BY "person".username, "products".product_table_id, "categories".id
 ORDER BY "products".name ASC
-;`;
+;
+`;
     pool.query(queryText)
         .then((result) => {
             res.send(result.rows);
@@ -62,6 +66,21 @@ JOIN "products" ON "reviews".product_id = "products".product_table_id
 WHERE "reviews".product_id = $1
 ;`;
     pool.query(queryText, [req.query.id])
+        .then((result) => {
+            res.send(result.rows);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+        });
+});//end GET
+
+//GET reviews
+router.get('/reviews', (req, res) => {
+    const queryText = `SELECT "reviews".id, "products".name, "reviews".review_content FROM "reviews"
+JOIN "products" ON "reviews".product_id = "products".product_table_id
+;`;
+    pool.query(queryText)
         .then((result) => {
             res.send(result.rows);
         })
