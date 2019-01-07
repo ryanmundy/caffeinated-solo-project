@@ -4,7 +4,7 @@ import axios from 'axios';
 function* getAllReviews() {
     console.log('in getAllReviews');
     try {
-        const currentReviews = yield call(axios.get, `api/products/reviews`);
+        const currentReviews = yield call(axios.get, `api/reviews`);
         yield dispatch({ type: 'SET_ALL_REVIEWS', payload: currentReviews.data });
     } catch (error) {
         console.log(error);
