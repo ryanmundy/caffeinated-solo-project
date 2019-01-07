@@ -27,8 +27,10 @@ class Products extends Component {
         this.props.dispatch({ type: 'FETCH_PRODUCTS' })
     }
 
-    getReviews = () => {
-        this.props.dispatch({ type: 'FETCH_REVIEWS' })
+    getReviews = (id) => {
+        console.log('in getReviews', id);
+        
+        this.props.dispatch({ type: 'FETCH_REVIEWS', payload: id })
     }
 
     handleRatingChange = (event) => {
@@ -59,8 +61,9 @@ class Products extends Component {
     }
 
 
-    handleReviewsClick = () => {
-        this.getReviews();
+    handleReviewsClick = (id) => {
+        console.log('in handleReviews', id);
+        this.getReviews(id);
         this.setState({
             productDisplay: {
                 ...this.state.productDisplay,
@@ -87,29 +90,30 @@ class Products extends Component {
 
         let reviews = this.props.reduxStore.reviews.map(review => {
             return (
-                <div>
+                <div style={cardStyle} key={review.id} id="review">
                     {/* <p>{review.name} {review.review_content}</p> */}
-                    <Card style={cardStyle} key={review.id} id="review">
+                    
                         <h2>Reviews</h2>
                         <h3>{review.name}</h3>
                         <p>{review.review_content}</p>
-                        <Button onClick={this.handleReturnClick}>Return to Product</Button>
-                    </Card>
+                        
+                
                 </div>
             );
         })
 
-        let products = this.props.reduxStore.currentProducts.map(product=> {
+        let products = this.props.reduxStore.currentProducts.map((product,i)=> {
             return (
                 <div>
-                    <Card style={cardStyle} key={product.id} id="product">
+                    <Card style={cardStyle} key={i} id="product">
                             <h2>{product.name}</h2>
                             <img src={product.image_url} height="300" alt=''></img>
                             <h3>Rating: {product.rating}</h3>
                             <p><em>Added By: {product.username}</em></p>
                             <p>Caffeine Content: {product.caffeine_content} mg</p>
                             <p>{product.description}</p>
-                            <Button onClick={()=>this.handleReviewsClick(product.id)}>Reviews</Button>
+                            <p>id is {product.product_table_id}</p>
+                            <Button onClick={()=>this.handleReviewsClick(product.product_table_id)}>Reviews</Button>
                             {/* <input type="text" onChange={()=>this.handleReviewChange}></input>
                         <select onChange={this.handleRatingChange}>
                             <option value="1">1</option>
@@ -143,16 +147,17 @@ class Products extends Component {
         } else {
             displayItem = <div>
                 {/* {reviews} */}
-                
-                    {reviews}
+                <Card>
+                {reviews}
+                    <Button onClick={this.handleReturnClick}>Return to Products</Button>
+                </Card>
+                    
                 
             </div>
         }
 
         return (
-            // if(this.state.productDisplay.display===false){
-                
-            // }
+            
             <div>{displayItem}</div>
             
         )

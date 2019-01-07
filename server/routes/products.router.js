@@ -52,11 +52,12 @@ VALUES ($1, $2, $3);`;
 
 //GET reviews
 router.get('/review', (req, res) => {
-    const queryText = `SELECT "reviews".review_content, "reviews".product_id, "reviews".rating, "products".name FROM "reviews"
-JOIN "products" ON "reviews".product_id = "products".id
-ORDER BY "products".name ASC
+    
+    const queryText = `SELECT "reviews".review_content, "reviews".product_id, "products".name, "products".product_table_id FROM "reviews"
+JOIN "products" ON "reviews".product_id = "products".product_table_id
+WHERE "reviews".product_id = $1
 ;`;
-    pool.query(queryText)
+    pool.query(queryText, [req.query.id])
         .then((result) => {
             res.send(result.rows);
         })
