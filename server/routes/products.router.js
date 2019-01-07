@@ -19,9 +19,14 @@ router.get('/featured', (req, res) => {
 
 //GET products
 router.get('/', (req, res) => {
-    const queryText = `SELECT * FROM "products"
-    JOIN "person" ON "products".added_by = "person".id
-    ORDER BY "products".name ASC;`;
+    const queryText = `SELECT "products".product_table_id, "products"."name", "products".added_by,
+"products".caffeine_content, "products".description, "products".category_id,
+"products".image_url, "products".featured,
+ROUND(AVG("rating"), 1) FROM "products"
+LEFT JOIN "reviews" on "products".product_table_id = "reviews".product_id
+GROUP BY "products".product_table_id
+ORDER BY "products".name ASC
+;`;
     pool.query(queryText)
         .then((result) => {
             res.send(result.rows);

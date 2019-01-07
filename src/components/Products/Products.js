@@ -114,7 +114,7 @@ class Products extends Component {
                     <Card style={cardStyle} key={i} id="product">
                         <h2>{product.name}</h2>
                         <img src={product.image_url} height="300" alt=''></img>
-                        <h3>Rating: {product.rating}</h3>
+                        <h3>Rating: {product.round}</h3>
                         <p><em>Added By: {product.username}</em></p>
                         <p>Caffeine Content: {product.caffeine_content} mg</p>
                         <p>{product.description}</p>
