@@ -27,6 +27,7 @@ class Dashboard extends Component {
     componentDidMount() {
         this.getProducts();
         this.getUsers();
+        this.getReviews();
     }
 
     getProducts = () => {
@@ -35,6 +36,10 @@ class Dashboard extends Component {
 
     getUsers = () => {
         this.props.dispatch({ type: 'FETCH_USERS' })
+    }
+
+    getReviews = () => {
+        this.props.dispatch({ type: 'FETCH_REVIEWS' })
     }
 
     //change handler for inputs
@@ -74,11 +79,12 @@ class Dashboard extends Component {
             })
 
         let newReviewsRow =
-            this.props.reduxStore.currentProducts.map((product, i) => {
+            this.props.reduxStore.reviews.map((review, i) => {
                 return (
-                    <TableRow key={i} id={product.id}>
-                        <TableCell id="tableCell">{product.name}</TableCell>
-                        <TableCell id="tableCell">{product.review_content}</TableCell>
+                    <TableRow key={i} id={review.id}>
+                        <TableCell id="tableCell">{review.name}</TableCell>
+                        <TableCell id="tableCell">{review.rating}</TableCell>
+                        <TableCell id="tableCell">{review.review_content}</TableCell>
                         <TableCell><Button variant="contained" color="secondary">Delete Review</Button></TableCell>
                     </TableRow>
                 );
@@ -140,6 +146,7 @@ class Dashboard extends Component {
                     <TableHead>
                         <TableRow>
                             <th>Product</th>
+                            <th>Rating</th>
                             <th>Review</th>
                             <th>Action</th>
                         </TableRow>

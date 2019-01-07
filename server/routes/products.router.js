@@ -51,6 +51,22 @@ VALUES ($1, $2, $3);`;
         });
 });//end POST
 
+//GET reviews
+router.get('/review', (req, res) => {
+    const queryText = `SELECT "reviews".review_content, "reviews".product_id, "reviews".rating, "products".name FROM "reviews"
+JOIN "products" ON "reviews".product_id = "products".id
+ORDER BY "products".name ASC
+;`;
+    pool.query(queryText)
+        .then((result) => {
+            res.send(result.rows);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+        });
+});//end GET
+
 router.post('/', (req, res) => {
     const newProduct = req.body;
     const queryText = `INSERT INTO "products" ("name", "description", "caffeine_content", "image_url", "added_by", "category_id")
