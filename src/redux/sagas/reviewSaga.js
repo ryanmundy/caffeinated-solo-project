@@ -2,11 +2,10 @@ import { takeEvery, call, put as dispatch } from 'redux-saga/effects';
 import axios from 'axios';
 
 function* addReview(action) {
-    console.log('in addReview');
+    console.log('in addReview', action.payload);
     try {
-        const review = yield call(axios.post, '/api/products/review', action.payload);
-        yield dispatch({ type: 'SET_REVIEW', payload: review.data });
-        yield dispatch({type: 'FETCH_PRODUCTS'});
+        yield call(axios.post, '/api/products/review', action.payload);
+        yield dispatch({ type: 'FETCH_REVIEWS', payload: action.payload.product_id });
     } catch (error) {
         console.log(error);
     }
