@@ -8,7 +8,11 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Card from '@material-ui/core/Card';
-// import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Edit from '@material-ui/icons/Edit';
+import Grade from '@material-ui/icons/Grade';
+import Add from '@material-ui/icons/Add';
+import Save from '@material-ui/icons/Save';
 
 
 class Dashboard extends Component {
@@ -153,9 +157,9 @@ class Dashboard extends Component {
                         <TableCell id="tableCell">{product.name}</TableCell>
                         <TableCell id="tableCell">{product.round}</TableCell>
                         <TableCell id="tableCell">{product.username}</TableCell>
-                        <TableCell><Button variant="contained" onClick={() => this.handleEdit(product)}>Edit</Button></TableCell>
-                        <TableCell><Button variant="contained" onClick={() => this.handleFeatured(product.product_table_id)}>Set Featured</Button></TableCell>
-                        <TableCell><Button variant="contained" color="secondary" onClick={() => this.handleDeleteProduct(product.product_table_id)}>Delete Product</Button></TableCell>
+                        <TableCell><Button variant="contained" onClick={() => this.handleEdit(product)}><Edit/></Button></TableCell>
+                        <TableCell><Button variant="contained" onClick={() => this.handleFeatured(product.product_table_id)}><Grade/>Set Featured</Button></TableCell>
+                        <TableCell><Button variant="contained" onClick={() => this.handleDeleteProduct(product.product_table_id)}><DeleteIcon></DeleteIcon></Button></TableCell>
                     </TableRow>
                 );
             })
@@ -167,8 +171,8 @@ class Dashboard extends Component {
                         <TableCell id="tableCell"><img src={product.image_url} height="75" alt=''></img></TableCell>
                         <TableCell id="tableCell">{product.name}</TableCell>
                         <TableCell id="tableCell">{product.round}</TableCell>
-                        <TableCell><Button variant="contained" onClick={() => this.handleEdit(product)}>Edit</Button></TableCell>
-                        <TableCell><Button variant="contained" color="secondary" onClick={() => this.handleDeleteProduct(product.product_table_id)}>Delete Product</Button></TableCell>
+                        <TableCell><Button variant="contained" onClick={() => this.handleEdit(product)}><Edit/>Edit</Button></TableCell>
+                        <TableCell><Button variant="contained" onClick={() => this.handleDeleteProduct(product.product_table_id)}><DeleteIcon/></Button></TableCell>
                     </TableRow>
                 );
             })
@@ -179,7 +183,7 @@ class Dashboard extends Component {
                     <TableRow key={i} id={review.id}>
                         <TableCell id="tableCell">{review.name}</TableCell>
                         <TableCell id="tableCell">{review.review_content}</TableCell>
-                        <TableCell><Button variant="contained" color="secondary" onClick={() => this.handleDeleteReview(review.id)}>Delete Review</Button></TableCell>
+                        <TableCell><Button variant="contained" onClick={() => this.handleDeleteReview(review.id)}><DeleteIcon/></Button></TableCell>
                     </TableRow>
                 );
             })
@@ -189,7 +193,7 @@ class Dashboard extends Component {
                 return (
                     <TableRow key={i} id={user.id}>
                         <TableCell id="tableCell">{user.username}</TableCell>
-                        <TableCell><Button variant="contained" color="secondary" onClick={() => this.handleDeleteUser(user.id)}>Delete User</Button></TableCell>
+                        <TableCell><Button variant="contained" onClick={() => this.handleDeleteUser(user.id)}><DeleteIcon/></Button></TableCell>
                     </TableRow>
                 );
             })
@@ -218,7 +222,7 @@ class Dashboard extends Component {
                                 <option value={3}>Tea</option>
                             </select>
                             <br />
-                            <button className="log-in" onClick={this.handleSubmit}>Add Product</button>
+                            <Button variant="contained" onClick={this.handleSubmit}><Add/>Add Product</Button>
                         </Card>
                     </div>
                     <div>
@@ -286,7 +290,7 @@ class Dashboard extends Component {
                                 <option value={3}>Tea</option>
                             </select>
                             <br />
-                            <button className="log-in" onClick={this.handleSubmit}>Add Product</button>
+                            <Button variant="contained" onClick={this.handleSubmit}><Add/>Add Product</Button>
                         </Card>
                     </div>
                     <div>
@@ -310,7 +314,6 @@ class Dashboard extends Component {
         } else {
             pageDisplay =
                 <div>
-                    <p>editing mode is on</p>
                     <Card style={cardStyle} id="addNew">
                         <h2>Edit Product</h2>
                         <input type="text" placeholder="name" placeholder={this.state.productToEdit.name} onChange={this.handleChangeForEdit('name')}></input>
@@ -323,7 +326,7 @@ class Dashboard extends Component {
                             <option value={3}>Tea</option>
                         </select>
                         <br />
-                        <button className="log-in" onClick={this.handleEditSubmit} >Save</button>
+                        <Button variant="contained" onClick={this.handleEditSubmit}><Save/>Save</Button>
                     </Card>
                 </div>
         }

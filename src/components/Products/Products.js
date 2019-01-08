@@ -9,6 +9,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Comment from '@material-ui/icons/Comment';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 
 class Products extends Component {
 
@@ -119,7 +121,7 @@ class Products extends Component {
                         <p><em>Added By: {product.username}</em></p>
                         <p>Caffeine Content: {product.caffeine_content} mg</p>
                         <p>{product.description}</p>
-                        <Button variant="contained" onClick={() => this.handleReviewsClick(product)}>Reviews</Button>
+                        <Button variant="contained" onClick={() => this.handleReviewsClick(product)}><Comment/>Reviews</Button>
                     </Card>
                 </div>
             );
@@ -142,7 +144,7 @@ class Products extends Component {
         } else {
             displayItem = 
             <div id="displayItem">
-                <Button id="returnButton" variant="contained" onClick={this.handleReturnClick}>Return to Products</Button>
+                <Button id="returnButton" variant="contained" onClick={this.handleReturnClick}><ArrowBack/>Return to Products</Button>
                 <h2 id="reviewHeader">Reviews for {this.state.productDisplay.product_name}</h2>
                 <Table class="center" id="reviewsTable">
                     <TableHead>
@@ -167,7 +169,7 @@ class Products extends Component {
                         <option value="5">5</option>
                     </select>
                     <br />
-                    <Button variant="contained" onClick={this.handleAddClick}>Submit Review</Button>
+                    <Button variant="contained" onClick={this.handleAddClick}><Comment/>Submit Review</Button>
                 </Card>
             </div>
         }
