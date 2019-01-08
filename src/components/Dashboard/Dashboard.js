@@ -80,20 +80,13 @@ class Dashboard extends Component {
 
     }
 
+    handleFeatured = (id) => {
+        console.log('in handleFeatured', id);
+        this.props.dispatch({ type: 'CLEAR_FEATURED', payload: id })
+    }
+
 
     render() {
-        // let pageDisplay;
-        // if(this.state.person.status){
-        //     pageDisplay=
-        //     <div>
-        //     <p>hello, this is an admin page</p>
-
-        //     </div>
-        // }else{
-        //     pageDisplay=
-        //     <p>hello, you are not an admin</p>
-            
-        // }
 
         // maps over products  and creates new table rows
         let newProductRow =
@@ -104,7 +97,7 @@ class Dashboard extends Component {
                         <TableCell id="tableCell">{product.name}</TableCell>
                         <TableCell id="tableCell">{product.round}</TableCell>
                         <TableCell id="tableCell">{product.username}</TableCell>
-                        <TableCell><Button variant="contained">Set Featured</Button></TableCell>
+                        <TableCell><Button variant="contained" onClick={() => this.handleFeatured(product.product_table_id)}>Set Featured</Button></TableCell>
                         <TableCell><Button variant="contained" color="secondary" onClick={() => this.handleDeleteProduct(product.product_table_id)}>Delete Product</Button></TableCell>
                     </TableRow>
                 );
@@ -155,7 +148,6 @@ class Dashboard extends Component {
             pageDisplay =
             <div>
                 <div>
-                    <p>hello, this is an admin page</p>
                 <h2 id="currentProductsHeader">Current Products</h2>
                 <Table class="center" id="productTable">
                     <TableHead>
@@ -206,7 +198,6 @@ class Dashboard extends Component {
         } else {
             pageDisplay =
             <div>
-                <p>hello, you are not an admin</p>
             <h2 id="currentProductsHeader">Your Products</h2>
             <Table class="center" id="productTable">
                 <TableHead>
@@ -226,8 +217,6 @@ class Dashboard extends Component {
 
         return (
             <div>
-                {/* {pageDisplay} */}
-                {/* All users */}
                 <Card style={cardStyle} id="addNew">
                     <h2>Add New Product</h2>
                     <input type="text" placeholder="name" onChange={this.handleChangeFor('name')}></input>
@@ -242,55 +231,7 @@ class Dashboard extends Component {
                     <br/>
                     <button className="log-in" onClick={this.handleSubmit}>Add Product</button>
                 </Card>
-                {/* All users */}
                 {pageDisplay}
-
-                {/* Admin */}
-                {/* <h2 id="currentProductsHeader">Current Products</h2>
-                <Table class="center" id="productTable">
-                    <TableHead>
-                        <TableRow>
-                            <th></th>
-                            <th>Name</th>
-                            <th>Rating</th>
-                            <th>Added By</th>
-                            <th>Action</th>
-                            <th>Action</th>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {newProductRow}
-                    </TableBody>
-                </Table> */}
-
-                {/* <h2 id="dashboardHeader">Reviews</h2>
-                <Table class="center" id="productTable">
-                    <TableHead>
-                        <TableRow>
-                            <th>Product</th>
-                            <th>Review</th>
-                            <th>Action</th>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {newReviewsRow}
-                    </TableBody>
-                </Table> */}
-
-                {/* <h2 id="dashboardHeader">Manage Users</h2>
-                <Table class="center" id="productTable">
-                    <TableHead>
-                        <TableRow>
-                            <th>Username</th>
-                            <th>Action</th>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {newUserRow}
-                    </TableBody>
-                </Table> */}
-                {/* Admin */}
-
             </div>
         )
     }

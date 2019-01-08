@@ -17,6 +17,33 @@ router.get('/featured', (req, res) => {
         });
 });//end GET
 
+//Clear featured
+router.put('/featured/clear', (req, res) => {
+    const query = `UPDATE products SET featured=false;`;
+    pool.query(query)
+        .then(() => {
+            res.sendStatus(200);
+        }).catch(error => {
+            console.log(error);
+            res.sendStatus(500);
+        });
+});//end PUT
+
+//Set featured product
+router.put('/featured/set/:id', (req, res) => {
+    console.log('route id: ', [req.params.id]);
+    const query = `UPDATE products SET featured=true
+        WHERE product_table_id=$1;`;
+    pool.query(query, [req.params.id])
+        .then(() => {
+            res.sendStatus(200);
+        }).catch(error => {
+            console.log(error);
+            res.sendStatus(500);
+        });
+});//end PUT
+
+
 //GET products
 router.get('/', (req, res) => {
     const queryText = `SELECT "products".product_table_id, "products"."name", "products".added_by,
