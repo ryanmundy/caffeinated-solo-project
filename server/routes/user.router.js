@@ -41,8 +41,7 @@ router.post('/logout', (req, res) => {
 });
 
 router.get('/userList', (req, res) => {
-  const queryText = `SELECT "person".id, "person".username, "person".admin FROM "person"
-ORDER BY "person".username ASC;`;
+  const queryText = `SELECT * FROM "person" WHERE "person".admin != true;`;
   pool.query(queryText)
     .then((result) => {
       res.send(result.rows);
@@ -52,5 +51,18 @@ ORDER BY "person".username ASC;`;
       res.sendStatus(500);
     });
 });//end GET
+
+//DELETE user
+router.delete('/:id', (req, res) => {
+  console.log('route id: ', [req.params.id]);
+  const query = `DELETE FROM "person" WHERE "person".id = $1;`;
+  pool.query(query, [req.params.id])
+    .then(() => {
+      res.sendStatus(200);
+    }).catch(error => {
+      console.log(error);
+      res.sendStatus(500);
+    });
+});//end DELETE
 
 module.exports = router;

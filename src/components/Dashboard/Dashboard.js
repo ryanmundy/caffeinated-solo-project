@@ -85,6 +85,12 @@ class Dashboard extends Component {
         this.props.dispatch({ type: 'CLEAR_FEATURED', payload: id })
     }
 
+    handleDeleteUser = (id) => {
+        console.log('in handleDeleteUser', id);
+        this.props.dispatch({ type: 'DELETE_USER', payload: id })
+
+    }
+
 
     render() {
 
@@ -131,7 +137,7 @@ class Dashboard extends Component {
                 return (
                     <TableRow key={i} id={user.id}>
                         <TableCell id="tableCell">{user.username}</TableCell>
-                        <TableCell><Button variant="contained" color="secondary">Delete User</Button></TableCell>
+                        <TableCell><Button variant="contained" color="secondary" onClick={() => this.handleDeleteUser(user.id)}>Delete User</Button></TableCell>
                     </TableRow>
                 );
             })
@@ -223,10 +229,10 @@ class Dashboard extends Component {
                     <input type="number" placeholder="caffeine content" onChange={this.handleChangeFor('caffeine_content')}></input>
                     <input type="text" placeholder="description" onChange={this.handleChangeFor('description')}></input>
                     <input type="text" placeholder="image url" onChange={this.handleChangeFor('image_url')}></input>
-                    <select onChange={this.handleChangeFor('name')}>
+                    <select onChange={this.handleChangeFor('category_id')}>
                         <option value={1}>Energy Drink</option>
-                        <option value="2">Coffee</option>
-                        <option value="3">Tea</option>
+                        <option value={2}>Coffee</option>
+                        <option value={3}>Tea</option>
                     </select>
                     <br/>
                     <button className="log-in" onClick={this.handleSubmit}>Add Product</button>
