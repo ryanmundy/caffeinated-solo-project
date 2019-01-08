@@ -158,7 +158,7 @@ class Products extends Component {
                
                 <Card style={cardStyle} id="addNewReview">
                 <h2>Review this product!</h2>
-                    <input type="text" onChange={this.handleReviewChange}></input>
+                    <input type="text" placeholder="review" onChange={this.handleReviewChange}></input>
                     <select onChange={this.handleRatingChange}>
                         <option value="1">1</option>
                         <option value="2">2</option>

@@ -21,6 +21,9 @@ class Dashboard extends Component {
             image_url: '',
             added_by: this.props.id,
             category_id: 1
+        },
+        person: {
+            status: this.props.admin
         }
     }
 
@@ -28,6 +31,7 @@ class Dashboard extends Component {
         this.getProducts();
         this.getUsers();
         this.getReviews();
+        this.getUserProducts(this.props.id);
     }
 
     getProducts = () => {
@@ -40,6 +44,10 @@ class Dashboard extends Component {
 
     getReviews = () => {
         this.props.dispatch({ type: 'FETCH_ALL_REVIEWS' })
+    }
+
+    getUserProducts = (id) => {
+        this.props.dispatch({ type: 'FETCH_USER_PRODUCTS', payload: id })
     }
 
     //change handler for inputs
@@ -74,8 +82,20 @@ class Dashboard extends Component {
 
 
     render() {
+        // let pageDisplay;
+        // if(this.state.person.status){
+        //     pageDisplay=
+        //     <div>
+        //     <p>hello, this is an admin page</p>
 
-        //maps over products  and creates new table rows
+        //     </div>
+        // }else{
+        //     pageDisplay=
+        //     <p>hello, you are not an admin</p>
+            
+        // }
+
+        // maps over products  and creates new table rows
         let newProductRow =
             this.props.reduxStore.currentProducts.map((product, i )=> {
                 return (
@@ -85,6 +105,18 @@ class Dashboard extends Component {
                         <TableCell id="tableCell">{product.round}</TableCell>
                         <TableCell id="tableCell">{product.username}</TableCell>
                         <TableCell><Button variant="contained">Set Featured</Button></TableCell>
+                        <TableCell><Button variant="contained" color="secondary" onClick={() => this.handleDeleteProduct(product.product_table_id)}>Delete Product</Button></TableCell>
+                    </TableRow>
+                );
+            })
+
+        let newUserProductRow =
+            this.props.reduxStore.currentUserProducts.map((product, i) => {
+                return (
+                    <TableRow key={i} id={product.id}>
+                        <TableCell id="tableCell"><img src={product.image_url} height="75" alt=''></img></TableCell>
+                        <TableCell id="tableCell">{product.name}</TableCell>
+                        <TableCell id="tableCell">{product.round}</TableCell>
                         <TableCell><Button variant="contained" color="secondary" onClick={() => this.handleDeleteProduct(product.product_table_id)}>Delete Product</Button></TableCell>
                     </TableRow>
                 );
@@ -117,24 +149,13 @@ class Dashboard extends Component {
             display: 'inline-block'
         }
 
-        return (
+
+        let pageDisplay;
+        if (this.state.person.status) {
+            pageDisplay =
             <div>
-                {/* <p>this is from the dashboard</p>
-                <p>The user is {this.props.user} and their id is {this.props.id}</p> */}
-                <Card style={cardStyle} id="addNew">
-                    <h2>Add New Product</h2>
-                    <input type="text" placeholder="name" onChange={this.handleChangeFor('name')}></input>
-                    <input type="number" placeholder="caffeine content" onChange={this.handleChangeFor('caffeine_content')}></input>
-                    <input type="text" placeholder="description" onChange={this.handleChangeFor('description')}></input>
-                    <input type="text" placeholder="image url" onChange={this.handleChangeFor('image_url')}></input>
-                    <select onChange={this.handleChangeFor('name')}>
-                        <option value={1}>Energy Drink</option>
-                        <option value="2">Coffee</option>
-                        <option value="3">Tea</option>
-                    </select>
-                    <br/>
-                    <button className="log-in" onClick={this.handleSubmit}>Add Product</button>
-                </Card>
+                <div>
+                    <p>hello, this is an admin page</p>
                 <h2 id="currentProductsHeader">Current Products</h2>
                 <Table class="center" id="productTable">
                     <TableHead>
@@ -151,8 +172,98 @@ class Dashboard extends Component {
                         {newProductRow}
                     </TableBody>
                 </Table>
+                </div>
+                <div>
+                    <h2 id="dashboardHeader">Reviews</h2>
+                    <Table class="center" id="productTable">
+                        <TableHead>
+                            <TableRow>
+                                <th>Product</th>
+                                <th>Review</th>
+                                <th>Action</th>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {newReviewsRow}
+                        </TableBody>
+                    </Table>
+                </div>
+                <div>
+                    <h2 id="dashboardHeader">Manage Users</h2>
+                    <Table class="center" id="productTable">
+                        <TableHead>
+                            <TableRow>
+                                <th>Username</th>
+                                <th>Action</th>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {newUserRow}
+                        </TableBody>
+                    </Table>
+                </div>
+            </div>
+        } else {
+            pageDisplay =
+            <div>
+                <p>hello, you are not an admin</p>
+            <h2 id="currentProductsHeader">Your Products</h2>
+            <Table class="center" id="productTable">
+                <TableHead>
+                    <TableRow>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Rating</th>
+                        <th>Action</th>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {newUserProductRow}
+                </TableBody>
+            </Table>
+            </div>
+        }
 
-                <h2 id="dashboardHeader">Reviews</h2>
+        return (
+            <div>
+                {/* {pageDisplay} */}
+                {/* All users */}
+                <Card style={cardStyle} id="addNew">
+                    <h2>Add New Product</h2>
+                    <input type="text" placeholder="name" onChange={this.handleChangeFor('name')}></input>
+                    <input type="number" placeholder="caffeine content" onChange={this.handleChangeFor('caffeine_content')}></input>
+                    <input type="text" placeholder="description" onChange={this.handleChangeFor('description')}></input>
+                    <input type="text" placeholder="image url" onChange={this.handleChangeFor('image_url')}></input>
+                    <select onChange={this.handleChangeFor('name')}>
+                        <option value={1}>Energy Drink</option>
+                        <option value="2">Coffee</option>
+                        <option value="3">Tea</option>
+                    </select>
+                    <br/>
+                    <button className="log-in" onClick={this.handleSubmit}>Add Product</button>
+                </Card>
+                {/* All users */}
+                {pageDisplay}
+
+                {/* Admin */}
+                {/* <h2 id="currentProductsHeader">Current Products</h2>
+                <Table class="center" id="productTable">
+                    <TableHead>
+                        <TableRow>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Rating</th>
+                            <th>Added By</th>
+                            <th>Action</th>
+                            <th>Action</th>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {newProductRow}
+                    </TableBody>
+                </Table> */}
+
+                {/* <h2 id="dashboardHeader">Reviews</h2>
                 <Table class="center" id="productTable">
                     <TableHead>
                         <TableRow>
@@ -164,9 +275,9 @@ class Dashboard extends Component {
                     <TableBody>
                         {newReviewsRow}
                     </TableBody>
-                </Table>
+                </Table> */}
 
-                <h2 id="dashboardHeader">Manage Users</h2>
+                {/* <h2 id="dashboardHeader">Manage Users</h2>
                 <Table class="center" id="productTable">
                     <TableHead>
                         <TableRow>
@@ -177,7 +288,9 @@ class Dashboard extends Component {
                     <TableBody>
                         {newUserRow}
                     </TableBody>
-                </Table>
+                </Table> */}
+                {/* Admin */}
+
             </div>
         )
     }

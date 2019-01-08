@@ -31,10 +31,6 @@ class Main extends Component {
                 <div>
                     {/* <Grid> */}
                         <Card style={cardStyle} id="productImage" key={product.id}>
-                            {/* <h1>Featured Product</h1>
-                    <h2>{product.name}</h2>
-                    <h3>Rating: {product.rating}</h3>
-                    <p><em>Added By: {product.username}</em></p> */}
                             <img src={product.image_url} height="500" alt=''></img>
                         </Card>
                         <Card style={cardStyle} id="productInfo">

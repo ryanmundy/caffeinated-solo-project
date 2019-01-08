@@ -75,5 +75,30 @@ router.delete('/:id', (req, res) => {
         });
 });//end DELETE
 
+//GET user products
+router.get('/user/:id', (req, res) => {
+    const queryText = `SELECT "products".product_table_id, "products"."name", "products".added_by,
+"products".caffeine_content, "products".description, "products".category_id,
+"products".image_url, "products".featured,
+"person".username, "categories".category,
+ROUND(AVG("rating"), 1) FROM "products"
+LEFT JOIN "reviews" on "products".product_table_id = "reviews".product_id
+JOIN "person" on "products".added_by = "person".id
+JOIN "categories" on "products".category_id = "categories".id
+WHERE "products".added_by=$1
+GROUP BY "person".username, "products".product_table_id, "categories".id
+ORDER BY "products".name ASC
+;
+`;
+    pool.query(queryText, [req.params.id])
+        .then((result) => {
+            res.send(result.rows);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+        });
+});//end GET
+
 
 module.exports = router;

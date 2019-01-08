@@ -14,7 +14,7 @@ const UserPage = (props) => (
     </h1>
     <p>Your ID is: {props.user.id}</p>
     
-    <Dashboard user={props.user.username} id={props.user.id}/>
+    <Dashboard user={props.user.username} id={props.user.id} admin={props.user.admin}/>
     <LogOutButton className="log-in" />
   </div>
 );
