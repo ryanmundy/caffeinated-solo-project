@@ -20,7 +20,7 @@ VALUES ($1, $2, $3);`;
         });
 });//end POST
 
-//GET reviews
+//GET specific reviews
 router.get('/product', (req, res) => {
     const queryText = `SELECT "reviews".review_content, "reviews".rating, "reviews".product_id, "products".name, "products".product_table_id FROM "reviews"
 JOIN "products" ON "reviews".product_id = "products".product_table_id
@@ -36,7 +36,7 @@ WHERE "reviews".product_id = $1
         });
 });//end GET
 
-//GET reviews
+//GET all reviews
 router.get('/', (req, res) => {
     const queryText = `SELECT "reviews".id, "products".name, "reviews".review_content FROM "reviews"
 JOIN "products" ON "reviews".product_id = "products".product_table_id
@@ -50,6 +50,20 @@ JOIN "products" ON "reviews".product_id = "products".product_table_id
             res.sendStatus(500);
         });
 });//end GET
+
+//DELETE review
+router.delete('/:id', (req, res) => {
+    // const reqId = req.params.id;
+    console.log('route id: ', [req.params.id]);
+    const query = `DELETE FROM "reviews" WHERE id=$1`;
+    pool.query(query, [req.params.id])
+        .then(() => {
+            res.sendStatus(200);
+        }).catch(error => {
+            console.log(error);
+            res.sendStatus(500);
+        });
+});//end DELETE
 
 
 module.exports = router;

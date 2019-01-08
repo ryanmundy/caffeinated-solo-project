@@ -60,6 +60,12 @@ class Dashboard extends Component {
         this.props.dispatch({ type: 'ADD_PRODUCT', payload: this.state.newProduct })
     }
 
+    handleDeleteReview = (id) => {
+        console.log('in handleReviewDelete', id);
+        this.props.dispatch({ type: 'DELETE_REVIEW', payload: id })
+
+    }
+
 
     render() {
 
@@ -70,7 +76,7 @@ class Dashboard extends Component {
                     <TableRow key={i} id={product.id}>
                         <TableCell id="tableCell"><img src={product.image_url} height="75" alt=''></img></TableCell>
                         <TableCell id="tableCell">{product.name}</TableCell>
-                        <TableCell id="tableCell">{product.rating}</TableCell>
+                        <TableCell id="tableCell">{product.round}</TableCell>
                         <TableCell id="tableCell">{product.username}</TableCell>
                         <TableCell><Button variant="contained">Set Featured</Button></TableCell>
                         <TableCell><Button variant="contained" color="secondary">Delete Product</Button></TableCell>
@@ -84,7 +90,7 @@ class Dashboard extends Component {
                     <TableRow key={i} id={review.id}>
                         <TableCell id="tableCell">{review.name}</TableCell>
                         <TableCell id="tableCell">{review.review_content}</TableCell>
-                        <TableCell><Button variant="contained" color="secondary">Delete Review</Button></TableCell>
+                        <TableCell><Button variant="contained" color="secondary" onClick={()=>this.handleDeleteReview(review.id)}>Delete Review</Button></TableCell>
                     </TableRow>
                 );
             })
