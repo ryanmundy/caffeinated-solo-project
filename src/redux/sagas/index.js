@@ -10,6 +10,7 @@ import newProduct from './addProductSaga';
 import reviews from './getReviewsSaga';
 import allReviews from './getAllReviewsSaga';
 import deleteReviews from './deleteReviewSaga';
+import deleteProducts from './deleteProductSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -30,6 +31,7 @@ export default function* rootSaga() {
     newProduct(),
     reviews(),
     allReviews(),
-    deleteReviews()
+    deleteReviews(),
+    deleteProducts()
   ]);
 }

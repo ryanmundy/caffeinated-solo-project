@@ -62,5 +62,18 @@ VALUES ($1, $2, $3, $4, $5, $6);`;
         });
 });//end POST
 
+//DELETE product
+router.delete('/:id', (req, res) => {
+    console.log('route id: ', [req.params.id]);
+    const query = `DELETE FROM "products" WHERE "products".product_table_id=$1`;
+    pool.query(query, [req.params.id])
+        .then(() => {
+            res.sendStatus(200);
+        }).catch(error => {
+            console.log(error);
+            res.sendStatus(500);
+        });
+});//end DELETE
+
 
 module.exports = router;

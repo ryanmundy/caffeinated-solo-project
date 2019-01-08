@@ -66,6 +66,12 @@ class Dashboard extends Component {
 
     }
 
+    handleDeleteProduct = (id) => {
+        console.log('in handleDeleteProduct', id);
+        this.props.dispatch({ type: 'DELETE_PRODUCT', payload: id })
+
+    }
+
 
     render() {
 
@@ -79,7 +85,7 @@ class Dashboard extends Component {
                         <TableCell id="tableCell">{product.round}</TableCell>
                         <TableCell id="tableCell">{product.username}</TableCell>
                         <TableCell><Button variant="contained">Set Featured</Button></TableCell>
-                        <TableCell><Button variant="contained" color="secondary">Delete Product</Button></TableCell>
+                        <TableCell><Button variant="contained" color="secondary" onClick={() => this.handleDeleteProduct(product.product_table_id)}>Delete Product</Button></TableCell>
                     </TableRow>
                 );
             })
