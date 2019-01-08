@@ -127,5 +127,27 @@ ORDER BY "products".name ASC
         });
 });//end GET
 
+//UPDATE product
+router.put('/', (req, res) => {
+    const editProduct = req.body;
+    const queryText = `UPDATE "products" SET 
+    ("name", "description", "caffeine_content", "image_url", "category_id")=
+    ($1, $2, $3, $4, $5)
+    WHERE "products".product_table_id = $6;`;
+    const queryValues = [
+        editProduct.name,
+        editProduct.description,
+        editProduct.caffeine_content,
+        editProduct.image_url,
+        editProduct.category_id,
+        editProduct.product_table_id
+    ];
+    pool.query(queryText, queryValues)
+        .then(() => { res.sendStatus(201); })
+        .catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+        });
+});//end POST
 
 module.exports = router;

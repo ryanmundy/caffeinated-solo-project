@@ -14,6 +14,7 @@ import deleteProducts from './deleteProductSaga';
 import userProducts from './userProductSaga';
 import addFeatured from './setFeaturedSaga';
 import deleteUsers from './deleteUserSaga';
+import editProducts from './editProductSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -38,6 +39,7 @@ export default function* rootSaga() {
     deleteProducts(),
     userProducts(),
     addFeatured(),
-    deleteUsers()
+    deleteUsers(),
+    editProducts()
   ]);
 }

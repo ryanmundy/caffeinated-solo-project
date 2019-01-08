@@ -24,6 +24,18 @@ class Dashboard extends Component {
         },
         person: {
             status: this.props.admin
+        },
+        editing: {
+            mode: false
+        },
+        productToEdit: {
+            product_table_id: 0,
+            name: '',
+            caffeine_content: 0,
+            description: '',
+            image_url: '',
+            added_by: 0,
+            category_id: 1
         }
     }
 
@@ -62,7 +74,18 @@ class Dashboard extends Component {
         });
     }
 
-    //click handler for adding product
+    handleChangeForEdit = (propertyName) => (event) => {
+        event.preventDefault();
+        console.log('in handleChangeForEdit', this.state.productToEdit)
+        this.setState({
+            productToEdit: {
+                ...this.state.productToEdit,
+                [propertyName]: event.target.value
+            }
+        });
+    }
+
+    //click handlers
     handleSubmit = event => {
         console.log('this is state', this.state.newProduct);
         this.props.dispatch({ type: 'ADD_PRODUCT', payload: this.state.newProduct })
@@ -88,21 +111,49 @@ class Dashboard extends Component {
     handleDeleteUser = (id) => {
         console.log('in handleDeleteUser', id);
         this.props.dispatch({ type: 'DELETE_USER', payload: id })
+    }
 
+    handleEdit = (product) => {
+        console.log('in handleEdit', product);
+        this.setState({
+            editing: {
+                mode: true
+            },
+            productToEdit: {
+                product_table_id: product.product_table_id,
+                name: product.name,
+                caffeine_content: product.caffeine_content,
+                description: product.description,
+                image_url: product.image_url,
+                added_by: product.product_table_id,
+                category_id: product.category_id
+            }
+        })
+    }
+
+    handleEditSubmit = event => {
+        console.log('this is state', this.state.productToEdit);
+        this.props.dispatch({ type: 'EDIT_PRODUCT', payload: this.state.productToEdit })
+        this.setState({
+            editing: {
+                mode: false
+            }
+        })
     }
 
 
     render() {
-
+        console.log(this.state);
         // maps over products  and creates new table rows
         let newProductRow =
-            this.props.reduxStore.currentProducts.map((product, i )=> {
+            this.props.reduxStore.currentProducts.map((product, i) => {
                 return (
                     <TableRow key={i} id={product.id}>
                         <TableCell id="tableCell"><img src={product.image_url} height="75" alt=''></img></TableCell>
                         <TableCell id="tableCell">{product.name}</TableCell>
                         <TableCell id="tableCell">{product.round}</TableCell>
                         <TableCell id="tableCell">{product.username}</TableCell>
+                        <TableCell><Button variant="contained" onClick={() => this.handleEdit(product)}>Edit</Button></TableCell>
                         <TableCell><Button variant="contained" onClick={() => this.handleFeatured(product.product_table_id)}>Set Featured</Button></TableCell>
                         <TableCell><Button variant="contained" color="secondary" onClick={() => this.handleDeleteProduct(product.product_table_id)}>Delete Product</Button></TableCell>
                     </TableRow>
@@ -116,6 +167,7 @@ class Dashboard extends Component {
                         <TableCell id="tableCell"><img src={product.image_url} height="75" alt=''></img></TableCell>
                         <TableCell id="tableCell">{product.name}</TableCell>
                         <TableCell id="tableCell">{product.round}</TableCell>
+                        <TableCell><Button variant="contained" onClick={() => this.handleEdit(product)}>Edit</Button></TableCell>
                         <TableCell><Button variant="contained" color="secondary" onClick={() => this.handleDeleteProduct(product.product_table_id)}>Delete Product</Button></TableCell>
                     </TableRow>
                 );
@@ -127,7 +179,7 @@ class Dashboard extends Component {
                     <TableRow key={i} id={review.id}>
                         <TableCell id="tableCell">{review.name}</TableCell>
                         <TableCell id="tableCell">{review.review_content}</TableCell>
-                        <TableCell><Button variant="contained" color="secondary" onClick={()=>this.handleDeleteReview(review.id)}>Delete Review</Button></TableCell>
+                        <TableCell><Button variant="contained" color="secondary" onClick={() => this.handleDeleteReview(review.id)}>Delete Review</Button></TableCell>
                     </TableRow>
                 );
             })
@@ -150,93 +202,136 @@ class Dashboard extends Component {
 
 
         let pageDisplay;
-        if (this.state.person.status) {
+        if (this.state.person.status && this.state.editing.mode === false) {
             pageDisplay =
-            <div>
                 <div>
-                <h2 id="currentProductsHeader">Current Products</h2>
-                <Table class="center" id="productTable">
-                    <TableHead>
-                        <TableRow>
-                            <th></th>
-                            <th>Name</th>
-                            <th>Rating</th>
-                            <th>Added By</th>
-                            <th>Action</th>
-                            <th>Action</th>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {newProductRow}
-                    </TableBody>
-                </Table>
+                    <div>
+                        <Card style={cardStyle} id="addNew">
+                            <h2>Add New Product</h2>
+                            <input type="text" placeholder="name" onChange={this.handleChangeFor('name')}></input>
+                            <input type="number" placeholder="caffeine content" onChange={this.handleChangeFor('caffeine_content')}></input>
+                            <input type="text" placeholder="description" onChange={this.handleChangeFor('description')}></input>
+                            <input type="text" placeholder="image url" onChange={this.handleChangeFor('image_url')}></input>
+                            <select onChange={this.handleChangeFor('category_id')}>
+                                <option value={1}>Energy Drink</option>
+                                <option value={2}>Coffee</option>
+                                <option value={3}>Tea</option>
+                            </select>
+                            <br />
+                            <button className="log-in" onClick={this.handleSubmit}>Add Product</button>
+                        </Card>
+                    </div>
+                    <div>
+                        <h2 id="currentProductsHeader">Current Products</h2>
+                        <Table class="center" id="productTable">
+                            <TableHead>
+                                <TableRow>
+                                    <th></th>
+                                    <th>Name</th>
+                                    <th>Rating</th>
+                                    <th>Added By</th>
+                                    <th>Action</th>
+                                    <th>Action</th>
+                                    <th>Action</th>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {newProductRow}
+                            </TableBody>
+                        </Table>
+                    </div>
+                    <div>
+                        <h2 id="dashboardHeader">Reviews</h2>
+                        <Table class="center" id="productTable">
+                            <TableHead>
+                                <TableRow>
+                                    <th>Product</th>
+                                    <th>Review</th>
+                                    <th>Action</th>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {newReviewsRow}
+                            </TableBody>
+                        </Table>
+                    </div>
+                    <div>
+                        <h2 id="dashboardHeader">Manage Users</h2>
+                        <Table class="center" id="productTable">
+                            <TableHead>
+                                <TableRow>
+                                    <th>Username</th>
+                                    <th>Action</th>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {newUserRow}
+                            </TableBody>
+                        </Table>
+                    </div>
                 </div>
+        } else if (this.state.person.status === false && this.state.editing.mode === false) {
+            pageDisplay =
                 <div>
-                    <h2 id="dashboardHeader">Reviews</h2>
+                    <div>
+                        <Card style={cardStyle} id="addNew">
+                            <h2>Add New Product</h2>
+                            <input type="text" placeholder="name" onChange={this.handleChangeFor('name')}></input>
+                            <input type="number" placeholder="caffeine content" onChange={this.handleChangeFor('caffeine_content')}></input>
+                            <input type="text" placeholder="description" onChange={this.handleChangeFor('description')}></input>
+                            <input type="text" placeholder="image url" onChange={this.handleChangeFor('image_url')}></input>
+                            <select onChange={this.handleChangeFor('category_id')}>
+                                <option value={1}>Energy Drink</option>
+                                <option value={2}>Coffee</option>
+                                <option value={3}>Tea</option>
+                            </select>
+                            <br />
+                            <button className="log-in" onClick={this.handleSubmit}>Add Product</button>
+                        </Card>
+                    </div>
+                    <div>
+                    </div>
+                    <h2 id="currentProductsHeader">Your Products</h2>
                     <Table class="center" id="productTable">
                         <TableHead>
                             <TableRow>
-                                <th>Product</th>
-                                <th>Review</th>
+                                <th></th>
+                                <th>Name</th>
+                                <th>Rating</th>
+                                <th>Action</th>
                                 <th>Action</th>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {newReviewsRow}
+                            {newUserProductRow}
                         </TableBody>
                     </Table>
                 </div>
-                <div>
-                    <h2 id="dashboardHeader">Manage Users</h2>
-                    <Table class="center" id="productTable">
-                        <TableHead>
-                            <TableRow>
-                                <th>Username</th>
-                                <th>Action</th>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {newUserRow}
-                        </TableBody>
-                    </Table>
-                </div>
-            </div>
         } else {
             pageDisplay =
-            <div>
-            <h2 id="currentProductsHeader">Your Products</h2>
-            <Table class="center" id="productTable">
-                <TableHead>
-                    <TableRow>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Rating</th>
-                        <th>Action</th>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {newUserProductRow}
-                </TableBody>
-            </Table>
-            </div>
+                <div>
+                    <p>editing mode is on</p>
+                    <Card style={cardStyle} id="addNew">
+                        <h2>Edit Product</h2>
+                        <input type="text" placeholder="name" placeholder={this.state.productToEdit.name} onChange={this.handleChangeForEdit('name')}></input>
+                        <input type="number" placeholder="caffeine content" placeholder={this.state.productToEdit.caffeine_content} onChange={this.handleChangeForEdit('caffeine_content')}></input>
+                        <input type="text" placeholder="description" placeholder={this.state.productToEdit.description} onChange={this.handleChangeForEdit('description')}></input>
+                        <input type="text" placeholder="image url" placeholder={this.state.productToEdit.image_url} onChange={this.handleChangeForEdit('image_url')}></input>
+                        <select placeholder={this.state.productToEdit.category_id} onChange={this.handleChangeForEdit('category_id')}>
+                            <option value={1}>Energy Drink</option>
+                            <option value={2}>Coffee</option>
+                            <option value={3}>Tea</option>
+                        </select>
+                        <br />
+                        <button className="log-in" onClick={this.handleEditSubmit} >Save</button>
+                    </Card>
+                </div>
         }
+
+
 
         return (
             <div>
-                <Card style={cardStyle} id="addNew">
-                    <h2>Add New Product</h2>
-                    <input type="text" placeholder="name" onChange={this.handleChangeFor('name')}></input>
-                    <input type="number" placeholder="caffeine content" onChange={this.handleChangeFor('caffeine_content')}></input>
-                    <input type="text" placeholder="description" onChange={this.handleChangeFor('description')}></input>
-                    <input type="text" placeholder="image url" onChange={this.handleChangeFor('image_url')}></input>
-                    <select onChange={this.handleChangeFor('category_id')}>
-                        <option value={1}>Energy Drink</option>
-                        <option value={2}>Coffee</option>
-                        <option value={3}>Tea</option>
-                    </select>
-                    <br/>
-                    <button className="log-in" onClick={this.handleSubmit}>Add Product</button>
-                </Card>
                 {pageDisplay}
             </div>
         )

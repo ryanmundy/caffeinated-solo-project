@@ -40,6 +40,7 @@ WHERE "reviews".product_id = $1
 router.get('/', (req, res) => {
     const queryText = `SELECT "reviews".id, "products".name, "reviews".review_content FROM "reviews"
 JOIN "products" ON "reviews".product_id = "products".product_table_id
+ORDER BY "products".name ASC
 ;`;
     pool.query(queryText)
         .then((result) => {
