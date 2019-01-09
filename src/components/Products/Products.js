@@ -63,7 +63,14 @@ class Products extends Component {
 
     handleAddClick = () => {
         console.log('in handleClick', this.state);
-        this.props.dispatch({ type: 'ADD_REVIEW', payload: this.state.newReview  })
+        this.props.dispatch({ type: 'ADD_REVIEW', payload: this.state.newReview })
+        this.setState({
+            newReview: {
+                ...this.state.newReview,
+                review_content: '',
+                rating: 0
+            }
+        });
     }
 
 
@@ -99,7 +106,7 @@ class Products extends Component {
             display: 'inline-block'
         }
 
-        
+
 
         let reviews = this.props.reduxStore.reviews.map(review => {
             return (
@@ -121,7 +128,7 @@ class Products extends Component {
                         <p><em>Added By: {product.username}</em></p>
                         <p>Caffeine Content: {product.caffeine_content} mg</p>
                         <p>{product.description}</p>
-                        <Button variant="contained" onClick={() => this.handleReviewsClick(product)}><Comment/>Reviews</Button>
+                        <Button variant="contained" onClick={() => this.handleReviewsClick(product)}><Comment />Reviews</Button>
                     </Card>
                 </div>
             );
@@ -142,36 +149,36 @@ class Products extends Component {
             </div>
 
         } else {
-            displayItem = 
-            <div id="displayItem">
-                <Button id="returnButton" variant="contained" onClick={this.handleReturnClick}><ArrowBack/>Return to Products</Button>
-                <h2 id="reviewHeader">Reviews for {this.state.productDisplay.product_name}</h2>
-                <Table class="center" id="reviewsTable">
-                    <TableHead>
-                        <TableRow>
-                            <th>Rating</th>
-                            <th>Reviews</th>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {reviews}
-                    </TableBody>
-                </Table>
-               
-                <Card style={cardStyle} id="addNewReview">
-                <h2>Review this product!</h2>
-                    <input type="text" placeholder="review" onChange={this.handleReviewChange}></input>
-                    <select onChange={this.handleRatingChange}>
-                        <option value={1}>1</option>
-                        <option value={2}>2</option>
-                        <option value={3}>3</option>
-                        <option value={4}>4</option>
-                        <option value={5}>5</option>
-                    </select>
-                    <br />
-                    <Button variant="contained" onClick={this.handleAddClick}><Comment/>Submit Review</Button>
-                </Card>
-            </div>
+            displayItem =
+                <div id="displayItem">
+                    <Button id="returnButton" variant="contained" onClick={this.handleReturnClick}><ArrowBack />Return to Products</Button>
+                    <h2 id="reviewHeader">Reviews for {this.state.productDisplay.product_name}</h2>
+                    <Table class="center" id="reviewsTable">
+                        <TableHead>
+                            <TableRow>
+                                <th>Rating</th>
+                                <th>Reviews</th>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {reviews}
+                        </TableBody>
+                    </Table>
+
+                    <Card style={cardStyle} id="addNewReview">
+                        <h2>Review this product!</h2>
+                        <input id="reviewIn" type="text" placeholder="review" value={this.state.newReview.review_content} onChange={this.handleReviewChange}></input>
+                        <select value={this.state.newReview.rating} id="ratingIn" onChange={this.handleRatingChange}>
+                            <option value={1}>1</option>
+                            <option value={2}>2</option>
+                            <option value={3}>3</option>
+                            <option value={4}>4</option>
+                            <option value={5}>5</option>
+                        </select>
+                        <br />
+                        <Button variant="contained" onClick={this.handleAddClick}><Comment />Submit Review</Button>
+                    </Card>
+                </div>
         }
 
 

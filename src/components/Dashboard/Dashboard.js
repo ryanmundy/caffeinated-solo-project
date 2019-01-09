@@ -20,7 +20,7 @@ class Dashboard extends Component {
     state = {
         newProduct: {
             name: '',
-            caffeine_content: 0,
+            caffeine_content: '',
             description: '',
             image_url: '',
             added_by: this.props.id,
@@ -35,7 +35,7 @@ class Dashboard extends Component {
         productToEdit: {
             product_table_id: 0,
             name: '',
-            caffeine_content: 0,
+            caffeine_content: '',
             description: '',
             image_url: '',
             added_by: 0,
@@ -93,6 +93,16 @@ class Dashboard extends Component {
     handleSubmit = event => {
         console.log('this is state', this.state.newProduct);
         this.props.dispatch({ type: 'ADD_PRODUCT', payload: this.state.newProduct })
+        this.setState({
+            newProduct: {
+                ...this.state.newProduct,
+                name: '',
+                caffeine_content: '',
+                description: '',
+                image_url: '',
+                category_id: 1
+            }
+        })
     }
 
     handleDeleteReview = (id) => {
@@ -157,8 +167,8 @@ class Dashboard extends Component {
                         <TableCell id="tableCell">{product.name}</TableCell>
                         <TableCell id="tableCell">{product.round}</TableCell>
                         <TableCell id="tableCell">{product.username}</TableCell>
-                        <TableCell><Button variant="contained" onClick={() => this.handleEdit(product)}><Edit/></Button></TableCell>
-                        <TableCell><Button variant="contained" onClick={() => this.handleFeatured(product.product_table_id)}><Grade/>Set Featured</Button></TableCell>
+                        <TableCell><Button variant="contained" onClick={() => this.handleEdit(product)}><Edit /></Button></TableCell>
+                        <TableCell><Button variant="contained" onClick={() => this.handleFeatured(product.product_table_id)}><Grade />Set Featured</Button></TableCell>
                         <TableCell><Button variant="contained" onClick={() => { if (window.confirm('Are you sure you want to delete this product?')) this.handleDeleteProduct(product) }}><DeleteIcon></DeleteIcon></Button></TableCell>
                     </TableRow>
                 );
@@ -171,7 +181,7 @@ class Dashboard extends Component {
                         <TableCell id="tableCell"><img src={product.image_url} height="75" alt=''></img></TableCell>
                         <TableCell id="tableCell">{product.name}</TableCell>
                         <TableCell id="tableCell">{product.round}</TableCell>
-                        <TableCell><Button variant="contained" onClick={() => this.handleEdit(product)}><Edit/>Edit</Button></TableCell>
+                        <TableCell><Button variant="contained" onClick={() => this.handleEdit(product)}><Edit />Edit</Button></TableCell>
                         <TableCell><Button variant="contained" onClick={() => { if (window.confirm('Are you sure you want to delete this product?')) this.handleDeleteProduct(product) }}><DeleteIcon></DeleteIcon></Button></TableCell>
                     </TableRow>
                 );
@@ -212,17 +222,17 @@ class Dashboard extends Component {
                     <div>
                         <Card style={cardStyle} id="addNew">
                             <h2>Add New Product</h2>
-                            <input type="text" placeholder="name" onChange={this.handleChangeFor('name')}></input>
-                            <input type="number" placeholder="caffeine content" onChange={this.handleChangeFor('caffeine_content')}></input>
-                            <input type="text" placeholder="description" onChange={this.handleChangeFor('description')}></input>
-                            <input type="text" placeholder="image url" onChange={this.handleChangeFor('image_url')}></input>
-                            <select onChange={this.handleChangeFor('category_id')}>
+                            <input value={this.state.newProduct.name} type="text" placeholder="name" onChange={this.handleChangeFor('name')}></input>
+                            <input value={this.state.newProduct.caffeine_content} type="number" placeholder="caffeine content" onChange={this.handleChangeFor('caffeine_content')}></input>
+                            <input value={this.state.newProduct.description} type="text" placeholder="description" onChange={this.handleChangeFor('description')}></input>
+                            <input value={this.state.newProduct.image_url} type="text" placeholder="image url" onChange={this.handleChangeFor('image_url')}></input>
+                            <select value={this.state.newProduct.category_id} onChange={this.handleChangeFor('category_id')}>
                                 <option value={1}>Energy Drink</option>
                                 <option value={2}>Coffee</option>
                                 <option value={3}>Tea</option>
                             </select>
                             <br />
-                            <Button variant="contained" onClick={this.handleSubmit}><Add/>Add Product</Button>
+                            <Button variant="contained" onClick={this.handleSubmit}><Add />Add Product</Button>
                         </Card>
                     </div>
                     <div>
@@ -280,17 +290,17 @@ class Dashboard extends Component {
                     <div>
                         <Card style={cardStyle} id="addNew">
                             <h2>Add New Product</h2>
-                            <input type="text" placeholder="name" onChange={this.handleChangeFor('name')}></input>
-                            <input type="number" placeholder="caffeine content" onChange={this.handleChangeFor('caffeine_content')}></input>
-                            <input type="text" placeholder="description" onChange={this.handleChangeFor('description')}></input>
-                            <input type="text" placeholder="image url" onChange={this.handleChangeFor('image_url')}></input>
-                            <select onChange={this.handleChangeFor('category_id')}>
+                            <input value={this.state.newProduct.name} type="text" placeholder="name" onChange={this.handleChangeFor('name')}></input>
+                            <input value={this.state.newProduct.caffeine_content} type="number" placeholder="caffeine content" onChange={this.handleChangeFor('caffeine_content')}></input>
+                            <input value={this.state.newProduct.description} type="text" placeholder="description" onChange={this.handleChangeFor('description')}></input>
+                            <input value={this.state.newProduct.image_url} type="text" placeholder="image url" onChange={this.handleChangeFor('image_url')}></input>
+                            <select value={this.state.newProduct.category_id} onChange={this.handleChangeFor('category_id')}>
                                 <option value={1}>Energy Drink</option>
                                 <option value={2}>Coffee</option>
                                 <option value={3}>Tea</option>
                             </select>
                             <br />
-                            <Button variant="contained" onClick={this.handleSubmit}><Add/>Add Product</Button>
+                            <Button variant="contained" onClick={this.handleSubmit}><Add />Add Product</Button>
                         </Card>
                     </div>
                     <div>
@@ -326,7 +336,7 @@ class Dashboard extends Component {
                             <option value={3}>Tea</option>
                         </select>
                         <br />
-                        <Button variant="contained" onClick={this.handleEditSubmit}><Save/>Save</Button>
+                        <Button variant="contained" onClick={this.handleEditSubmit}><Save />Save</Button>
                     </Card>
                 </div>
         }
