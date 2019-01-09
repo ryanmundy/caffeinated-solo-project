@@ -26,17 +26,22 @@ class Main extends Component {
             display: 'inline-block'
         }
 
+        let productCardStyle = {
+            height: 500,
+            display: 'inline-block'
+        }
+
         let featuredProduct = this.props.reduxStore.featured.map(product => {
             return (
                 <div>
                     {/* <Grid> */}
-                        <Card style={cardStyle} id="productImage" key={product.id}>
+                        <Card style={productCardStyle} id="productImage" key={product.id}>
                             <img src={product.image_url} height="500" alt=''></img>
                         </Card>
                         <Card style={cardStyle} id="productInfo">
                             <h1>Featured Product</h1>
                             <h2>{product.name}</h2>
-                            <h3>Rating: {product.rating}</h3>
+                            <h3>Rating: {product.round}</h3>
                             <p><em>Added By: {product.username}</em></p>
                             <p>Caffeine Content: {product.caffeine_content} mg</p>
                             <p>{product.description}</p>

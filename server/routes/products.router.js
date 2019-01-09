@@ -4,9 +4,18 @@ const router = express.Router();
 
 //GET featured product
 router.get('/featured', (req, res) => {
-    const queryText = `SELECT * FROM "products"
-    JOIN "person" ON "products".added_by = "person".id
-    WHERE "products".featured=true;`;
+    const queryText = `SELECT "products".product_table_id, "products"."name", "products".added_by,
+"products".caffeine_content, "products".description, "products".category_id,
+"products".image_url, "products".featured,
+"person".username, "categories".category,
+ROUND(AVG("rating"), 1) FROM "products"
+LEFT JOIN "reviews" on "products".product_table_id = "reviews".product_id
+JOIN "person" on "products".added_by = "person".id
+JOIN "categories" on "products".category_id = "categories".id
+WHERE "products".featured=true
+GROUP BY "person".username, "products".product_table_id, "categories".id
+ORDER BY "products".name ASC
+;`;
     pool.query(queryText)
         .then((result) => {
             res.send(result.rows);
@@ -55,7 +64,7 @@ LEFT JOIN "reviews" on "products".product_table_id = "reviews".product_id
 JOIN "person" on "products".added_by = "person".id
 JOIN "categories" on "products".category_id = "categories".id
 GROUP BY "person".username, "products".product_table_id, "categories".id
-ORDER BY "products".name ASC
+ORDER BY round DESC
 ;
 `;
     pool.query(queryText)
