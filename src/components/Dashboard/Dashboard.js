@@ -159,7 +159,7 @@ class Dashboard extends Component {
                         <TableCell id="tableCell">{product.username}</TableCell>
                         <TableCell><Button variant="contained" onClick={() => this.handleEdit(product)}><Edit/></Button></TableCell>
                         <TableCell><Button variant="contained" onClick={() => this.handleFeatured(product.product_table_id)}><Grade/>Set Featured</Button></TableCell>
-                        <TableCell><Button variant="contained" onClick={() => this.handleDeleteProduct(product)}><DeleteIcon></DeleteIcon></Button></TableCell>
+                        <TableCell><Button variant="contained" onClick={() => { if (window.confirm('Are you sure you want to delete this product?')) this.handleDeleteProduct(product) }}><DeleteIcon></DeleteIcon></Button></TableCell>
                     </TableRow>
                 );
             })
@@ -172,7 +172,7 @@ class Dashboard extends Component {
                         <TableCell id="tableCell">{product.name}</TableCell>
                         <TableCell id="tableCell">{product.round}</TableCell>
                         <TableCell><Button variant="contained" onClick={() => this.handleEdit(product)}><Edit/>Edit</Button></TableCell>
-                        <TableCell><Button variant="contained" onClick={() => this.handleDeleteProduct(product)}><DeleteIcon/></Button></TableCell>
+                        <TableCell><Button variant="contained" onClick={() => { if (window.confirm('Are you sure you want to delete this product?')) this.handleDeleteProduct(product) }}><DeleteIcon></DeleteIcon></Button></TableCell>
                     </TableRow>
                 );
             })
@@ -183,7 +183,7 @@ class Dashboard extends Component {
                     <TableRow key={i} id={review.id}>
                         <TableCell id="tableCell">{review.name}</TableCell>
                         <TableCell id="tableCell">{review.review_content}</TableCell>
-                        <TableCell><Button variant="contained" onClick={() => this.handleDeleteReview(review.id)}><DeleteIcon/></Button></TableCell>
+                        <TableCell><Button variant="contained" onClick={() => { if (window.confirm('Are you sure you want to delete this review?')) this.handleDeleteReview(review.id) }}><DeleteIcon></DeleteIcon></Button></TableCell>
                     </TableRow>
                 );
             })
@@ -193,7 +193,7 @@ class Dashboard extends Component {
                 return (
                     <TableRow key={i} id={user.id}>
                         <TableCell id="tableCell">{user.username}</TableCell>
-                        <TableCell><Button variant="contained" onClick={() => this.handleDeleteUser(user.id)}><DeleteIcon/></Button></TableCell>
+                        <TableCell><Button variant="contained" onClick={() => { if (window.confirm('Are you sure you want to delete this user?')) this.handleDeleteUser(user.id) }}><DeleteIcon></DeleteIcon></Button></TableCell>
                     </TableRow>
                 );
             })

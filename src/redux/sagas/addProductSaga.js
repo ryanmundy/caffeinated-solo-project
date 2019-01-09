@@ -5,6 +5,7 @@ function* addProduct(action) {
     console.log('in addProduct');
     try {
         yield call(axios.post, '/api/products', action.payload);
+        yield alert('Success! Your product has been added!');
         yield dispatch({ type: 'FETCH_PRODUCTS' });
         yield dispatch({type: 'FETCH_USER_PRODUCTS', payload: action.payload.added_by})
     } catch (error) {
