@@ -6,6 +6,7 @@ function* editProduct(action) {
     try {
         yield call(axios.put, '/api/products', action.payload);
         yield dispatch({ type: 'FETCH_PRODUCTS' });
+        yield dispatch({ type: 'FETCH_USER_PRODUCTS', payload: action.payload.added_by })
     } catch (error) {
         console.log(error);
     }

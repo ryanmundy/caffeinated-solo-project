@@ -44,7 +44,7 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
-        this.getProducts();
+        this.getProducts(this.props.id);
         this.getUsers();
         this.getReviews();
         this.getUserProducts(this.props.id);
@@ -101,9 +101,9 @@ class Dashboard extends Component {
 
     }
 
-    handleDeleteProduct = (id) => {
-        console.log('in handleDeleteProduct', id);
-        this.props.dispatch({ type: 'DELETE_PRODUCT', payload: id })
+    handleDeleteProduct = (product) => {
+        console.log('in handleDeleteProduct', product);
+        this.props.dispatch({ type: 'DELETE_PRODUCT', payload: product })
 
     }
 
@@ -129,7 +129,7 @@ class Dashboard extends Component {
                 caffeine_content: product.caffeine_content,
                 description: product.description,
                 image_url: product.image_url,
-                added_by: product.product_table_id,
+                added_by: product.added_by,
                 category_id: product.category_id
             }
         })
@@ -159,7 +159,7 @@ class Dashboard extends Component {
                         <TableCell id="tableCell">{product.username}</TableCell>
                         <TableCell><Button variant="contained" onClick={() => this.handleEdit(product)}><Edit/></Button></TableCell>
                         <TableCell><Button variant="contained" onClick={() => this.handleFeatured(product.product_table_id)}><Grade/>Set Featured</Button></TableCell>
-                        <TableCell><Button variant="contained" onClick={() => this.handleDeleteProduct(product.product_table_id)}><DeleteIcon></DeleteIcon></Button></TableCell>
+                        <TableCell><Button variant="contained" onClick={() => this.handleDeleteProduct(product)}><DeleteIcon></DeleteIcon></Button></TableCell>
                     </TableRow>
                 );
             })
@@ -172,7 +172,7 @@ class Dashboard extends Component {
                         <TableCell id="tableCell">{product.name}</TableCell>
                         <TableCell id="tableCell">{product.round}</TableCell>
                         <TableCell><Button variant="contained" onClick={() => this.handleEdit(product)}><Edit/>Edit</Button></TableCell>
-                        <TableCell><Button variant="contained" onClick={() => this.handleDeleteProduct(product.product_table_id)}><DeleteIcon/></Button></TableCell>
+                        <TableCell><Button variant="contained" onClick={() => this.handleDeleteProduct(product)}><DeleteIcon/></Button></TableCell>
                     </TableRow>
                 );
             })

@@ -5,8 +5,9 @@ import axios from 'axios';
 function* deleteProduct(action) {
     console.log('in deleteProduct', action.payload);
     try {
-        yield call(axios.delete, `/api/products/${action.payload}`);
+        yield call(axios.delete, `/api/products/${action.payload.product_table_id}`);
         yield dispatch({ type: 'FETCH_PRODUCTS' });
+        yield dispatch({ type: 'FETCH_USER_PRODUCTS', payload: action.payload.added_by })
     } catch (error) {
         console.log(error);
     }
