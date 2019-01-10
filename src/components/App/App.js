@@ -17,8 +17,9 @@ import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import Products from '../Products/Products';
-import LocateContainer from '../Locate/LocateContainer';
+// import LocateContainer from '../Locate/LocateContainer';
 import Main from '../Main/Main';
+import LocateContainer from '../Locate/LocateContainer';
 
 import './App.css';
 

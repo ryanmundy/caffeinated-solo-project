@@ -30,21 +30,39 @@ export class LocateContainer extends Component {
 
     render() {
         return (
-            <CurrentLocation
-                centerAroundCurrentLocation
-                google={this.props.google}
-            >
-                <Marker onClick={this.onMarkerClick} name={'current location'} />
-                <InfoWindow
-                    marker={this.state.activeMarker}
-                    visible={this.state.showingInfoWindow}
-                    onClose={this.onClose}
+            <div>
+                <CurrentLocation
+                    centerAroundCurrentLocation
+                    google={this.props.google}
                 >
-                    <div>
-                        <h4>{this.state.selectedPlace.name}</h4>
-                    </div>
-                </InfoWindow>
-            </CurrentLocation>
+                    <Marker onClick={this.onMarkerClick} name={'current location'} />
+                    <InfoWindow
+                        marker={this.state.activeMarker}
+                        visible={this.state.showingInfoWindow}
+                        onClose={this.onClose}
+                    >
+                        <div>
+                            <h4>{this.state.selectedPlace.name}</h4>
+                        </div>
+                    </InfoWindow>
+                </CurrentLocation>
+
+
+                <Marker
+                    position={
+                        {
+                            lat: 44.7015699,
+                            lng: -93.1994849
+                        }
+
+                    }
+                    // sets state to ensure infowindow matches marker, sets destination, sets fulladdress
+                    
+                >
+                    
+                </Marker>
+               
+            </div>
         );
     }
 }
