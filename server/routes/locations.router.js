@@ -5,11 +5,10 @@ const router = express.Router();
 
 router.post('/', (req, res) => {
     const newLocation = req.body;
-    const queryText = `INSERT INTO "location" ("street_number", "street_name", "city", "state", "zip", "product_id")
-VALUES ($1, $2, $3, $4, $5, $6);`;
+    const queryText = `INSERT INTO "location" ("street_address", "city", "state", "zip", "product_id")
+VALUES ($1, $2, $3, $4, $5);`;
     const queryValues = [
-        newLocation.street_number,
-        newLocation.street_name,
+        newLocation.street_address,
         newLocation.city,
         newLocation.state,
         newLocation.zip,

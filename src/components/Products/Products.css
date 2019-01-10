@@ -41,8 +41,7 @@
 #addNewReview{
     margin: auto;
     text-align: center;
-    /* margin-left: 200px;
-    margin-right: 200px; */
+    margin-bottom: 10px;
 }
 
 #displayItem{

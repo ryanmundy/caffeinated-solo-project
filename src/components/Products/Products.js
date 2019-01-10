@@ -27,8 +27,7 @@ class Products extends Component {
             product_name: ''
         },
         newLocation: {
-            street_number: '',
-            street_name: '',
+            street_address: '',
             city: '',
             state: '',
             zip: '',
@@ -147,8 +146,7 @@ class Products extends Component {
         this.setState({
             newLocation: {
                 ...this.state.newLocation,
-                street_number: '',
-                street_name: '',
+                street_address: '',
                 city: '',
                 state: '',
                 zip: ''
@@ -191,6 +189,12 @@ class Products extends Component {
                         <Button variant="contained" onClick={() => this.handleLocationClick(product)}><Store />Where to Buy</Button>
                     </Card>
                 </div>
+            );
+        })
+
+        let locations = this.props.reduxStore.Locations.map(location => {
+            return (
+                <p >{location.street_address} {location.city}, {location.state} {location.zip}</p>
             );
         })
 
@@ -243,11 +247,14 @@ class Products extends Component {
             displayItem=
                 <div id="displayItem">
                 <Button id="returnButton" variant="contained" onClick={this.handleReturnClick}><ArrowBack />Return to Products</Button>
-                <h2 id="reviewHeader">Locations!</h2>
+                <h2 id="reviewHeader">Locations to purchase!</h2>
+                <div>
+                    <Card style={cardStyle} id="addNewReview">
+                    {locations}
+                    </Card></div>
                 <Card style={cardStyle} id="addNewReview">
                     <h2>Where can we find this?</h2>
-                    <input type="number" value={this.state.newLocation.street_number} placeholder="street number" onChange={this.handleChangeFor('street_number')}></input>
-                    <input type="text" value={this.state.newLocation.street_name} placeholder="street name" onChange={this.handleChangeFor('street_name')}></input>
+                    <input type="text" value={this.state.newLocation.street_address} placeholder="street address" onChange={this.handleChangeFor('street_address')}></input>
                     <input type="text" value={this.state.newLocation.city} placeholder="city" onChange={this.handleChangeFor('city')}></input>
                     <input type="text" value={this.state.newLocation.state} placeholder="state" onChange={this.handleChangeFor('state')}></input>
                     <input type="number" value={this.state.newLocation.zip} placeholder="zip" onChange={this.handleChangeFor('zip')}></input>
