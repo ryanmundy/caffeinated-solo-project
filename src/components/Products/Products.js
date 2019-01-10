@@ -11,6 +11,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Comment from '@material-ui/icons/Comment';
 import ArrowBack from '@material-ui/icons/ArrowBack';
+import Store from '@material-ui/icons/Store';
+import Add from '@material-ui/icons/Add';
 
 class Products extends Component {
 
@@ -21,8 +23,16 @@ class Products extends Component {
             product_id: 0
         },
         productDisplay: {
-            display: true,
+            display: 1,
             product_name: ''
+        },
+        newLocation: {
+            street_number: '',
+            street_name: '',
+            city: '',
+            state: '',
+            zip: '',
+            product_id: 0,
         }
     }
 
@@ -37,6 +47,11 @@ class Products extends Component {
     getReviews = (id) => {
         console.log('in getReviews', id);
         this.props.dispatch({ type: 'FETCH_REVIEWS', payload: id })
+    }
+
+    getLocations = (id) => {
+        console.log('in getLocations', id);
+        this.props.dispatch({ type: 'FETCH_LOCATIONS', payload: id })
     }
 
     handleRatingChange = (event) => {
@@ -80,7 +95,7 @@ class Products extends Component {
         this.setState({
             productDisplay: {
                 ...this.state.productDisplay,
-                display: false,
+                display: 2,
                 product_name: product.name
             },
             newReview: {
@@ -93,7 +108,50 @@ class Products extends Component {
     handleReturnClick = () => {
         this.setState({
             productDisplay: {
-                display: true
+                display: 1
+            }
+        });
+    }
+
+    handleLocationClick = (product) => {
+        console.log('in handleLocationClick', product);
+        this.getLocations(product.product_table_id);
+        this.setState({
+            productDisplay: {
+                ...this.state.productDisplay,
+                display: 3,
+                product_name: product.name
+            },
+            newLocation: {
+                ...this.state.newReview,
+                product_id: product.product_table_id
+            }
+        });
+    }
+
+    //change handler for inputs
+    handleChangeFor = (propertyName) => (event) => {
+        event.preventDefault();
+        console.log('in handleChangeFor', this.state.newLocation)
+        this.setState({
+            newLocation: {
+                ...this.state.newLocation,
+                [propertyName]: event.target.value
+            }
+        });
+    }
+
+    handleLocationSubmitClick = () => {
+        console.log('in handleClick', this.state);
+        this.props.dispatch({ type: 'ADD_LOCATION', payload: this.state.newLocation })
+        this.setState({
+            newLocation: {
+                ...this.state.newLocation,
+                street_number: '',
+                street_name: '',
+                city: '',
+                state: '',
+                zip: ''
             }
         });
     }
@@ -129,6 +187,8 @@ class Products extends Component {
                         <p>Caffeine Content: {product.caffeine_content} mg</p>
                         <p>{product.description}</p>
                         <Button variant="contained" onClick={() => this.handleReviewsClick(product)}><Comment />Reviews</Button>
+                        <br/>
+                        <Button variant="contained" onClick={() => this.handleLocationClick(product)}><Store />Where to Buy</Button>
                     </Card>
                 </div>
             );
@@ -136,7 +196,7 @@ class Products extends Component {
 
         let displayItem;
 
-        if (this.state.productDisplay.display) {
+        if (this.state.productDisplay.display===1) {
             displayItem = <div>
                 <h1 id="productsTitle"><em>Current Products</em></h1>
                 <Grid
@@ -148,7 +208,7 @@ class Products extends Component {
                 </Grid>
             </div>
 
-        } else {
+        } else if (this.state.productDisplay.display === 2){
             displayItem =
                 <div id="displayItem">
                     <Button id="returnButton" variant="contained" onClick={this.handleReturnClick}><ArrowBack />Return to Products</Button>
@@ -179,6 +239,22 @@ class Products extends Component {
                         <Button variant="contained" onClick={this.handleAddClick}><Comment />Submit Review</Button>
                     </Card>
                 </div>
+        } else {
+            displayItem=
+                <div id="displayItem">
+                <Button id="returnButton" variant="contained" onClick={this.handleReturnClick}><ArrowBack />Return to Products</Button>
+                <h2 id="reviewHeader">Locations!</h2>
+                <Card style={cardStyle} id="addNewReview">
+                    <h2>Where can we find this?</h2>
+                    <input type="number" value={this.state.newLocation.street_number} placeholder="street number" onChange={this.handleChangeFor('street_number')}></input>
+                    <input type="text" value={this.state.newLocation.street_name} placeholder="street name" onChange={this.handleChangeFor('street_name')}></input>
+                    <input type="text" value={this.state.newLocation.city} placeholder="city" onChange={this.handleChangeFor('city')}></input>
+                    <input type="text" value={this.state.newLocation.state} placeholder="state" onChange={this.handleChangeFor('state')}></input>
+                    <input type="number" value={this.state.newLocation.zip} placeholder="zip" onChange={this.handleChangeFor('zip')}></input>
+                    <br />
+                    <Button variant="contained" onClick={this.handleLocationSubmitClick}><Add/>Submit Location</Button>
+                </Card>
+            </div>
         }
 
 

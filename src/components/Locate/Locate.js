@@ -18,7 +18,6 @@ class Locate extends Component {
         }
         return (
             <div>
-                <h1>Map goes here</h1>
                 <Map style={style} google={this.props.google} zoom={14}
                     initialCenter={{
                         lat: 44.9778,
