@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
+const GOOGLE_MAPS_KEY = process.env.REACT_APP_FILESTACK_API_KEY;
+
 class Locate extends Component {
     componentDidMount() {
 
@@ -36,5 +38,5 @@ class Locate extends Component {
 // export default connect()(Locate);
 
 export default GoogleApiWrapper({
-    apiKey: ('')
+    apiKey: (GOOGLE_MAPS_KEY)
 })(Locate)
