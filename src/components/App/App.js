@@ -17,7 +17,7 @@ import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import Products from '../Products/Products';
-import Locate from '../Locate/Locate';
+import LocateContainer from '../Locate/LocateContainer';
 import Main from '../Main/Main';
 
 import './App.css';
@@ -50,7 +50,7 @@ class App extends Component {
             <Route
               exact
               path="/locate"
-              component={Locate}
+              component={LocateContainer}
             />
             <Route
               exact

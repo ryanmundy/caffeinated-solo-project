@@ -27,6 +27,7 @@ class Products extends Component {
             product_name: ''
         },
         newLocation: {
+            name: '',
             street_address: '',
             city: '',
             state: '',
@@ -146,6 +147,7 @@ class Products extends Component {
         this.setState({
             newLocation: {
                 ...this.state.newLocation,
+                store: '',
                 street_address: '',
                 city: '',
                 state: '',
@@ -184,9 +186,9 @@ class Products extends Component {
                         <p><em>Added By: {product.username}</em></p>
                         <p>Caffeine Content: {product.caffeine_content} mg</p>
                         <p>{product.description}</p>
-                        <Button variant="contained" onClick={() => this.handleReviewsClick(product)}><Comment />Reviews</Button>
+                        <Button id="productButton" variant="contained" onClick={() => this.handleReviewsClick(product)}><Comment />Reviews</Button>
                         <br/>
-                        <Button variant="contained" onClick={() => this.handleLocationClick(product)}><Store />Where to Buy</Button>
+                        <Button id="productButton" variant="contained" onClick={() => this.handleLocationClick(product)}><Store />Where to Buy</Button>
                     </Card>
                 </div>
             );
@@ -194,7 +196,9 @@ class Products extends Component {
 
         let locations = this.props.reduxStore.Locations.map(location => {
             return (
-                <p >{location.street_address} {location.city}, {location.state} {location.zip}</p>
+                <p>{location.store}
+                <br/> {location.street_address}
+                <br/> {location.city}, {location.state} {location.zip}</p>
             );
         })
 
@@ -240,7 +244,7 @@ class Products extends Component {
                             <option value={5}>5</option>
                         </select>
                         <br />
-                        <Button variant="contained" onClick={this.handleAddClick}><Comment />Submit Review</Button>
+                    <Button id="productButton" variant="contained" onClick={this.handleAddClick}><Comment />Submit Review</Button>
                     </Card>
                 </div>
         } else {
@@ -254,12 +258,14 @@ class Products extends Component {
                     </Card></div>
                 <Card style={cardStyle} id="addNewReview">
                     <h2>Where can we find this?</h2>
+                    <input type="text" value={this.state.newLocation.store} placeholder="location name" onChange={this.handleChangeFor('store')}></input>
+                    <br/>
                     <input type="text" value={this.state.newLocation.street_address} placeholder="street address" onChange={this.handleChangeFor('street_address')}></input>
                     <input type="text" value={this.state.newLocation.city} placeholder="city" onChange={this.handleChangeFor('city')}></input>
                     <input type="text" value={this.state.newLocation.state} placeholder="state" onChange={this.handleChangeFor('state')}></input>
                     <input type="number" value={this.state.newLocation.zip} placeholder="zip" onChange={this.handleChangeFor('zip')}></input>
                     <br />
-                    <Button variant="contained" onClick={this.handleLocationSubmitClick}><Add/>Submit Location</Button>
+                    <Button id="productButton" variant="contained" onClick={this.handleLocationSubmitClick}><Add/>Submit Location</Button>
                 </Card>
             </div>
         }
