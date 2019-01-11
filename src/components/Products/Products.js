@@ -123,7 +123,7 @@ class Products extends Component {
                 product_name: product.name
             },
             newLocation: {
-                ...this.state.newReview,
+                ...this.state.newLocation,
                 product_id: product.product_table_id
             }
         });

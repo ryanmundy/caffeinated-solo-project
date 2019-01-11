@@ -18,7 +18,7 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import Products from '../Products/Products';
 import Main from '../Main/Main';
-import LocateContainer from '../Locate/LocateContainer';
+// import LocateContainer from '../Locate/LocateContainer';
 import MapMain from '../Maps/Maps';
 
 import './App.css';
