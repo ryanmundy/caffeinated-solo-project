@@ -18,6 +18,10 @@ class Main extends Component {
         this.props.dispatch({ type: 'FETCH_FEATURED' })
     }
 
+    handleCaffeineClick = () => {
+        this.props.history.push('/locate');
+    }
+
     render() {
 
         let cardStyle = {
@@ -27,6 +31,12 @@ class Main extends Component {
         }
 
         let productCardStyle = {
+            height: 500,
+            display: 'inline-block'
+        }
+
+        let caffeineCardStyle = {
+            width: 350,
             height: 500,
             display: 'inline-block'
         }
@@ -46,10 +56,11 @@ class Main extends Component {
                             <p>Caffeine Content: {product.caffeine_content} mg</p>
                             <p>{product.description}</p>
                         </Card>
-                        <Card style={cardStyle} id="needCaffeine">
+                        <Card style={caffeineCardStyle} id="needCaffeine">
                             <h1>Need caffeine now?</h1>
-                            <h3>Click below to find nearest location to purchase!</h3>
-                            <Button variant="contained">Find Caffeine!</Button>
+                        <img id="battery" src="https://res.cloudinary.com/teepublic/image/private/s--pcvQDlsa--/t_Preview/b_rgb:ffffff,c_limit,f_jpg,h_630,q_90,w_630/v1453880733/production/designs/404282_1.jpg" alt='low battery' />
+                            <h3>Click to see where you can find it!</h3>
+                            <Button variant="contained" onClick={this.handleCaffeineClick}>Find Caffeine!</Button>
                         </Card>
                     {/* </Grid> */}
                 </div>

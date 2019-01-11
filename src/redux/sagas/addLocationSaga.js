@@ -5,6 +5,7 @@ function* addLocation(action) {
     console.log('in addLocation', action.payload);
     try {
         yield call(axios.post, '/api/location', action.payload);
+        yield alert('Success! Thank you for sharing a location!');
         yield dispatch({ type: 'FETCH_LOCATIONS', payload: action.payload.product_id })
     } catch (error) {
         console.log(error);
