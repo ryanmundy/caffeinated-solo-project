@@ -161,9 +161,15 @@ class Products extends Component {
 
         let cardStyle = {
             width: 300,
-            display: 'inline-block'
+            display: 'inline-block',
         }
 
+        let productCardStyle = {
+            width: 300,
+            display: 'inline-block',
+            height: 800,
+            overflowY: 'auto'
+        }
 
 
         let reviews = this.props.reduxStore.reviews.map(review => {
@@ -178,7 +184,7 @@ class Products extends Component {
         let products = this.props.reduxStore.currentProducts.map((product, i) => {
             return (
                 <div>
-                    <Card style={cardStyle} key={i} id="product">
+                    <Card style={productCardStyle} key={i} id="product">
                         <h2>{product.name}</h2>
                         <h3>({product.category})</h3>
                         <img src={product.image_url} height="300" alt=''></img>

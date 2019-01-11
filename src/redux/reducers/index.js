@@ -10,6 +10,7 @@ import reviews from './getReviewsReducer';
 import allReviews from './getAllReviewsReducer';
 import currentUserProducts from './userCurrentProductsReducer';
 import Locations from './LocationsReducer';
+import allLocations from './getAllLocationsReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -28,7 +29,8 @@ const rootReducer = combineReducers({
   reviews,
   allReviews,
   currentUserProducts,
-  Locations
+  Locations,
+  allLocations
 });
 
 export default rootReducer;

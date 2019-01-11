@@ -35,6 +35,7 @@ export class LocateContainer extends Component {
                     centerAroundCurrentLocation
                     google={this.props.google}
                 >
+                
                     <Marker onClick={this.onMarkerClick} name={'current location'} />
                     <InfoWindow
                         marker={this.state.activeMarker}
@@ -58,9 +59,9 @@ export class LocateContainer extends Component {
                     }
                     // sets state to ensure infowindow matches marker, sets destination, sets fulladdress
                     
-                >
+                />
                     
-                </Marker>
+                
                
             </div>
         );

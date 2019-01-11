@@ -60,5 +60,19 @@ router.get('/', (req, res) => {
 });//end GET
 });
 
+router.get('/all', (req, res) => {
+    const queryText = `SELECT "products".name, "location".id, "location".store, "location".street_address, "location".city,
+"location".state, "location".zip, "location".lat, "location".lng FROM "location"
+JOIN "products" ON "products".product_table_id = "location".product_id;`;
+    pool.query(queryText)
+        .then((result) => {
+            res.send(result.rows);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+        });
+});//end GET
+
 
 module.exports = router;

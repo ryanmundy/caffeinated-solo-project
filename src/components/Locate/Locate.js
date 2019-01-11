@@ -6,8 +6,8 @@ import ReactDOM from 'react-dom';
 const mapStyles = {
     map: {
         position: 'absolute',
-        width: '100%',
-        height: '100%'
+        width: '75%',
+        height: '75%'
     }
 };
 
@@ -89,7 +89,7 @@ export class CurrentLocation extends React.Component {
             this.map = new maps.Map(node, mapConfig);
         }
     }
-    
+
     renderChildren() {
         const { children } = this.props;
 

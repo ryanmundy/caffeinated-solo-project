@@ -17,6 +17,7 @@ import deleteUsers from './deleteUserSaga';
 import editProducts from './editProductSaga';
 import newLocation from './addLocationSaga';
 import locations from './getLocationsSaga';
+import allLocations from './getAllLocationsSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -44,6 +45,7 @@ export default function* rootSaga() {
     deleteUsers(),
     editProducts(),
     newLocation(),
-    locations()
+    locations(),
+    allLocations()
   ]);
 }
