@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MapsContainer from './MapsContainer';
 import { connect } from 'react-redux';
+import './Maps.css'
 const GOOGLE_MAPS_KEY = process.env.REACT_APP_FILESTACK_API_KEY;
 
 
@@ -11,8 +12,9 @@ class MapMain extends Component {
 
 
         return (
-            <div>
-                <MapsContainer
+            <div id='mapsContainer'>
+                <h1 id="productsTitle"><em>Where to Purchase</em></h1>
+                <MapsContainer 
                     // google api key needed 
                     googleMapURL={
                         `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`

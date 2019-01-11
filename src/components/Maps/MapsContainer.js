@@ -2,26 +2,18 @@
 
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import '../Footer/Footer';
+import './Maps.css'
 
 // google maps api 
 import { withScriptjs, withGoogleMap, GoogleMap, DirectionsRenderer, Marker, InfoWindow } from "react-google-maps";
 
-// material ui
-import Card from '@material-ui/core/Card';
-import Button from '@material-ui/core/Button';
-import { Divider } from "@material-ui/core";
-
-
 class MapsContainer extends Component {
 
-    // get user location and registered detox center info as soon as possible 
     componentDidMount() {
         this.getGeoLocation();
         this.getLocations();
     }
 
-    // getAllDetoxInfo dispatches a call to get contacts
     getLocations = (event) => {
         this.props.dispatch({type: 'FETCH_ALL_LOCATIONS'});
     }
@@ -31,15 +23,9 @@ class MapsContainer extends Component {
             lat: 0,
             lng: 0
         },
-        destination: {
-            lat: 0,
-            lng: 0
-        },
-        directions: '',
-        detox_center_name: '',
+       
         isOpen: false,
         activeMarker: null,
-        detox_id: 0
 
     }
 
@@ -77,40 +63,21 @@ class MapsContainer extends Component {
                                 lng: Number(marker.lng),
                             }
                         }
-                    />
+                        
+                    />//end marker
              
             )
         
 
         return (
+            <div id='mapDiv'>
             <GoogleMap
-                defaultZoom={14}
+                defaultZoom={15}
                 center={{ lat: 44.975918, lng: -93.273079 }}>
                 {markers}
-                {/* {this.state.directions && <DirectionsRenderer directions={this.state.directions}
-                    panel={document.getElementById('panel')} />} */}
-                
-                {/* <div id="panel">
-                </div> */}
-                {/* <div>
-                    {this.props.reduxStore.allLocations.map((marker,i)=>
-                        <div key={i}>
-                        <Marker>
-                            position={
-                                {
-                                    lat: Number(marker.lat),
-                                    lng: Number(marker.lng)
-                                }
-                            }
-                        </Marker>
-                        
-
-                        </div>
-                        )}
-                </div> */}
-                
                 
             </GoogleMap>
+            </div>
         );
     }
 }
