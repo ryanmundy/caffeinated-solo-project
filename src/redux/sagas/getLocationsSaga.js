@@ -9,7 +9,7 @@ function* getLocations(action) {
     } catch (error) {
         console.log(error);
     }
-}//end addReview
+}//end addLocation
 
 function* locations() {
     yield takeEvery('FETCH_LOCATIONS', getLocations)

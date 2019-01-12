@@ -17,7 +17,7 @@ const geocoder = NodeGeocoder(options);
 router.post('/', (req, res) => {
     const newLocation = req.body;
 
-    console.log('new location', `${newLocation.street_address} ${newLocation.city}`);
+    console.log('new location', `${newLocation.street_address} ${newLocation.city} ${newLocation.state}`);
 
     geocoder.geocode(newLocation.street_address)
         .then(function (result) {

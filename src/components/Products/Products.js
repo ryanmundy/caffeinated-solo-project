@@ -114,7 +114,7 @@ class Products extends Component {
     }
 
     handleLocationClick = (product) => {
-        console.log('in handleLocationClick', product);
+        console.log('in handleLocationClick', product.product_table_id);
         this.getLocations(product.product_table_id);
         this.setState({
             productDisplay: {

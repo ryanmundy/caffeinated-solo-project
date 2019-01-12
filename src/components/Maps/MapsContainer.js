@@ -73,7 +73,8 @@ class MapsContainer extends Component {
             <div id='mapDiv'>
             <GoogleMap
                 defaultZoom={15}
-                center={{ lat: 44.975918, lng: -93.273079 }}>
+                // center={{ lat: 44.975918, lng: -93.273079 }}>
+                    center={{ lat: this.state.origin.lat, lng: this.state.origin.lng }}>
                 {markers}
                 
             </GoogleMap>
