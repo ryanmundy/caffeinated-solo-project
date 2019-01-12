@@ -3,6 +3,8 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import './Maps.css'
+import {Card, Button} from '@material-ui/core'
+import {} from '@material-ui/icons'
 
 // google maps api 
 import { withScriptjs, withGoogleMap, GoogleMap, DirectionsRenderer, Marker, InfoWindow } from "react-google-maps";
@@ -15,7 +17,7 @@ class MapsContainer extends Component {
     }
 
     getLocations = (event) => {
-        this.props.dispatch({type: 'FETCH_ALL_LOCATIONS'});
+        this.props.dispatch({ type: 'FETCH_ALL_LOCATIONS' });
     }
 
     state = {
@@ -23,9 +25,11 @@ class MapsContainer extends Component {
             lat: 0,
             lng: 0
         },
-       
+        store: '',
         isOpen: false,
         activeMarker: null,
+        product_id: 0
+
 
     }
 
@@ -53,31 +57,79 @@ class MapsContainer extends Component {
 
     render() {
         console.log(this.props.reduxStore.allLocations);
-        
-        let markers = this.props.reduxStore.allLocations.map((marker, i) =>
+
+        let currentLocationMarker = <Marker
+            position={
+                {
+                    lat: this.state.origin.lat,
+                    lng: this.state.origin.lng
+                }
+            }
             
-                <Marker key={i}
-                        position={
-                            {
-                                lat: Number(marker.lat),
-                                lng: Number(marker.lng),
-                            }
-                        }
-                        
-                    />//end marker
-             
-            )
-        
+
+        />//end marker
+
+        // let markers = this.props.reduxStore.allLocations.map((marker, i) =>
+
+        //         <Marker key={i}
+        //                 position={
+        //                     {
+        //                         lat: Number(marker.lat),
+        //                         lng: Number(marker.lng),
+        //                     }
+        //                 }
+        //         onClick={() => this.setState({
+        //             isOpen: !this.state.isOpen,
+        //             activeMarker: marker.product_id,
+        //             product_id: marker.product_id,
+        //             name: marker.name,
+        //         })
+        //         }
+        //         />//end marker
+        //     )
+
+
 
         return (
             <div id='mapDiv'>
-            <GoogleMap
-                defaultZoom={15}
-                // center={{ lat: 44.975918, lng: -93.273079 }}>
+                <GoogleMap
+                    defaultZoom={15}
                     center={{ lat: this.state.origin.lat, lng: this.state.origin.lng }}>
-                {markers}
-                
-            </GoogleMap>
+                    {/* {markers} */}
+                    {/* {currentLocationMarker} */}
+                    {this.props.reduxStore.allLocations.map((marker, i) =>
+
+                        <Marker key={marker.id}
+                            position={
+                                {
+                                    lat: Number(marker.lat),
+                                    lng: Number(marker.lng),
+                                }
+                            }
+                            onClick={() => this.setState({
+                                isOpen: !this.state.isOpen,
+                                activeMarker: marker.id,
+                                origin: {
+                                    lat: Number(marker.lat),
+                                    lng: Number(marker.lng)
+                                }, 
+                                product_id: marker.product_id,
+                                name: marker.name,
+                            })
+                            }
+                        >
+                            {this.state.activeMarker === marker.id &&
+                                <InfoWindow>
+                                    <Card key={marker.product_id}>
+                                        <h3>{marker.store}</h3>
+                                    </Card>
+                                </InfoWindow>
+                            }
+                        </Marker>
+                    )}
+                    
+                </GoogleMap>
+                <Button variant='contained' color='primary' onClick={this.getGeoLocation}><img src='https://www.shareicon.net/data/128x128/2015/09/13/100389_my_512x512.png' width='20' /></Button>
             </div>
         );
     }
