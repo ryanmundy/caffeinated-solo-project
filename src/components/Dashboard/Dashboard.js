@@ -230,6 +230,7 @@ class Dashboard extends Component {
                                 <option value={1}>Energy Drink</option>
                                 <option value={2}>Coffee</option>
                                 <option value={3}>Tea</option>
+                                <option value={4}>Energy Shot</option>
                             </select>
                             <br />
                             <Button variant="contained" onClick={this.handleSubmit}><Add />Add Product</Button>
@@ -298,6 +299,7 @@ class Dashboard extends Component {
                                 <option value={1}>Energy Drink</option>
                                 <option value={2}>Coffee</option>
                                 <option value={3}>Tea</option>
+                                <option value={4}>Energy Shot</option>
                             </select>
                             <br />
                             <Button variant="contained" onClick={this.handleSubmit}><Add />Add Product</Button>
