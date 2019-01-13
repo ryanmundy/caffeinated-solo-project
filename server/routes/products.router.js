@@ -159,4 +159,19 @@ router.put('/', (req, res) => {
         });
 });//end POST
 
+//GET store products
+router.get('/store', (req, res) => {
+    const queryText = `SELECT "products".name FROM "products"
+JOIN "location" ON "products".product_table_id = "location".product_id
+WHERE "location".lat = $1;`;
+    pool.query(queryText, [req.body])
+        .then((result) => {
+            res.send(result.rows);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+        });
+});//end GET
+
 module.exports = router;

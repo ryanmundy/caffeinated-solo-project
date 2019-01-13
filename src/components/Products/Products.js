@@ -257,7 +257,7 @@ class Products extends Component {
             displayItem=
                 <div id="displayItem">
                 <Button id="returnButton" variant="contained" onClick={this.handleReturnClick}><ArrowBack />Return to Products</Button>
-                <h2 id="reviewHeader">Locations to purchase!</h2>
+                <h2 id="reviewHeader">Locations to purchase {this.state.productDisplay.product_name}!</h2>
                 <div>
                     <Card style={cardStyle} id="addNewReview">
                     {locations}
