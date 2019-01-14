@@ -4,7 +4,9 @@ import axios from 'axios';
 function* fetchStoreProducts(action) {
     console.log('in fetchStoreProducts', action.payload);
     try {
-        const currentStoreProducts = yield call(axios.get, `/api/products/store`, String(action.payload));
+        const currentStoreProducts = yield call(axios.get, `/api/products/store?lat=${action.payload.lat}&lng=${action.payload.lng}`);
+        console.log(currentStoreProducts);
+        
         yield dispatch({ type: 'SET_STORE_PRODUCTS', payload: currentStoreProducts.data });
     } catch (error) {
         console.log(error);

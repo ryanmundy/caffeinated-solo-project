@@ -161,10 +161,13 @@ router.put('/', (req, res) => {
 
 //GET store products
 router.get('/store', (req, res) => {
-    const queryText = `SELECT "products".name FROM "products"
-JOIN "location" ON "products".product_table_id = "location".product_id
-WHERE "location".lat = $1;`;
-    pool.query(queryText, [req.body])
+    console.log(req.query);
+    
+    const queryText = `SELECT "products".name, "location".id, "location".store, "location".street_address, "location".city,
+"location".state, "location".zip, "location".lat, "location".lng FROM "location"
+JOIN "products" ON "products".product_table_id = "location".product_id
+WHERE "location".lat = $1 AND "location".lng = $2;`;
+    pool.query(queryText, [req.query.lat, req.query.lng])
         .then((result) => {
             res.send(result.rows);
         })
