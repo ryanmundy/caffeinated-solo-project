@@ -62,7 +62,20 @@ class MapsContainer extends Component {
         this.props.dispatch({ type: 'FETCH_STORE_PRODUCTS', payload: marker })
     }
 
-    
+    handleTwo = (marker) => {
+        this.props.dispatch({type: 'CLEAR_STORE_PRODUCTS'});
+        this.setState({
+            isOpen: !this.state.isOpen,
+            activeMarker: marker.id,
+            origin: {
+                lat: Number(marker.lat),
+                lng: Number(marker.lng)
+            },
+            product_id: marker.product_id,
+            name: marker.name,
+            street_address: marker.street_address
+        })
+    }
 
     render() {
         console.log(this.props.reduxStore.allLocations);
@@ -82,7 +95,15 @@ class MapsContainer extends Component {
 
         
 
-       
+       let ifSelected = this.props.reduxStore.storeProducts && (
+           <>
+           <h4>Products</h4>
+           {this.props.reduxStore.storeProducts.map((product, i)=>{
+               return <p key={i}>{product.name}</p>
+           })}
+           
+           </>
+       )
 
 
         return (
@@ -103,17 +124,19 @@ class MapsContainer extends Component {
                                     lng: Number(marker.lng),
                                 }
                             }
-                            onClick={() => this.setState({
-                                isOpen: !this.state.isOpen,
-                                activeMarker: marker.id,
-                                origin: {
-                                    lat: Number(marker.lat),
-                                    lng: Number(marker.lng)
-                                },
-                                product_id: marker.product_id,
-                                name: marker.name,
-                                street_address: marker.street_address
-                            })
+                            onClick={()=>this.handleTwo(marker)
+                            //     () => this.setState({
+                            //     isOpen: !this.state.isOpen,
+                            //     activeMarker: marker.id,
+                            //     origin: {
+                            //         lat: Number(marker.lat),
+                            //         lng: Number(marker.lng)
+                            //     },
+                            //     product_id: marker.product_id,
+                            //     name: marker.name,
+                            //     street_address: marker.street_address
+                            // })
+                            
 
                             }
                         >
@@ -124,7 +147,8 @@ class MapsContainer extends Component {
                                         <p>{marker.street_address}</p>
                                     <p>{marker.city}, {marker.state} {marker.zip}</p>
                                     
-                                        {/* <Button onClick={() => this.handleClick(String(marker.lat))}>Products</Button> */}
+                                        <Button variant="contained" onClick={() => this.handleClick(marker)}>View Products</Button>
+                                        {ifSelected}
                                     </Card>
                                 </InfoWindow>
                             }
