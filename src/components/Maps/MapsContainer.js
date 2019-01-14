@@ -80,6 +80,15 @@ class MapsContainer extends Component {
     render() {
         console.log(this.props.reduxStore.allLocations);
 
+        // var goldStar = {
+        //     path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
+        //     fillColor: 'yellow',
+        //     fillOpacity: 0.8,
+        //     scale: 1,
+        //     strokeColor: 'gold',
+        //     strokeWeight: 14
+        // };
+
         let currentLocationMarker = <Marker
             position={
                 {
@@ -87,9 +96,12 @@ class MapsContainer extends Component {
                     lng: this.state.origin.lng
                 }
             }
+            
+            
 
 
         />//end marker
+        
 
     
 
@@ -111,7 +123,7 @@ class MapsContainer extends Component {
 
             <div id='mapDiv'>
                 <GoogleMap
-                    defaultZoom={16}
+                    defaultZoom={17}
                     center={{ lat: this.state.origin.lat, lng: this.state.origin.lng }}>
                     
                     {/* {currentLocationMarker} */}
@@ -125,19 +137,7 @@ class MapsContainer extends Component {
                                 }
                             }
                             onClick={()=>this.handleTwo(marker)
-                            //     () => this.setState({
-                            //     isOpen: !this.state.isOpen,
-                            //     activeMarker: marker.id,
-                            //     origin: {
-                            //         lat: Number(marker.lat),
-                            //         lng: Number(marker.lng)
-                            //     },
-                            //     product_id: marker.product_id,
-                            //     name: marker.name,
-                            //     street_address: marker.street_address
-                            // })
-                            
-
+                          
                             }
                         >
                             {this.state.activeMarker === marker.id &&
