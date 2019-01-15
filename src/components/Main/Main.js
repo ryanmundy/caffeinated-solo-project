@@ -7,6 +7,8 @@ import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import './Main.css';
 import { Grid } from '@material-ui/core';
+import StarRatingComponent from 'react-star-rating-component';
+import Gauge from 'react-svg-gauge';
 
 
 class Main extends Component {
@@ -27,12 +29,14 @@ class Main extends Component {
         let cardStyle = {
             width: 300,
             height: 500,
-            display: 'inline-block'
+            display: 'inline-block',
+            overflowY: 'auto'
         }
 
         let productCardStyle = {
             height: 500,
             display: 'inline-block'
+            
         }
 
         let caffeineCardStyle = {
@@ -51,9 +55,15 @@ class Main extends Component {
                         <Card style={cardStyle} id="productInfo">
                             <h1>Featured Product</h1>
                             <h2>{product.name}</h2>
-                            <h3>Rating: {product.round}</h3>
+                            {/* <h3>Rating: {product.round}</h3> */}
+                        <StarRatingComponent
+                            name="rate1"
+                            starCount={5}
+                            value={product.round}
+                        />
                             <p><em>Added By: {product.username}</em></p>
-                            <p>Caffeine Content: {product.caffeine_content} mg</p>
+                        <Gauge value={product.caffeine_content} color="#92E601" max={400} width={150} height={150} label="Caffeine Content" />
+                            {/* <p>Caffeine Content: {product.caffeine_content} mg</p> */}
                             <p>{product.description}</p>
                         </Card>
                         <Card style={caffeineCardStyle} id="needCaffeine">

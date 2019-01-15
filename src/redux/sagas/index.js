@@ -20,6 +20,8 @@ import locations from './getLocationsSaga';
 import allLocations from './getAllLocationsSaga';
 import storeProducts from './getStoreProductsSaga';
 import filtered from './filterBySaga';
+import energy from './getEnergySaga';
+import coffee from './GetCoffeeSaga'
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -50,6 +52,8 @@ export default function* rootSaga() {
     locations(),
     allLocations(),
     storeProducts(),
-    filtered()
+    filtered(),
+    energy(),
+    coffee()
   ]);
 }

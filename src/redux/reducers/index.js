@@ -13,6 +13,8 @@ import Locations from './LocationsReducer';
 import allLocations from './getAllLocationsReducer';
 import storeProducts from './storeProductsReducer';
 import filteredProducts from './filterByReducer';
+import energy from './energyReducer';
+import coffee from './coffeeReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -34,7 +36,9 @@ const rootReducer = combineReducers({
   Locations,
   allLocations,
   storeProducts,
-  filteredProducts
+  filteredProducts,
+  energy,
+  coffee
 });
 
 export default rootReducer;

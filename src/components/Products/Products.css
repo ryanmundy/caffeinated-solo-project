@@ -52,3 +52,11 @@
     margin: 8px;
 }
 
+#filterTitle{
+    margin: 10px;
+    color: #92E601;
+}
+
+#filterSelect{
+    margin: 10px;
+}

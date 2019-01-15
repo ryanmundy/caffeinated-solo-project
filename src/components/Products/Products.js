@@ -25,7 +25,7 @@ class Products extends Component {
             product_id: 0
         },
         productDisplay: {
-            display: 1,
+            display: 5,
             product_name: '',
         },
         newLocation: {
@@ -40,6 +40,8 @@ class Products extends Component {
 
     componentDidMount() {
         this.getProducts();
+        this.props.dispatch({type: 'FETCH_ENERGY'})
+        this.props.dispatch({ type: 'FETCH_COFFEE' })
     }
 
     getProducts = () => {
@@ -53,8 +55,8 @@ class Products extends Component {
 
     filterBy = (category) => {
         console.log('in filterBy', category);
-        this.props.dispatch({type: 'FILTER_BY', payload: category})
-        
+        this.props.dispatch({ type: 'FILTER_BY', payload: category })
+
     }
 
     getLocations = (id) => {
@@ -103,7 +105,7 @@ class Products extends Component {
         this.setState({
             productDisplay: {
                 ...this.state.productDisplay,
-                display: 2,
+                display: 6,
                 product_name: product.name
             },
             newReview: {
@@ -116,7 +118,7 @@ class Products extends Component {
     handleReturnClick = () => {
         this.setState({
             productDisplay: {
-                display: 1
+                display: 5
             }
         });
     }
@@ -127,7 +129,7 @@ class Products extends Component {
         this.setState({
             productDisplay: {
                 ...this.state.productDisplay,
-                display: 3,
+                display: 7,
                 product_name: product.name
             },
             newLocation: {
@@ -165,18 +167,18 @@ class Products extends Component {
     }
 
     handleFilterChange = (event) => {
-        // this.setState({
-        //     productDisplay: {
-        //         ...this.state.productDisplay,
-        //         display: event.target.value
-        //     }
-        // });
-        console.log('state is', this.state.productDisplay);
+        this.setState({
+            productDisplay: {
+                display: Number(event.target.value)
+            }
+        });
+        // console.log('state is', this.state.productDisplay);
 
     }
 
 
     render() {
+        console.log('state is', this.state.productDisplay);
 
         let cardStyle = {
             width: 300,
@@ -212,18 +214,14 @@ class Products extends Component {
                             starCount={5}
                             value={product.round}
                         />
-                        <br/>
+                        <br />
                         <p><em>Added By: {product.username}</em></p>
                         <img src={product.image_url} height="300" alt=''></img>
-                        <br/>
-                        <Gauge value={product.caffeine_content} color="#92E601" max={400} width={150} height={150}  label="Caffeine Content" />
-                        {/* <h3>Rating: {product.round}</h3> */}
-                        
-                        
-                        {/* <p>Caffeine Content: {product.caffeine_content} mg</p> */}
+                        <br />
+                        <Gauge value={product.caffeine_content} color="#92E601" max={400} width={150} height={150} label="Caffeine Content" />
                         <p>{product.description}</p>
                         <Button id="productButton" variant="contained" onClick={() => this.handleReviewsClick(product)}><Comment />Reviews</Button>
-                        
+
                         <Button id="productButton" variant="contained" onClick={() => this.handleLocationClick(product)}><Store />Where to Buy</Button>
                     </Card>
                 </div>
@@ -233,14 +231,40 @@ class Products extends Component {
         let locations = this.props.reduxStore.Locations.map(location => {
             return (
                 <p>{location.store}
-                <br/> {location.street_address}
-                <br/> {location.city}, {location.state} {location.zip}</p>
+                    <br /> {location.street_address}
+                    <br /> {location.city}, {location.state} {location.zip}</p>
+            );
+        })
+
+        let energyDrinks = this.props.reduxStore.energy.map((product, i) => {
+            return (
+                <div>
+                    <Card style={productCardStyle} key={i} id="product">
+                        <h2>{product.name}</h2>
+                        <h3>({product.category})</h3>
+                        <br />
+                        <StarRatingComponent
+                            name="rate1"
+                            starCount={5}
+                            value={product.round}
+                        />
+                        <br />
+                        <p><em>Added By: {product.username}</em></p>
+                        <img src={product.image_url} height="300" alt=''></img>
+                        <br />
+                        <Gauge value={product.caffeine_content} color="#92E601" max={400} width={150} height={150} label="Caffeine Content" />
+                        <p>{product.description}</p>
+                        <Button id="productButton" variant="contained" onClick={() => this.handleReviewsClick(product)}><Comment />Reviews</Button>
+
+                        <Button id="productButton" variant="contained" onClick={() => this.handleLocationClick(product)}><Store />Where to Buy</Button>
+                    </Card>
+                </div>
             );
         })
 
         let displayItem;
 
-        if (this.state.productDisplay.display===1) {
+        if (this.state.productDisplay.display === 5) {
             displayItem = <div>
                 <h1 id="productsTitle"><em>All Products</em></h1>
                 <Grid
@@ -252,7 +276,7 @@ class Products extends Component {
                 </Grid>
             </div>
 
-        } else if (this.state.productDisplay.display === 2){
+        } else if (this.state.productDisplay.display === 6) {
             displayItem =
                 <div id="displayItem">
                     <Button id="returnButton" variant="contained" onClick={this.handleReturnClick}><ArrowBack />Return to Products</Button>
@@ -280,38 +304,58 @@ class Products extends Component {
                             <option value={5}>5</option>
                         </select>
                         <br />
-                    <Button id="productButton" variant="contained" onClick={this.handleAddClick}><Comment />Submit Review</Button>
+                        <Button id="productButton" variant="contained" onClick={this.handleAddClick}><Comment />Submit Review</Button>
                     </Card>
                 </div>
-        } else {
-            displayItem=
+        } else if (this.state.productDisplay.display === 7) {
+            displayItem =
                 <div id="displayItem">
-                <Button id="returnButton" variant="contained" onClick={this.handleReturnClick}><ArrowBack />Return to Products</Button>
-                <h2 id="reviewHeader">Locations to purchase {this.state.productDisplay.product_name}!</h2>
-                <div>
+                    <Button id="returnButton" variant="contained" onClick={this.handleReturnClick}><ArrowBack />Return to Products</Button>
+                    <h2 id="reviewHeader">Locations to purchase {this.state.productDisplay.product_name}!</h2>
+                    <div>
+                        <Card style={cardStyle} id="addNewReview">
+                            {locations}
+                        </Card></div>
                     <Card style={cardStyle} id="addNewReview">
-                    {locations}
-                    </Card></div>
-                <Card style={cardStyle} id="addNewReview">
-                    <h2>Where can we find this?</h2>
-                    <input type="text" value={this.state.newLocation.store} placeholder="location name" onChange={this.handleChangeFor('store')}></input>
-                    <br/>
-                    <input type="text" value={this.state.newLocation.street_address} placeholder="street address" onChange={this.handleChangeFor('street_address')}></input>
-                    <input type="text" value={this.state.newLocation.city} placeholder="city" onChange={this.handleChangeFor('city')}></input>
-                    <input type="text" value={this.state.newLocation.state} placeholder="state" onChange={this.handleChangeFor('state')}></input>
-                    <input type="number" value={this.state.newLocation.zip} placeholder="zip" onChange={this.handleChangeFor('zip')}></input>
-                    <br />
-                    <Button id="productButton" variant="contained" onClick={this.handleLocationSubmitClick}><Add/>Submit Location</Button>
-                </Card>
+                        <h2>Where can we find this?</h2>
+                        <input type="text" value={this.state.newLocation.store} placeholder="location name" onChange={this.handleChangeFor('store')}></input>
+                        <br />
+                        <input type="text" value={this.state.newLocation.street_address} placeholder="street address" onChange={this.handleChangeFor('street_address')}></input>
+                        <input type="text" value={this.state.newLocation.city} placeholder="city" onChange={this.handleChangeFor('city')}></input>
+                        <input type="text" value={this.state.newLocation.state} placeholder="state" onChange={this.handleChangeFor('state')}></input>
+                        <input type="number" value={this.state.newLocation.zip} placeholder="zip" onChange={this.handleChangeFor('zip')}></input>
+                        <br />
+                        <Button id="productButton" variant="contained" onClick={this.handleLocationSubmitClick}><Add />Submit Location</Button>
+                    </Card>
+                </div>
+        } else if (this.state.productDisplay.display === 1) {
+            displayItem = <div>
+                <h1 id="productsTitle"><em>EnergyDrinks</em></h1>
+                <Grid
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center">
+                    {energyDrinks}
+                </Grid>
             </div>
+        }  else if (this.state.productDisplay.display === 2) {
+            displayItem =
+                <div><h1 id="productsTitle"><em>Coffee</em></h1></div>
+        } else if (this.state.productDisplay.display === 3) {
+            displayItem =
+                <div><h1 id="productsTitle"><em>Tea</em></h1></div>
+        } else if (this.state.productDisplay.display === 4) {
+            displayItem =
+                <div><h1 id="productsTitle"><em>Energy Shots</em></h1></div>
         }
 
 
         return (
             <div>
                 <div>
-                    <h4>Filter By:</h4>
-                    <select onChange={this.handleFilterChange}>
+                    <h4 id="filterTitle">Filter By:</h4>
+                    <select id="filterSelect" onChange={this.handleFilterChange}>
                         <option value={5}>All</option>
                         <option value={1}>Energy Drinks</option>
                         <option value={2}>Coffee</option>
@@ -319,11 +363,11 @@ class Products extends Component {
                         <option value={4}>Energy Shots</option>
                     </select>
                     {/* <br/> */}
-                    <button variant="contained" onClick={()=>this.filterBy(this.state.productDisplay.display)}>Filter</button>
+                    {/* <button variant="contained" onClick={()=>this.filterBy(this.state.filterDisplay.display}>Filter</button> */}
                 </div>
                 <div>{displayItem}</div>
             </div>
-            
+
 
         )
     }
