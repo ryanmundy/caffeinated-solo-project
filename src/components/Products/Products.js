@@ -27,6 +27,7 @@ class Products extends Component {
         productDisplay: {
             display: 5,
             product_name: '',
+            view_display: 5
         },
         newLocation: {
             name: '',
@@ -55,11 +56,11 @@ class Products extends Component {
         this.props.dispatch({ type: 'FETCH_REVIEWS', payload: id })
     }
 
-    filterBy = (category) => {
-        console.log('in filterBy', category);
-        this.props.dispatch({ type: 'FILTER_BY', payload: category })
+    // filterBy = (category) => {
+    //     console.log('in filterBy', category);
+    //     this.props.dispatch({ type: 'FILTER_BY', payload: category })
 
-    }
+    // }
 
     getLocations = (id) => {
         console.log('in getLocations', id);
@@ -120,7 +121,8 @@ class Products extends Component {
     handleReturnClick = () => {
         this.setState({
             productDisplay: {
-                display: 5
+                ...this.state.productDisplay,
+                display: this.state.productDisplay.view_display
             }
         });
     }
@@ -171,7 +173,8 @@ class Products extends Component {
     handleFilterChange = (event) => {
         this.setState({
             productDisplay: {
-                display: Number(event.target.value)
+                display: Number(event.target.value),
+                view_display: Number(event.target.value)
             }
         });
         // console.log('state is', this.state.productDisplay);
