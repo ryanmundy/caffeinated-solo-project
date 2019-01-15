@@ -19,6 +19,7 @@ import newLocation from './addLocationSaga';
 import locations from './getLocationsSaga';
 import allLocations from './getAllLocationsSaga';
 import storeProducts from './getStoreProductsSaga';
+import filtered from './filterBySaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -48,6 +49,7 @@ export default function* rootSaga() {
     newLocation(),
     locations(),
     allLocations(),
-    storeProducts()
+    storeProducts(),
+    filtered()
   ]);
 }

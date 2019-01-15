@@ -64,7 +64,7 @@ LEFT JOIN "reviews" on "products".product_table_id = "reviews".product_id
 JOIN "person" on "products".added_by = "person".id
 JOIN "categories" on "products".category_id = "categories".id
 GROUP BY "person".username, "products".product_table_id, "categories".id
-ORDER BY round DESC
+ORDER BY "products".name ASC
 ;
 `;
     pool.query(queryText)

@@ -13,6 +13,8 @@ import Comment from '@material-ui/icons/Comment';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import Store from '@material-ui/icons/Store';
 import Add from '@material-ui/icons/Add';
+import Gauge from 'react-svg-gauge';
+import StarRatingComponent from 'react-star-rating-component';
 
 class Products extends Component {
 
@@ -24,7 +26,7 @@ class Products extends Component {
         },
         productDisplay: {
             display: 1,
-            product_name: ''
+            product_name: '',
         },
         newLocation: {
             name: '',
@@ -47,6 +49,12 @@ class Products extends Component {
     getReviews = (id) => {
         console.log('in getReviews', id);
         this.props.dispatch({ type: 'FETCH_REVIEWS', payload: id })
+    }
+
+    filterBy = (category) => {
+        console.log('in filterBy', category);
+        this.props.dispatch({type: 'FILTER_BY', payload: category})
+        
     }
 
     getLocations = (id) => {
@@ -156,6 +164,17 @@ class Products extends Component {
         });
     }
 
+    handleFilterChange = (event) => {
+        // this.setState({
+        //     productDisplay: {
+        //         ...this.state.productDisplay,
+        //         display: event.target.value
+        //     }
+        // });
+        console.log('state is', this.state.productDisplay);
+
+    }
+
 
     render() {
 
@@ -165,9 +184,9 @@ class Products extends Component {
         }
 
         let productCardStyle = {
-            width: 300,
+            width: 350,
             display: 'inline-block',
-            height: 800,
+            height: 675,
             overflowY: 'auto'
         }
 
@@ -187,13 +206,24 @@ class Products extends Component {
                     <Card style={productCardStyle} key={i} id="product">
                         <h2>{product.name}</h2>
                         <h3>({product.category})</h3>
-                        <img src={product.image_url} height="300" alt=''></img>
-                        <h3>Rating: {product.round}</h3>
+                        <br />
+                        <StarRatingComponent
+                            name="rate1"
+                            starCount={5}
+                            value={product.round}
+                        />
+                        <br/>
                         <p><em>Added By: {product.username}</em></p>
-                        <p>Caffeine Content: {product.caffeine_content} mg</p>
+                        <img src={product.image_url} height="300" alt=''></img>
+                        <br/>
+                        <Gauge value={product.caffeine_content} color="#92E601" max={400} width={150} height={150}  label="Caffeine Content" />
+                        {/* <h3>Rating: {product.round}</h3> */}
+                        
+                        
+                        {/* <p>Caffeine Content: {product.caffeine_content} mg</p> */}
                         <p>{product.description}</p>
                         <Button id="productButton" variant="contained" onClick={() => this.handleReviewsClick(product)}><Comment />Reviews</Button>
-                        <br/>
+                        
                         <Button id="productButton" variant="contained" onClick={() => this.handleLocationClick(product)}><Store />Where to Buy</Button>
                     </Card>
                 </div>
@@ -212,7 +242,7 @@ class Products extends Component {
 
         if (this.state.productDisplay.display===1) {
             displayItem = <div>
-                <h1 id="productsTitle"><em>Current Products</em></h1>
+                <h1 id="productsTitle"><em>All Products</em></h1>
                 <Grid
                     container
                     direction="row"
@@ -278,8 +308,22 @@ class Products extends Component {
 
 
         return (
-
-            <div>{displayItem}</div>
+            <div>
+                <div>
+                    <h4>Filter By:</h4>
+                    <select onChange={this.handleFilterChange}>
+                        <option value={5}>All</option>
+                        <option value={1}>Energy Drinks</option>
+                        <option value={2}>Coffee</option>
+                        <option value={3}>Tea</option>
+                        <option value={4}>Energy Shots</option>
+                    </select>
+                    {/* <br/> */}
+                    <button variant="contained" onClick={()=>this.filterBy(this.state.productDisplay.display)}>Filter</button>
+                </div>
+                <div>{displayItem}</div>
+            </div>
+            
 
         )
     }
