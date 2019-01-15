@@ -354,7 +354,7 @@ class Products extends Component {
             this.state.productDisplay.display === 4
         ) {
             filter = <div> <h4 id="filterTitle">Filter By:</h4>
-                <select id="filterSelect" onChange={this.handleFilterChange}>
+                <select selected={this.state.productDisplay.view_display}id="filterSelect" onChange={this.handleFilterChange}>
                     <option value={5}>All</option>
                     <option value={1}>Energy Drinks</option>
                     <option value={2}>Coffee</option>

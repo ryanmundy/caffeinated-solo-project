@@ -1,3 +1,7 @@
 #mapsContainer{
     margin: 50px;
 }
+
+#infoWindow{
+    text-align: center;
+}
