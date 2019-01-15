@@ -15,6 +15,8 @@ import storeProducts from './storeProductsReducer';
 import filteredProducts from './filterByReducer';
 import energy from './energyReducer';
 import coffee from './coffeeReducer';
+import tea from './teaReducer';
+import shots from './getShotsReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -38,7 +40,9 @@ const rootReducer = combineReducers({
   storeProducts,
   filteredProducts,
   energy,
-  coffee
+  coffee,
+  tea,
+  shots
 });
 
 export default rootReducer;

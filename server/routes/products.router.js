@@ -177,7 +177,7 @@ WHERE "location".lat = $1 AND "location".lng = $2;`;
         });
 });//end GET
 
-//GET products
+//GET energy
 router.get('/energy', (req, res) => {
     const queryText = `SELECT "products".product_table_id, "products"."name", "products".added_by,
 "products".caffeine_content, "products".description, "products".category_id,
@@ -202,7 +202,7 @@ ORDER BY "products".name ASC
         });
 });//end GET energy
 
-//GET products
+//GET coffee
 router.get('/coffee', (req, res) => {
     const queryText = `SELECT "products".product_table_id, "products"."name", "products".added_by,
 "products".caffeine_content, "products".description, "products".category_id,
@@ -225,6 +225,56 @@ ORDER BY "products".name ASC
             console.log(error);
             res.sendStatus(500);
         });
-});//end GET energy
+});//end GET coffee
+
+//GET tea
+router.get('/tea', (req, res) => {
+    const queryText = `SELECT "products".product_table_id, "products"."name", "products".added_by,
+"products".caffeine_content, "products".description, "products".category_id,
+"products".image_url, "products".featured,
+"person".username, "categories".category,
+ROUND(AVG("rating"), 1) FROM "products"
+LEFT JOIN "reviews" on "products".product_table_id = "reviews".product_id
+JOIN "person" on "products".added_by = "person".id
+JOIN "categories" on "products".category_id = "categories".id
+WHERE "products".category_id = 3
+GROUP BY "person".username, "products".product_table_id, "categories".id
+ORDER BY "products".name ASC
+;
+`;
+    pool.query(queryText)
+        .then((result) => {
+            res.send(result.rows);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+        });
+});//end GET tea
+
+//GET shot
+router.get('/shot', (req, res) => {
+    const queryText = `SELECT "products".product_table_id, "products"."name", "products".added_by,
+"products".caffeine_content, "products".description, "products".category_id,
+"products".image_url, "products".featured,
+"person".username, "categories".category,
+ROUND(AVG("rating"), 1) FROM "products"
+LEFT JOIN "reviews" on "products".product_table_id = "reviews".product_id
+JOIN "person" on "products".added_by = "person".id
+JOIN "categories" on "products".category_id = "categories".id
+WHERE "products".category_id = 4
+GROUP BY "person".username, "products".product_table_id, "categories".id
+ORDER BY "products".name ASC
+;
+`;
+    pool.query(queryText)
+        .then((result) => {
+            res.send(result.rows);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+        });
+});//end GET shot
 
 module.exports = router;

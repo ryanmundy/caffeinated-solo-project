@@ -42,6 +42,8 @@ class Products extends Component {
         this.getProducts();
         this.props.dispatch({type: 'FETCH_ENERGY'})
         this.props.dispatch({ type: 'FETCH_COFFEE' })
+        this.props.dispatch({ type: 'FETCH_TEA' })
+        this.props.dispatch({ type: 'FETCH_SHOTS' })
     }
 
     getProducts = () => {
@@ -262,6 +264,84 @@ class Products extends Component {
             );
         })
 
+        let coffee = this.props.reduxStore.coffee.map((product, i) => {
+            return (
+                <div>
+                    <Card style={productCardStyle} key={i} id="product">
+                        <h2>{product.name}</h2>
+                        <h3>({product.category})</h3>
+                        <br />
+                        <StarRatingComponent
+                            name="rate1"
+                            starCount={5}
+                            value={product.round}
+                        />
+                        <br />
+                        <p><em>Added By: {product.username}</em></p>
+                        <img src={product.image_url} height="300" alt=''></img>
+                        <br />
+                        <Gauge value={product.caffeine_content} color="#92E601" max={400} width={150} height={150} label="Caffeine Content" />
+                        <p>{product.description}</p>
+                        <Button id="productButton" variant="contained" onClick={() => this.handleReviewsClick(product)}><Comment />Reviews</Button>
+
+                        <Button id="productButton" variant="contained" onClick={() => this.handleLocationClick(product)}><Store />Where to Buy</Button>
+                    </Card>
+                </div>
+            );
+        })
+
+        let tea = this.props.reduxStore.tea.map((product, i) => {
+            return (
+                <div>
+                    <Card style={productCardStyle} key={i} id="product">
+                        <h2>{product.name}</h2>
+                        <h3>({product.category})</h3>
+                        <br />
+                        <StarRatingComponent
+                            name="rate1"
+                            starCount={5}
+                            value={product.round}
+                        />
+                        <br />
+                        <p><em>Added By: {product.username}</em></p>
+                        <img src={product.image_url} height="300" alt=''></img>
+                        <br />
+                        <Gauge value={product.caffeine_content} color="#92E601" max={400} width={150} height={150} label="Caffeine Content" />
+                        <p>{product.description}</p>
+                        <Button id="productButton" variant="contained" onClick={() => this.handleReviewsClick(product)}><Comment />Reviews</Button>
+
+                        <Button id="productButton" variant="contained" onClick={() => this.handleLocationClick(product)}><Store />Where to Buy</Button>
+                    </Card>
+                </div>
+            );
+        })
+
+        let shots = this.props.reduxStore.shots.map((product, i) => {
+            return (
+                <div>
+                    <Card style={productCardStyle} key={i} id="product">
+                        <h2>{product.name}</h2>
+                        <h3>({product.category})</h3>
+                        <br />
+                        <StarRatingComponent
+                            name="rate1"
+                            starCount={5}
+                            value={product.round}
+                        />
+                        <br />
+                        <p><em>Added By: {product.username}</em></p>
+                        <img src={product.image_url} height="300" alt=''></img>
+                        <br />
+                        <Gauge value={product.caffeine_content} color="#92E601" max={400} width={150} height={150} label="Caffeine Content" />
+                        <p>{product.description}</p>
+                        <Button id="productButton" variant="contained" onClick={() => this.handleReviewsClick(product)}><Comment />Reviews</Button>
+
+                        <Button id="productButton" variant="contained" onClick={() => this.handleLocationClick(product)}><Store />Where to Buy</Button>
+                    </Card>
+                </div>
+            );
+        })
+
         let displayItem;
 
         if (this.state.productDisplay.display === 5) {
@@ -330,7 +410,7 @@ class Products extends Component {
                 </div>
         } else if (this.state.productDisplay.display === 1) {
             displayItem = <div>
-                <h1 id="productsTitle"><em>EnergyDrinks</em></h1>
+                <h1 id="productsTitle"><em>Energy Drinks</em></h1>
                 <Grid
                     container
                     direction="row"
@@ -340,14 +420,38 @@ class Products extends Component {
                 </Grid>
             </div>
         }  else if (this.state.productDisplay.display === 2) {
-            displayItem =
-                <div><h1 id="productsTitle"><em>Coffee</em></h1></div>
+            displayItem = <div>
+                <h1 id="productsTitle"><em>Coffee</em></h1>
+                <Grid
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center">
+                    {coffee}
+                </Grid>
+            </div>
         } else if (this.state.productDisplay.display === 3) {
-            displayItem =
-                <div><h1 id="productsTitle"><em>Tea</em></h1></div>
+            displayItem = <div>
+                <h1 id="productsTitle"><em>Tea</em></h1>
+                <Grid
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center">
+                    {tea}
+                </Grid>
+            </div>
         } else if (this.state.productDisplay.display === 4) {
-            displayItem =
-                <div><h1 id="productsTitle"><em>Energy Shots</em></h1></div>
+            displayItem = <div>
+                <h1 id="productsTitle"><em>Energy Shots</em></h1>
+                <Grid
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center">
+                    {shots}
+                </Grid>
+            </div>
         }
 
 
