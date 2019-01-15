@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Grid } from '@material-ui/core';
+import { Grid, FormControl } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import './Products.css';
 import Button from '@material-ui/core/Button';
@@ -15,6 +15,9 @@ import Store from '@material-ui/icons/Store';
 import Add from '@material-ui/icons/Add';
 import Gauge from 'react-svg-gauge';
 import StarRatingComponent from 'react-star-rating-component';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
 
 class Products extends Component {
 
@@ -186,7 +189,7 @@ class Products extends Component {
         console.log('state is', this.state.productDisplay);
 
         let cardStyle = {
-            width: 300,
+            width: 400,
             display: 'inline-block',
         }
 
@@ -345,6 +348,11 @@ class Products extends Component {
             );
         })
 
+        let filterStyle = {
+            minWidth: 120,
+            marginLeft: 20
+        }
+
         let filter;
         if (
             this.state.productDisplay.display === 5 ||
@@ -356,13 +364,28 @@ class Products extends Component {
             this.state.productDisplay.display === 7
         ) {
             filter = <div> <h4 id="filterTitle">Filter By:</h4>
-                <select selected={this.state.productDisplay.view_display} id="filterSelect" onChange={this.handleFilterChange}>
+                {/* <select selected={this.state.productDisplay.view_display} id="filterSelect" onChange={this.handleFilterChange}>
                     <option value={5}>All</option>
                     <option value={1}>Energy Drinks</option>
                     <option value={2}>Coffee</option>
                     <option value={3}>Tea</option>
                     <option value={4}>Energy Shots</option>
-                </select></div>
+                </select></div> */}
+                <FormControl>
+                    <Select
+                        id="filterSelect"
+                        onChange={this.handleFilterChange}
+                        value={this.state.productDisplay.view_display}
+                        style={filterStyle}
+                    >
+                        <MenuItem value={5}>All</MenuItem>
+                        <MenuItem value={1}>Energy Drinks</MenuItem>
+                        <MenuItem value={2}>Coffee</MenuItem>
+                        <MenuItem value={3}>Tea</MenuItem>
+                        <MenuItem value={4}>Energy Shots</MenuItem>
+                    </Select>
+                </FormControl>
+            </div>
         }
 
         let displayItem;
@@ -398,14 +421,35 @@ class Products extends Component {
 
                     <Card style={cardStyle} id="addNewReview">
                         <h2>Review this product!</h2>
-                        <input id="reviewIn" type="text" placeholder="review" value={this.state.newReview.review_content} onChange={this.handleReviewChange}></input>
-                        <select value={this.state.newReview.rating} id="ratingIn" onChange={this.handleRatingChange}>
+                        {/* <input id="reviewIn" type="text" placeholder="review" value={this.state.newReview.review_content} onChange={this.handleReviewChange}></input> */}
+                        <TextField
+                            id="reviewIn"
+                            label="Review"
+                            value={this.state.newReview.review_content}
+                            onChange={this.handleReviewChange}
+                            margin="normal"
+                        />
+                        <br />
+                        {/* <select value={this.state.newReview.rating} id="ratingIn" onChange={this.handleRatingChange}>
                             <option value={1}>1</option>
                             <option value={2}>2</option>
                             <option value={3}>3</option>
                             <option value={4}>4</option>
                             <option value={5}>5</option>
-                        </select>
+                        </select> */}
+                        <FormControl>
+                            <Select
+                                onChange={this.handleRatingChange}
+                                value={this.state.newReview.rating}
+                                placeholder="rating"
+                            >
+                                <MenuItem value={1}>1</MenuItem>
+                                <MenuItem value={2}>2</MenuItem>
+                                <MenuItem value={3}>3</MenuItem>
+                                <MenuItem value={4}>4</MenuItem>
+                                <MenuItem value={5}>5</MenuItem>
+                            </Select>
+                        </FormControl>
                         <br />
                         <Button id="productButton" variant="contained" onClick={this.handleAddClick}><Comment />Submit Review</Button>
                     </Card>
@@ -420,14 +464,46 @@ class Products extends Component {
                             {locations}
                         </Card></div>
                     <Card style={cardStyle} id="addNewReview">
-                        <h2>Where can we find this?</h2>
+                        {/* <h2>Where can we find this?</h2>
                         <input type="text" value={this.state.newLocation.store} placeholder="location name" onChange={this.handleChangeFor('store')}></input>
                         <br />
                         <input type="text" value={this.state.newLocation.street_address} placeholder="street address" onChange={this.handleChangeFor('street_address')}></input>
                         <input type="text" value={this.state.newLocation.city} placeholder="city" onChange={this.handleChangeFor('city')}></input>
                         <input type="text" value={this.state.newLocation.state} placeholder="state" onChange={this.handleChangeFor('state')}></input>
                         <input type="number" value={this.state.newLocation.zip} placeholder="zip" onChange={this.handleChangeFor('zip')}></input>
-                        <br />
+                        <br /> */}
+                        <TextField
+                            label="Location Name"
+                            value={this.state.newLocation.store}
+                            onChange={this.handleChangeFor('store')}
+                            margin="normal"
+                        />
+                    <TextField
+                        label="Street Address"
+                        value={this.state.newLocation.street_address}
+                        onChange={this.handleChangeFor('street_address')}
+                        margin="normal"
+                    />
+                    <TextField
+                        label="City"
+                        value={this.state.newLocation.city}
+                        onChange={this.handleChangeFor('city')}
+                        margin="normal"
+                    />
+                    <TextField
+                        label="State"
+                        value={this.state.newLocation.state}
+                        onChange={this.handleChangeFor('state')}
+                        margin="normal"
+                    />
+                    <TextField
+                        type="number"
+                        label="Zip"
+                        value={this.state.newLocation.zip}
+                        onChange={this.handleChangeFor('zip')}
+                        margin="normal"
+                    />
+                        <br/>
                         <Button id="productButton" variant="contained" onClick={this.handleLocationSubmitClick}><Add />Submit Location</Button>
                     </Card>
                 </div>

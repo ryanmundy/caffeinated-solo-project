@@ -13,6 +13,9 @@ import Edit from '@material-ui/icons/Edit';
 import Grade from '@material-ui/icons/Grade';
 import Add from '@material-ui/icons/Add';
 import Save from '@material-ui/icons/Save';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
 
 
 class Dashboard extends Component {
