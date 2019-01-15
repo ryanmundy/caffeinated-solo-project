@@ -257,7 +257,7 @@ class Dashboard extends Component {
                     </div>
                     <div>
                         <h2 id="dashboardHeader">Reviews</h2>
-                        <Table class="center" id="productTable">
+                        <Table class="center" id="reviewTable">
                             <TableHead>
                                 <TableRow>
                                     <th>Product</th>

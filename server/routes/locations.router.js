@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
 
     console.log('new location', `${newLocation.street_address} ${newLocation.city} ${newLocation.state}`);
 
-    geocoder.geocode(newLocation.street_address)
+    geocoder.geocode(`${newLocation.street_address} ${newLocation.city} ${newLocation.state}`)
         .then(function (result) {
             console.log(result);
         

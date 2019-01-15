@@ -41,7 +41,7 @@ class Products extends Component {
 
     componentDidMount() {
         this.getProducts();
-        this.props.dispatch({type: 'FETCH_ENERGY'})
+        this.props.dispatch({ type: 'FETCH_ENERGY' })
         this.props.dispatch({ type: 'FETCH_COFFEE' })
         this.props.dispatch({ type: 'FETCH_TEA' })
         this.props.dispatch({ type: 'FETCH_SHOTS' })
@@ -345,6 +345,24 @@ class Products extends Component {
             );
         })
 
+        let filter;
+        if (
+            this.state.productDisplay.display === 5 ||
+            this.state.productDisplay.display === 1 ||
+            this.state.productDisplay.display === 2 ||
+            this.state.productDisplay.display === 3 ||
+            this.state.productDisplay.display === 4
+        ) {
+            filter = <div> <h4 id="filterTitle">Filter By:</h4>
+                <select id="filterSelect" onChange={this.handleFilterChange}>
+                    <option value={5}>All</option>
+                    <option value={1}>Energy Drinks</option>
+                    <option value={2}>Coffee</option>
+                    <option value={3}>Tea</option>
+                    <option value={4}>Energy Shots</option>
+                </select></div>
+        }
+
         let displayItem;
 
         if (this.state.productDisplay.display === 5) {
@@ -422,7 +440,7 @@ class Products extends Component {
                     {energyDrinks}
                 </Grid>
             </div>
-        }  else if (this.state.productDisplay.display === 2) {
+        } else if (this.state.productDisplay.display === 2) {
             displayItem = <div>
                 <h1 id="productsTitle"><em>Coffee</em></h1>
                 <Grid
@@ -461,16 +479,7 @@ class Products extends Component {
         return (
             <div>
                 <div>
-                    <h4 id="filterTitle">Filter By:</h4>
-                    <select id="filterSelect" onChange={this.handleFilterChange}>
-                        <option value={5}>All</option>
-                        <option value={1}>Energy Drinks</option>
-                        <option value={2}>Coffee</option>
-                        <option value={3}>Tea</option>
-                        <option value={4}>Energy Shots</option>
-                    </select>
-                    {/* <br/> */}
-                    {/* <button variant="contained" onClick={()=>this.filterBy(this.state.filterDisplay.display}>Filter</button> */}
+                    {filter}
                 </div>
                 <div>{displayItem}</div>
             </div>

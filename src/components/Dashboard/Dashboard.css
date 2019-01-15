@@ -19,3 +19,12 @@
 #dashboardHeader{
     text-align: center;
 }
+
+#reviewTable{
+    /* width: 75%;
+    width: auto; */
+    margin-left: 200px;
+    margin-right: 200px;
+    /* margin-top: 50px; */
+    margin-bottom: 100px;
+}
