@@ -351,10 +351,12 @@ class Products extends Component {
             this.state.productDisplay.display === 1 ||
             this.state.productDisplay.display === 2 ||
             this.state.productDisplay.display === 3 ||
-            this.state.productDisplay.display === 4
+            this.state.productDisplay.display === 4 ||
+            this.state.productDisplay.display === 6 ||
+            this.state.productDisplay.display === 7
         ) {
             filter = <div> <h4 id="filterTitle">Filter By:</h4>
-                <select selected={this.state.productDisplay.view_display}id="filterSelect" onChange={this.handleFilterChange}>
+                <select selected={this.state.productDisplay.view_display} id="filterSelect" onChange={this.handleFilterChange}>
                     <option value={5}>All</option>
                     <option value={1}>Energy Drinks</option>
                     <option value={2}>Coffee</option>
