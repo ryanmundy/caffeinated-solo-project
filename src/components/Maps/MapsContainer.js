@@ -5,11 +5,18 @@ import { connect } from 'react-redux';
 import './Maps.css'
 import { Card, Button } from '@material-ui/core'
 import { } from '@material-ui/icons'
+import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import { createMuiTheme } from "@material-ui/core/styles"
 
 // google maps api 
 import { withScriptjs, withGoogleMap, GoogleMap, DirectionsRenderer, Marker, InfoWindow, Polyline } from "react-google-maps";
 
-
+const theme = createMuiTheme({
+    palette: {
+        primary: { main: '#92E601' },
+        secondary: { main: '#CC1E4A' }
+    },
+});
 
 class MapsContainer extends Component {
 
@@ -202,7 +209,9 @@ class MapsContainer extends Component {
                     />
 
                 </GoogleMap>
+                <MuiThemeProvider theme={theme}>
                 <Button variant='contained' color='primary' onClick={this.getGeoLocation}><img src='https://www.shareicon.net/data/128x128/2015/09/13/100389_my_512x512.png' width='20' /></Button>
+                </MuiThemeProvider>
             </div>
         );
     }

@@ -18,7 +18,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import swal from 'sweetalert';
+import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import {createMuiTheme} from "@material-ui/core/styles"
 
+const theme = createMuiTheme ({
+    palette: {
+        primary: { main: '#92E601'},
+        secondary: { main: '#CC1E4A'}
+    },
+});
 
 class Dashboard extends Component {
 
@@ -224,61 +232,72 @@ class Dashboard extends Component {
     render() {
         console.log(this.state);
         // maps over products  and creates new table rows
+        let buttonStyle={
+            backgroundColor: '#FFC906'
+        }
         let newProductRow =
             this.props.reduxStore.currentProducts.map((product, i) => {
                 return (
+                    <MuiThemeProvider theme={theme}>
                     <TableRow key={i} id={product.id}>
                         <TableCell id="tableCell"><img src={product.image_url} height="75" alt=''></img></TableCell>
                         <TableCell id="tableCell">{product.name}</TableCell>
                         <TableCell id="tableCell">{product.round}</TableCell>
                         <TableCell id="tableCell">{product.username}</TableCell>
-                        <TableCell><Button variant="contained" onClick={() => this.handleEdit(product)}><Edit /></Button></TableCell>
-                        <TableCell><Button variant="contained" onClick={() => this.handleFeatured(product.product_table_id)}><Grade />Set Featured</Button></TableCell>
+                        <TableCell><Button color="primary" variant="contained" onClick={() => this.handleEdit(product)}><Edit /></Button></TableCell>
+                        <TableCell><Button style={buttonStyle} variant="contained" onClick={() => this.handleFeatured(product.product_table_id)}><Grade /></Button></TableCell>
                         {/* <TableCell><Button variant="contained" onClick={() => { if (window.confirm('Are you sure you want to delete this product?')) this.handleDeleteProduct(product) }}><DeleteIcon></DeleteIcon></Button></TableCell> */}
-                        <TableCell><Button variant="contained" onClick={()=>this.handleSweetAlert(product)}><DeleteIcon/></Button></TableCell>
+                        <TableCell><Button color="secondary" variant="contained" onClick={()=>this.handleSweetAlert(product)}><DeleteIcon/></Button></TableCell>
                     </TableRow>
+                    </MuiThemeProvider>
                 );
             })
 
         let newUserProductRow =
             this.props.reduxStore.currentUserProducts.map((product, i) => {
                 return (
+                    <MuiThemeProvider theme={theme}>
                     <TableRow key={i} id={product.id}>
                         <TableCell id="tableCell"><img src={product.image_url} height="75" alt=''></img></TableCell>
                         <TableCell id="tableCell">{product.name}</TableCell>
                         <TableCell id="tableCell">{product.round}</TableCell>
-                        <TableCell><Button variant="contained" onClick={() => this.handleEdit(product)}><Edit />Edit</Button></TableCell>
-                        <TableCell><Button variant="contained" onClick={() => this.handleSweetAlert(product)}><DeleteIcon /></Button></TableCell>
+                        <TableCell><Button color="primary" variant="contained" onClick={() => this.handleEdit(product)}><Edit /></Button></TableCell>
+                        <TableCell><Button color="primary" variant="contained" onClick={() => this.handleSweetAlert(product)}><DeleteIcon /></Button></TableCell>
                     </TableRow>
+                    </MuiThemeProvider>
                 );
             })
 
         let newReviewsRow =
             this.props.reduxStore.allReviews.map((review, i) => {
                 return (
+                    <MuiThemeProvider theme={theme}>
                     <TableRow key={i} id={review.id}>
                         <TableCell id="tableCell">{review.name}</TableCell>
                         <TableCell id="tableCell">{review.review_content}</TableCell>
                         {/* <TableCell><Button variant="contained" onClick={() => { if (window.confirm('Are you sure you want to delete this review?')) this.handleDeleteReview(review.id) }}><DeleteIcon></DeleteIcon></Button></TableCell> */}
-                        <TableCell><Button variant="contained" onClick={() => this.handleSweetAlertReview(review.id)}><DeleteIcon /></Button></TableCell>
+                        <TableCell><Button color="secondary" variant="contained" onClick={() => this.handleSweetAlertReview(review.id)}><DeleteIcon /></Button></TableCell>
                     </TableRow>
+                    </MuiThemeProvider>
                 );
             })
 
         let newUserRow =
             this.props.reduxStore.currentUsers.map((user, i) => {
                 return (
+                    <MuiThemeProvider theme={theme}>
                     <TableRow key={i} id={user.id}>
                         <TableCell id="tableCell">{user.username}</TableCell>
                         {/* <TableCell><Button variant="contained" onClick={() => { if (window.confirm('Are you sure you want to delete this user?')) this.handleDeleteUser(user.id) }}><DeleteIcon></DeleteIcon></Button></TableCell> */}
-                        <TableCell><Button variant="contained" onClick={() => this.handleSweetAlertUser(user.id)}><DeleteIcon /></Button></TableCell>
+                        <TableCell><Button color="secondary" variant="contained" onClick={() => this.handleSweetAlertUser(user.id)}><DeleteIcon /></Button></TableCell>
                     </TableRow>
+                    </MuiThemeProvider>
                 );
             })
 
         let cardStyle = {
             width: 500,
-            height: 500,
+            height: 525,
             display: 'inline-block'
         }
 
@@ -288,6 +307,7 @@ class Dashboard extends Component {
             pageDisplay =
                 <div>
                     <div>
+                        <MuiThemeProvider theme={theme}>
                         <Card style={cardStyle} id="addNew">
                             <h2>Add New Product</h2>
                             {/* <input value={this.state.newProduct.name} type="text" placeholder="name" onChange={this.handleChangeFor('name')}></input>
@@ -302,10 +322,12 @@ class Dashboard extends Component {
                             </select> */}
 
                         <TextField
+                                color="primary"
                             label="Name"
                             value={this.state.newProduct.name}
                             onChange={this.handleChangeFor('name')}
                             margin="normal"
+                            
                         />
                         <br/>
                         <TextField
@@ -316,19 +338,15 @@ class Dashboard extends Component {
                             margin="normal"
                         />
                         <br/>
-                        <TextField
-                            label="Description"
-                            value={this.state.newProduct.description}
-                            onChange={this.handleChangeFor('description')}
-                            margin="normal"
-                        />
-                        <br/>
+                      
+                
                         <TextField
                             label="Image URL"
                             value={this.state.newProduct.image_url}
                             onChange={this.handleChangeFor('image_url')}
                             margin="normal"
                         />
+                        <br/>
                         <br/>
                         <FormControl>
                             <Select
@@ -344,9 +362,21 @@ class Dashboard extends Component {
                             </Select>
                         </FormControl>
 
+                        <br/>
+
+                        <TextField
+                            label="Description"
+                            value={this.state.newProduct.description}
+                            onChange={this.handleChangeFor('description')}
+                            margin="normal"
+                            multiline rows="4"
+                            variant="outlined"
+                        />
+
                             <br />
-                            <Button id="submitButton" variant="contained" onClick={this.handleSubmit}><Add />Add Product</Button>
+                            <Button color="primary" id="submitButton" variant="contained" onClick={this.handleSubmit}><Add />Add Product</Button>
                         </Card>
+                    </MuiThemeProvider>
                     </div>
                     <div>
                         <h2 id="currentProductsHeader">Current Products</h2>
@@ -357,9 +387,9 @@ class Dashboard extends Component {
                                     <th>Name</th>
                                     <th>Rating</th>
                                     <th>Added By</th>
-                                    <th>Action</th>
-                                    <th>Action</th>
-                                    <th>Action</th>
+                                    <th>Edit</th>
+                                    <th>Set Featured</th>
+                                    <th>Delete</th>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -374,7 +404,7 @@ class Dashboard extends Component {
                                 <TableRow>
                                     <th>Product</th>
                                     <th>Review</th>
-                                    <th>Action</th>
+                                    <th>Delete</th>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -388,7 +418,7 @@ class Dashboard extends Component {
                             <TableHead>
                                 <TableRow>
                                     <th>Username</th>
-                                    <th>Action</th>
+                                    <th>Delete</th>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -401,6 +431,7 @@ class Dashboard extends Component {
             pageDisplay =
                 <div>
                     <div>
+                    <MuiThemeProvider theme={theme}>
                         <Card style={cardStyle} id="addNew">
                             <h2>Add New Product</h2>
                             {/* <input value={this.state.newProduct.name} type="text" placeholder="name" onChange={this.handleChangeFor('name')}></input>
@@ -421,6 +452,7 @@ class Dashboard extends Component {
                             value={this.state.newProduct.name}
                             onChange={this.handleChangeFor('name')}
                             margin="normal"
+                            color="primary"
                         />
                         <br />
                         <TextField
@@ -432,19 +464,12 @@ class Dashboard extends Component {
                         />
                         <br />
                         <TextField
-                            label="Description"
-                            value={this.state.newProduct.description}
-                            onChange={this.handleChangeFor('description')}
-                            margin="normal"
-                            
-                        />
-                        <br />
-                        <TextField
                             label="Image URL"
                             value={this.state.newProduct.image_url}
                             onChange={this.handleChangeFor('image_url')}
                             margin="normal"
                         />
+                        <br/>
                         <br />
                         <FormControl>
                             <Select
@@ -459,10 +484,20 @@ class Dashboard extends Component {
                                 <MenuItem value={4}>Energy Shot</MenuItem>
                             </Select>
                         </FormControl>
+                        <br/>
+                            <TextField
+                                label="Description"
+                                value={this.state.newProduct.description}
+                                onChange={this.handleChangeFor('description')}
+                                margin="normal"
+                                multiline rows="4"
+                                variant="outlined"
 
+                            />
                         <br />
-                        <Button id="submitButton" variant="contained" onClick={this.handleSubmit}><Add />Add Product</Button>
+                        <Button color="primary" id="submitButton" variant="contained" onClick={this.handleSubmit}><Add />Add Product</Button>
                         </Card>
+                    </MuiThemeProvider>
                     </div>
                     <div>
                     </div>
@@ -473,8 +508,8 @@ class Dashboard extends Component {
                                 <th></th>
                                 <th>Name</th>
                                 <th>Rating</th>
-                                <th>Action</th>
-                                <th>Action</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -485,6 +520,7 @@ class Dashboard extends Component {
         } else {
             pageDisplay =
                 <div>
+                <MuiThemeProvider theme={theme}>
                     <Card style={cardStyle} id="addNew">
                         <h2>Edit {this.state.productToEdit.name}</h2>
                         {/* <input type="text" placeholder="name" placeholder={this.state.productToEdit.name} onChange={this.handleChangeForEdit('name')}></input>
@@ -511,18 +547,15 @@ class Dashboard extends Component {
                         margin="normal"
                     />
                     <br/>
-                    <TextField
-                        placeholder={this.state.productToEdit.description}
-                        onChange={this.handleChangeForEdit('description')}
-                        margin="normal"
-                    />
+                        <TextField
+                            placeholder={this.state.productToEdit.image_url}
+                            onChange={this.handleChangeForEdit('image_url')}
+                            margin="normal"
+                        />
+                        <br/>
+                    
                     <br />
-                    <TextField
-                        placeholder={this.state.productToEdit.image_url}
-                        onChange={this.handleChangeForEdit('image_url')}
-                        margin="normal"
-                    />
-                    <br />
+                    
                     <FormControl>
                         <Select
                             onChange={this.handleChangeForEdit('category_id')}
@@ -536,10 +569,19 @@ class Dashboard extends Component {
                             <MenuItem value={4}>Energy Shot</MenuItem>
                         </Select>
                     </FormControl>
+                    <br/>
+                        <TextField
+                            placeholder={this.state.productToEdit.description}
+                            onChange={this.handleChangeForEdit('description')}
+                            margin="normal"
+                            multiline rows="4"
+                            variant="outlined"
+                        />
 
                     <br />
-                    <Button id="submitButton" variant="contained" onClick={this.handleEditSubmit}><Save />Save</Button>
+                    <Button color="primary" id="submitButton" variant="contained" onClick={this.handleEditSubmit}><Save />Save</Button>
                     </Card>
+                </MuiThemeProvider>
                 </div>
         }
 

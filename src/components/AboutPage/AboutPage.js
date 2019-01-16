@@ -10,7 +10,7 @@ import Card from '@material-ui/core/Card';
 
 let cardStyle = {
   width: 350,
-  height: 500,
+  height: 520,
   display: 'inline-block',
 }
 
@@ -45,6 +45,7 @@ const AboutPage = () => (
             <li>Node.js</li>
             <li>Express</li>
             <li>Axios</li>
+            <li>PostgreSQL</li>
             <li>Google Maps API</li>
             <li>React-Google-Maps</li>
             <li>Node-Geocoder</li>

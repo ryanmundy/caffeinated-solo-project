@@ -9,6 +9,15 @@ import './Main.css';
 import { Grid } from '@material-ui/core';
 import StarRatingComponent from 'react-star-rating-component';
 import Gauge from 'react-svg-gauge';
+import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import { createMuiTheme } from "@material-ui/core/styles"
+
+const theme = createMuiTheme({
+    palette: {
+        primary: { main: '#92E601' },
+        secondary: { main: '#CC1E4A' }
+    },
+});
 
 
 class Main extends Component {
@@ -70,7 +79,9 @@ class Main extends Component {
                             <h1>Need caffeine now?</h1>
                         <img id="battery" src="https://res.cloudinary.com/teepublic/image/private/s--pcvQDlsa--/t_Preview/b_rgb:ffffff,c_limit,f_jpg,h_630,q_90,w_630/v1453880733/production/designs/404282_1.jpg" alt='low battery' />
                             <h3>Click to see where you can find it!</h3>
-                            <Button variant="contained" onClick={this.handleCaffeineClick}>Find Caffeine!</Button>
+                            <MuiThemeProvider theme={theme}>
+                            <Button variant="contained" color="primary" onClick={this.handleCaffeineClick}>Find Caffeine!</Button>
+                        </MuiThemeProvider>
                         </Card>
                     {/* </Grid> */}
                 </div>

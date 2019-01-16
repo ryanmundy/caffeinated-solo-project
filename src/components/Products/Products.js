@@ -19,6 +19,15 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import { createMuiTheme } from "@material-ui/core/styles"
+
+const theme = createMuiTheme({
+    palette: {
+        primary: { main: '#92E601' },
+        secondary: { main: '#CC1E4A' }
+    },
+});
 
 class Products extends Component {
 
@@ -232,6 +241,7 @@ class Products extends Component {
         let products = this.props.reduxStore.currentProducts.map((product, i) => {
             return (
                 <div>
+                    <MuiThemeProvider theme={theme}>
                     <Card style={productCardStyle} key={i} id="product">
                         <h2>{product.name}</h2>
                         <h3>({product.category})</h3>
@@ -247,10 +257,11 @@ class Products extends Component {
                         <br />
                         <Gauge value={product.caffeine_content} color="#92E601" max={400} width={150} height={150} label="Caffeine Content" />
                         <p>{product.description}</p>
-                        <Button id="productButton" variant="contained" onClick={() => this.handleReviewsClick(product)}><Comment />Reviews</Button>
+                        <Button color="primary" id="productButton" variant="contained" onClick={() => this.handleReviewsClick(product)}><Comment />Reviews</Button>
 
-                        <Button id="productButton" variant="contained" onClick={() => this.handleLocationClick(product)}><Store />Where to Buy</Button>
+                        <Button color="primary" id="productButton" variant="contained" onClick={() => this.handleLocationClick(product)}><Store />Where to Buy</Button>
                     </Card>
+                    </MuiThemeProvider>
                 </div>
             );
         })
@@ -266,6 +277,7 @@ class Products extends Component {
         let energyDrinks = this.props.reduxStore.energy.map((product, i) => {
             return (
                 <div>
+                    <MuiThemeProvider theme={theme}>
                     <Card style={productCardStyle} key={i} id="product">
                         <h2>{product.name}</h2>
                         <h3>({product.category})</h3>
@@ -281,10 +293,11 @@ class Products extends Component {
                         <br />
                         <Gauge value={product.caffeine_content} color="#92E601" max={400} width={150} height={150} label="Caffeine Content" />
                         <p>{product.description}</p>
-                        <Button id="productButton" variant="contained" onClick={() => this.handleReviewsClick(product)}><Comment />Reviews</Button>
+                        <Button color="primary" id="productButton" variant="contained" onClick={() => this.handleReviewsClick(product)}><Comment />Reviews</Button>
 
-                        <Button id="productButton" variant="contained" onClick={() => this.handleLocationClick(product)}><Store />Where to Buy</Button>
+                        <Button color="primary" id="productButton" variant="contained" onClick={() => this.handleLocationClick(product)}><Store />Where to Buy</Button>
                     </Card>
+                    </MuiThemeProvider>
                 </div>
             );
         })
@@ -292,6 +305,7 @@ class Products extends Component {
         let coffee = this.props.reduxStore.coffee.map((product, i) => {
             return (
                 <div>
+                    <MuiThemeProvider theme={theme}>
                     <Card style={productCardStyle} key={i} id="product">
                         <h2>{product.name}</h2>
                         <h3>({product.category})</h3>
@@ -307,10 +321,11 @@ class Products extends Component {
                         <br />
                         <Gauge value={product.caffeine_content} color="#92E601" max={400} width={150} height={150} label="Caffeine Content" />
                         <p>{product.description}</p>
-                        <Button id="productButton" variant="contained" onClick={() => this.handleReviewsClick(product)}><Comment />Reviews</Button>
+                        <Button color="primary" id="productButton" variant="contained" onClick={() => this.handleReviewsClick(product)}><Comment />Reviews</Button>
 
-                        <Button id="productButton" variant="contained" onClick={() => this.handleLocationClick(product)}><Store />Where to Buy</Button>
+                        <Button color="primary" id="productButton" variant="contained" onClick={() => this.handleLocationClick(product)}><Store />Where to Buy</Button>
                     </Card>
+                    </MuiThemeProvider>
                 </div>
             );
         })
@@ -318,6 +333,7 @@ class Products extends Component {
         let tea = this.props.reduxStore.tea.map((product, i) => {
             return (
                 <div>
+                    <MuiThemeProvider theme={theme}>
                     <Card style={productCardStyle} key={i} id="product">
                         <h2>{product.name}</h2>
                         <h3>({product.category})</h3>
@@ -333,10 +349,11 @@ class Products extends Component {
                         <br />
                         <Gauge value={product.caffeine_content} color="#92E601" max={400} width={150} height={150} label="Caffeine Content" />
                         <p>{product.description}</p>
-                        <Button id="productButton" variant="contained" onClick={() => this.handleReviewsClick(product)}><Comment />Reviews</Button>
+                        <Button color="primary" id="productButton" variant="contained" onClick={() => this.handleReviewsClick(product)}><Comment />Reviews</Button>
 
-                        <Button id="productButton" variant="contained" onClick={() => this.handleLocationClick(product)}><Store />Where to Buy</Button>
+                        <Button color="primary" id="productButton" variant="contained" onClick={() => this.handleLocationClick(product)}><Store />Where to Buy</Button>
                     </Card>
+                    </MuiThemeProvider>
                 </div>
             );
         })
@@ -344,6 +361,7 @@ class Products extends Component {
         let shots = this.props.reduxStore.shots.map((product, i) => {
             return (
                 <div>
+                    <MuiThemeProvider theme={theme}>
                     <Card style={productCardStyle} key={i} id="product">
                         <h2>{product.name}</h2>
                         <h3>({product.category})</h3>
@@ -359,10 +377,11 @@ class Products extends Component {
                         <br />
                         <Gauge value={product.caffeine_content} color="#92E601" max={400} width={150} height={150} label="Caffeine Content" />
                         <p>{product.description}</p>
-                        <Button id="productButton" variant="contained" onClick={() => this.handleReviewsClick(product)}><Comment />Reviews</Button>
+                        <Button color="primary" id="productButton" variant="contained" onClick={() => this.handleReviewsClick(product)}><Comment />Reviews</Button>
 
-                        <Button id="productButton" variant="contained" onClick={() => this.handleLocationClick(product)}><Store />Where to Buy</Button>
+                        <Button color="primary" id="productButton" variant="contained" onClick={() => this.handleLocationClick(product)}><Store />Where to Buy</Button>
                     </Card>
+                    </MuiThemeProvider>
                 </div>
             );
         })
@@ -392,11 +411,13 @@ class Products extends Component {
                     <option value={4}>Energy Shots</option>
                 </select></div> */}
                 <FormControl>
+                    <MuiThemeProvider theme={theme}>
                     <Select
                         id="filterSelect"
                         onChange={this.handleFilterChange}
                         value={this.state.productDisplay.view_display}
                         style={filterStyle}
+                        color="primary"
                         input={
                             <OutlinedInput
                             />
@@ -408,6 +429,7 @@ class Products extends Component {
                         <MenuItem value={3}>Tea</MenuItem>
                         <MenuItem value={4}>Energy Shots</MenuItem>
                     </Select>
+                    </MuiThemeProvider>
                 </FormControl>
             </div>
         }
@@ -429,7 +451,8 @@ class Products extends Component {
         } else if (this.state.productDisplay.display === 6) {
             displayItem =
                 <div id="displayItem">
-                    <Button id="returnButton" variant="contained" onClick={this.handleReturnClick}><ArrowBack />Return to Products</Button>
+                <MuiThemeProvider theme={theme}>
+                    <Button id="returnButton" color="primary" variant="contained" onClick={this.handleReturnClick}><ArrowBack />Return to Products</Button>
                     <h2 id="reviewHeader">Reviews for {this.state.productDisplay.product_name}</h2>
                     <Table class="center" id="reviewsTable">
                         <TableHead>
@@ -443,6 +466,7 @@ class Products extends Component {
                         </TableBody>
                     </Table>
 
+                   
                     <Card style={cardStyle} id="addNewReview">
                         <h2>Review this product!</h2>
                         {/* <input id="reviewIn" type="text" placeholder="review" value={this.state.newReview.review_content} onChange={this.handleReviewChange}></input> */}
@@ -452,8 +476,13 @@ class Products extends Component {
                             value={this.state.newReview.review_content}
                             onChange={this.handleReviewChange}
                             margin="normal"
+                            color="primary"
+                            multiline rows="4"
+                            variant="outlined"
                         />
+                        <br/>
                         <br />
+                        <p>Rating</p>
                         {/* <select value={this.state.newReview.rating} id="ratingIn" onChange={this.handleRatingChange}>
                             <option value={1}>1</option>
                             <option value={2}>2</option>
@@ -466,6 +495,8 @@ class Products extends Component {
                                 onChange={this.handleRatingChange}
                                 value={this.state.newReview.rating}
                                 placeholder="rating"
+                                color="primary"
+                                variant="contained"
                             >
                                 <MenuItem value={1}>1</MenuItem>
                                 <MenuItem value={2}>2</MenuItem>
@@ -474,14 +505,18 @@ class Products extends Component {
                                 <MenuItem value={5}>5</MenuItem>
                             </Select>
                         </FormControl>
+                        <br/>
                         <br />
-                        <Button id="productButton" variant="contained" onClick={this.handleAddClick}><Comment />Submit Review</Button>
+                        <Button color="primary" id="productButton" variant="contained" onClick={this.handleAddClick}><Comment />Submit Review</Button>
                     </Card>
+                </MuiThemeProvider>
                 </div>
         } else if (this.state.productDisplay.display === 7) {
             displayItem =
+            
                 <div id="displayItem">
-                    <Button id="returnButton" variant="contained" onClick={this.handleReturnClick}><ArrowBack />Return to Products</Button>
+                <MuiThemeProvider theme={theme}>
+                    <Button id="returnButton" color="primary" variant="contained" onClick={this.handleReturnClick}><ArrowBack />Return to Products</Button>
                     <h2 id="reviewHeader">Locations to purchase {this.state.productDisplay.product_name}!</h2>
                     <div>
                         <Card style={cardStyle} id="addNewReview">
@@ -501,6 +536,7 @@ class Products extends Component {
                             value={this.state.newLocation.store}
                             onChange={this.handleChangeFor('store')}
                             margin="normal"
+                            color="primary"
                         />
                     <TextField
                         label="Street Address"
@@ -528,8 +564,9 @@ class Products extends Component {
                         margin="normal"
                     />
                         <br/>
-                        <Button id="productButton" variant="contained" onClick={this.handleLocationSubmitClick}><Add />Submit Location</Button>
+                        <Button color="primary" id="productButton" variant="contained" onClick={this.handleLocationSubmitClick}><Add />Submit Location</Button>
                     </Card>
+                    </MuiThemeProvider>
                 </div>
         } else if (this.state.productDisplay.display === 1) {
             displayItem = <div>
