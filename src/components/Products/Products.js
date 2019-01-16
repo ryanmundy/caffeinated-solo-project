@@ -18,6 +18,7 @@ import StarRatingComponent from 'react-star-rating-component';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 class Products extends Component {
 
@@ -44,15 +45,33 @@ class Products extends Component {
 
     componentDidMount() {
         this.getProducts();
-        this.props.dispatch({ type: 'FETCH_ENERGY' })
-        this.props.dispatch({ type: 'FETCH_COFFEE' })
-        this.props.dispatch({ type: 'FETCH_TEA' })
-        this.props.dispatch({ type: 'FETCH_SHOTS' })
+        this.getEnergy();
+        this.getCoffee();
+        this.getTea();
+        this.getShots();
     }
 
     getProducts = () => {
         this.props.dispatch({ type: 'FETCH_PRODUCTS' })
     }
+
+    getEnergy = () => {
+        this.props.dispatch({ type: 'FETCH_ENERGY' })
+    }
+
+    getCoffee = () => {
+        this.props.dispatch({ type: 'FETCH_COFFEE' })
+    }
+
+    getTea = () => {
+        this.props.dispatch({ type: 'FETCH_TEA' })
+    }
+
+    getShots = () => {
+        this.props.dispatch({ type: 'FETCH_SHOTS' })
+    }
+
+    
 
     getReviews = (id) => {
         console.log('in getReviews', id);
@@ -350,7 +369,8 @@ class Products extends Component {
 
         let filterStyle = {
             minWidth: 120,
-            marginLeft: 20
+            marginLeft: 20,
+            backgroundColor: "#92E601"
         }
 
         let filter;
@@ -377,7 +397,11 @@ class Products extends Component {
                         onChange={this.handleFilterChange}
                         value={this.state.productDisplay.view_display}
                         style={filterStyle}
-                    >
+                        input={
+                            <OutlinedInput
+                            />
+                        }
+                >
                         <MenuItem value={5}>All</MenuItem>
                         <MenuItem value={1}>Energy Drinks</MenuItem>
                         <MenuItem value={2}>Coffee</MenuItem>

@@ -52,6 +52,7 @@ const AboutPage = () => (
             <li>React-Star-Rating-Component</li>
             <li>Passport</li>
             <li>Material UI</li>
+            <li>Sweet Alert</li>
           </ul>
         </Card>
       </Grid>
