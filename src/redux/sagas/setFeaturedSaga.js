@@ -23,6 +23,7 @@ function* setNewFeatured(action) {
             icon: "success",
         });
         yield dispatch({ type: 'FETCH_FEATURED' });
+        yield dispatch({type: "FETCH_PRODUCTS"});
     } catch (error) {
         console.log(error);
     }

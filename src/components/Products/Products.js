@@ -389,7 +389,7 @@ class Products extends Component {
         let filterStyle = {
             minWidth: 120,
             marginLeft: 20,
-            backgroundColor: "#92E601"
+            color: "#92E601"
         }
 
         let filter;
@@ -403,13 +403,6 @@ class Products extends Component {
             this.state.productDisplay.display === 7
         ) {
             filter = <div> <h4 id="filterTitle">Filter By:</h4>
-                {/* <select selected={this.state.productDisplay.view_display} id="filterSelect" onChange={this.handleFilterChange}>
-                    <option value={5}>All</option>
-                    <option value={1}>Energy Drinks</option>
-                    <option value={2}>Coffee</option>
-                    <option value={3}>Tea</option>
-                    <option value={4}>Energy Shots</option>
-                </select></div> */}
                 <FormControl>
                     <MuiThemeProvider theme={theme}>
                     <Select
@@ -423,7 +416,7 @@ class Products extends Component {
                             />
                         }
                 >
-                        <MenuItem value={5}>All</MenuItem>
+                        <MenuItem value={5}>All Products</MenuItem>
                         <MenuItem value={1}>Energy Drinks</MenuItem>
                         <MenuItem value={2}>Coffee</MenuItem>
                         <MenuItem value={3}>Tea</MenuItem>
@@ -479,6 +472,7 @@ class Products extends Component {
                             color="primary"
                             multiline rows="4"
                             variant="outlined"
+                            autoComplete="off"
                         />
                         <br/>
                         <br />
@@ -537,24 +531,28 @@ class Products extends Component {
                             onChange={this.handleChangeFor('store')}
                             margin="normal"
                             color="primary"
+                            autoComplete="off"
                         />
                     <TextField
                         label="Street Address"
                         value={this.state.newLocation.street_address}
                         onChange={this.handleChangeFor('street_address')}
                         margin="normal"
+                        autoComplete="off"
                     />
                     <TextField
                         label="City"
                         value={this.state.newLocation.city}
                         onChange={this.handleChangeFor('city')}
                         margin="normal"
+                        autoComplete="off"
                     />
                     <TextField
                         label="State"
                         value={this.state.newLocation.state}
                         onChange={this.handleChangeFor('state')}
                         margin="normal"
+                        autoComplete="off"
                     />
                     <TextField
                         type="number"
@@ -562,6 +560,7 @@ class Products extends Component {
                         value={this.state.newLocation.zip}
                         onChange={this.handleChangeFor('zip')}
                         margin="normal"
+                        autoComplete="off"
                     />
                         <br/>
                         <Button color="primary" id="productButton" variant="contained" onClick={this.handleLocationSubmitClick}><Add />Submit Location</Button>

@@ -61,6 +61,7 @@ class LoginPage extends Component {
               onChange={this.handleInputChangeFor('username')}
               label="username"
               color="primary"
+              autoComplete="off"
           />
 
             {/* <label htmlFor="username">

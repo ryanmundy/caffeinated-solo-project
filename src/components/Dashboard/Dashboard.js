@@ -237,6 +237,12 @@ class Dashboard extends Component {
         }
         let newProductRow =
             this.props.reduxStore.currentProducts.map((product, i) => {
+                let featuredRow;
+                if(product.featured){
+                    featuredRow = <TableCell><Button style={buttonStyle} variant="contained" onClick={() => this.handleFeatured(product.product_table_id)}><Grade /></Button></TableCell>
+                }else{
+                    featuredRow = <TableCell><Button variant="contained" onClick={() => this.handleFeatured(product.product_table_id)}><Grade /></Button></TableCell>
+                }
                 return (
                     <MuiThemeProvider theme={theme}>
                     <TableRow key={i} id={product.id}>
@@ -245,8 +251,8 @@ class Dashboard extends Component {
                         <TableCell id="tableCell">{product.round}</TableCell>
                         <TableCell id="tableCell">{product.username}</TableCell>
                         <TableCell><Button color="primary" variant="contained" onClick={() => this.handleEdit(product)}><Edit /></Button></TableCell>
-                        <TableCell><Button style={buttonStyle} variant="contained" onClick={() => this.handleFeatured(product.product_table_id)}><Grade /></Button></TableCell>
-                        {/* <TableCell><Button variant="contained" onClick={() => { if (window.confirm('Are you sure you want to delete this product?')) this.handleDeleteProduct(product) }}><DeleteIcon></DeleteIcon></Button></TableCell> */}
+                        {/* <TableCell><Button style={buttonStyle} variant="contained" onClick={() => this.handleFeatured(product.product_table_id)}><Grade /></Button></TableCell> */}
+                        {featuredRow}
                         <TableCell><Button color="secondary" variant="contained" onClick={()=>this.handleSweetAlert(product)}><DeleteIcon/></Button></TableCell>
                     </TableRow>
                     </MuiThemeProvider>
@@ -275,7 +281,6 @@ class Dashboard extends Component {
                     <TableRow key={i} id={review.id}>
                         <TableCell id="tableCell">{review.name}</TableCell>
                         <TableCell id="tableCell">{review.review_content}</TableCell>
-                        {/* <TableCell><Button variant="contained" onClick={() => { if (window.confirm('Are you sure you want to delete this review?')) this.handleDeleteReview(review.id) }}><DeleteIcon></DeleteIcon></Button></TableCell> */}
                         <TableCell><Button color="secondary" variant="contained" onClick={() => this.handleSweetAlertReview(review.id)}><DeleteIcon /></Button></TableCell>
                     </TableRow>
                     </MuiThemeProvider>
@@ -288,7 +293,6 @@ class Dashboard extends Component {
                     <MuiThemeProvider theme={theme}>
                     <TableRow key={i} id={user.id}>
                         <TableCell id="tableCell">{user.username}</TableCell>
-                        {/* <TableCell><Button variant="contained" onClick={() => { if (window.confirm('Are you sure you want to delete this user?')) this.handleDeleteUser(user.id) }}><DeleteIcon></DeleteIcon></Button></TableCell> */}
                         <TableCell><Button color="secondary" variant="contained" onClick={() => this.handleSweetAlertUser(user.id)}><DeleteIcon /></Button></TableCell>
                     </TableRow>
                     </MuiThemeProvider>
@@ -310,17 +314,6 @@ class Dashboard extends Component {
                         <MuiThemeProvider theme={theme}>
                         <Card style={cardStyle} id="addNew">
                             <h2>Add New Product</h2>
-                            {/* <input value={this.state.newProduct.name} type="text" placeholder="name" onChange={this.handleChangeFor('name')}></input>
-                            <input value={this.state.newProduct.caffeine_content} type="number" placeholder="caffeine content" onChange={this.handleChangeFor('caffeine_content')}></input>
-                            <input value={this.state.newProduct.description} type="text" placeholder="description" onChange={this.handleChangeFor('description')}></input>
-                            <input value={this.state.newProduct.image_url} type="text" placeholder="image url" onChange={this.handleChangeFor('image_url')}></input>
-                            <select value={this.state.newProduct.category_id} onChange={this.handleChangeFor('category_id')}>
-                                <option value={1}>Energy Drink</option>
-                                <option value={2}>Coffee</option>
-                                <option value={3}>Tea</option>
-                                <option value={4}>Energy Shot</option>
-                            </select> */}
-
                         <TextField
                                 color="primary"
                             label="Name"
@@ -338,8 +331,6 @@ class Dashboard extends Component {
                             margin="normal"
                         />
                         <br/>
-                      
-                
                         <TextField
                             label="Image URL"
                             value={this.state.newProduct.image_url}
@@ -361,9 +352,7 @@ class Dashboard extends Component {
                                 <MenuItem value={4}>Energy Shot</MenuItem>
                             </Select>
                         </FormControl>
-
                         <br/>
-
                         <TextField
                             label="Description"
                             value={this.state.newProduct.description}
@@ -372,7 +361,6 @@ class Dashboard extends Component {
                             multiline rows="4"
                             variant="outlined"
                         />
-
                             <br />
                             <Button color="primary" id="submitButton" variant="contained" onClick={this.handleSubmit}><Add />Add Product</Button>
                         </Card>
@@ -434,19 +422,6 @@ class Dashboard extends Component {
                     <MuiThemeProvider theme={theme}>
                         <Card style={cardStyle} id="addNew">
                             <h2>Add New Product</h2>
-                            {/* <input value={this.state.newProduct.name} type="text" placeholder="name" onChange={this.handleChangeFor('name')}></input>
-                            <input value={this.state.newProduct.caffeine_content} type="number" placeholder="caffeine content" onChange={this.handleChangeFor('caffeine_content')}></input>
-                            <input value={this.state.newProduct.description} type="text" placeholder="description" onChange={this.handleChangeFor('description')}></input>
-                            <input value={this.state.newProduct.image_url} type="text" placeholder="image url" onChange={this.handleChangeFor('image_url')}></input>
-                            <select value={this.state.newProduct.category_id} onChange={this.handleChangeFor('category_id')}>
-                                <option value={1}>Energy Drink</option>
-                                <option value={2}>Coffee</option>
-                                <option value={3}>Tea</option>
-                                <option value={4}>Energy Shot</option>
-                            </select>
-                            <br />
-                            <Button variant="contained" onClick={this.handleSubmit}><Add />Add Product</Button> */}
-
                         <TextField
                             label="Name"
                             value={this.state.newProduct.name}
@@ -523,18 +498,6 @@ class Dashboard extends Component {
                 <MuiThemeProvider theme={theme}>
                     <Card style={cardStyle} id="addNew">
                         <h2>Edit {this.state.productToEdit.name}</h2>
-                        {/* <input type="text" placeholder="name" placeholder={this.state.productToEdit.name} onChange={this.handleChangeForEdit('name')}></input>
-                        <input type="number" placeholder="caffeine content" placeholder={this.state.productToEdit.caffeine_content} onChange={this.handleChangeForEdit('caffeine_content')}></input>
-                        <input type="text" placeholder="description" placeholder={this.state.productToEdit.description} onChange={this.handleChangeForEdit('description')}></input>
-                        <input type="text" placeholder="image url" placeholder={this.state.productToEdit.image_url} onChange={this.handleChangeForEdit('image_url')}></input>
-                        <select placeholder={this.state.productToEdit.category_id} onChange={this.handleChangeForEdit('category_id')}>
-                            <option value={1}>Energy Drink</option>
-                            <option value={2}>Coffee</option>
-                            <option value={3}>Tea</option>
-                        </select>
-                        <br />
-                        <Button variant="contained" onClick={this.handleEditSubmit}><Save />Save</Button> */}
-
                     <TextField
                         placeholder={this.state.productToEdit.name}
                         onChange={this.handleChangeForEdit('name')}
@@ -552,10 +515,8 @@ class Dashboard extends Component {
                             onChange={this.handleChangeForEdit('image_url')}
                             margin="normal"
                         />
-                        <br/>
-                    
-                    <br />
-                    
+                        <br/>                   
+                    <br />                   
                     <FormControl>
                         <Select
                             onChange={this.handleChangeForEdit('category_id')}
@@ -577,7 +538,6 @@ class Dashboard extends Component {
                             multiline rows="4"
                             variant="outlined"
                         />
-
                     <br />
                     <Button color="primary" id="submitButton" variant="contained" onClick={this.handleEditSubmit}><Save />Save</Button>
                     </Card>
