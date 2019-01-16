@@ -1,5 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import TextField from '@material-ui/core/TextField';
+import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import { createMuiTheme } from "@material-ui/core/styles"
+
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: '#92E601' },
+    secondary: { main: '#CC1E4A' }
+  },
+});
 
 class LoginPage extends Component {
   state = {
@@ -31,6 +41,7 @@ class LoginPage extends Component {
 
   render() {
     return (
+      <MuiThemeProvider theme={theme}>
       <div>
         {this.props.errors.loginMessage && (
           <h2
@@ -43,7 +54,16 @@ class LoginPage extends Component {
         <form onSubmit={this.login}>
           <h1>Login</h1>
           <div>
-            <label htmlFor="username">
+          <TextField
+          type="text"
+          name="username"
+              value={this.state.username}
+              onChange={this.handleInputChangeFor('username')}
+              label="username"
+              color="primary"
+          />
+
+            {/* <label htmlFor="username">
               Username:
               <input
                 type="text"
@@ -51,10 +71,18 @@ class LoginPage extends Component {
                 value={this.state.username}
                 onChange={this.handleInputChangeFor('username')}
               />
-            </label>
+            </label> */}
           </div>
           <div>
-            <label htmlFor="password">
+            <TextField
+            type="password"
+            name="password"
+              value={this.state.password}
+              onChange={this.handleInputChangeFor('password')}
+              label="password"
+              color="primary"
+            />
+            {/* <label htmlFor="password">
               Password:
               <input
                 type="password"
@@ -62,7 +90,7 @@ class LoginPage extends Component {
                 value={this.state.password}
                 onChange={this.handleInputChangeFor('password')}
               />
-            </label>
+            </label> */}
           </div>
           <div>
             <input
@@ -83,6 +111,7 @@ class LoginPage extends Component {
           </button>
         </center>
       </div>
+      </MuiThemeProvider>
     );
   }
 }

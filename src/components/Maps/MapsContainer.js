@@ -6,7 +6,7 @@ import './Maps.css'
 import { Card, Button } from '@material-ui/core'
 import { } from '@material-ui/icons'
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
-import { createMuiTheme } from "@material-ui/core/styles"
+import { createMuiTheme } from "@material-ui/core/styles";
 
 // google maps api 
 import { withScriptjs, withGoogleMap, GoogleMap, DirectionsRenderer, Marker, InfoWindow, Polyline } from "react-google-maps";
@@ -189,8 +189,9 @@ class MapsContainer extends Component {
                                         <h3>{marker.store}</h3>
                                         <p>{marker.street_address}</p>
                                         <p>{marker.city}, {marker.state} {marker.zip}</p>
-
-                                        <Button variant="contained" onClick={() => this.handleClick(marker)}>View Products</Button>
+                                        <MuiThemeProvider theme={theme}>
+                                        <Button variant="contained" color="primary" onClick={() => this.handleClick(marker)}>View Products</Button>
+                                    </MuiThemeProvider>
                                         {/* <Button variant="contained" onClick={() => this.displayDirections()}>Directions</Button> */}
                                         {ifSelected}
                                     </Card>
