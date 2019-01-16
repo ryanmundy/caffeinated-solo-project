@@ -41,7 +41,7 @@ router.post('/logout', (req, res) => {
 });
 
 router.get('/userList', (req, res) => {
-  const queryText = `SELECT * FROM "person" WHERE "person".admin != true;`;
+  const queryText = `SELECT "person".id, "person".username, "person".admin FROM "person" WHERE "person".admin != true;`;
   pool.query(queryText)
     .then((result) => {
       res.send(result.rows);

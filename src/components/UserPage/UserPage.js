@@ -12,7 +12,8 @@ const UserPage = (props) => (
     <h1 id="welcome">
       Welcome, { props.user.username }!
     </h1>
-    <p>Your ID is: {props.user.id}</p>
+    {/* <p>Your ID is: {props.user.id}</p> */}
+    {props.user.admin ? 'You are an administrator' : 'This is your dashboard'}
     
     <Dashboard user={props.user.username} id={props.user.id} admin={props.user.admin}/>
     <LogOutButton className="log-in" />

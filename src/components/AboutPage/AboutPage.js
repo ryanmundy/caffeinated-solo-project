@@ -43,7 +43,7 @@ const AboutPage = () => (
             <li>React-Redux</li>
             <li>Redux-Sagas</li>
             <li>Node.js</li>
-            <li>Express</li>
+            <li>Express.js</li>
             <li>Axios</li>
             <li>PostgreSQL</li>
             <li>Google Maps API</li>
