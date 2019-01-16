@@ -80,18 +80,10 @@ class Products extends Component {
         this.props.dispatch({ type: 'FETCH_SHOTS' })
     }
 
-    
-
     getReviews = (id) => {
         console.log('in getReviews', id);
         this.props.dispatch({ type: 'FETCH_REVIEWS', payload: id })
     }
-
-    // filterBy = (category) => {
-    //     console.log('in filterBy', category);
-    //     this.props.dispatch({ type: 'FILTER_BY', payload: category })
-
-    // }
 
     getLocations = (id) => {
         console.log('in getLocations', id);
@@ -131,7 +123,6 @@ class Products extends Component {
             }
         });
     }
-
 
     handleReviewsClick = (product) => {
         console.log('in handleReviews', product.product_table_id);
@@ -208,10 +199,8 @@ class Products extends Component {
                 view_display: Number(event.target.value)
             }
         });
-        // console.log('state is', this.state.productDisplay);
 
     }
-
 
     render() {
         console.log('state is', this.state.productDisplay);

@@ -22,29 +22,29 @@ router.post('/', (req, res) => {
     geocoder.geocode(`${newLocation.street_address} ${newLocation.city} ${newLocation.state}`)
         .then(function (result) {
             console.log(result);
-        
 
-    const queryText = `INSERT INTO "location" ("store", "street_address", "city", "state", "zip", "product_id", "lat", "lng")
+
+            const queryText = `INSERT INTO "location" ("store", "street_address", "city", "state", "zip", "product_id", "lat", "lng")
 VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;
-    const queryValues = [
-        newLocation.store,
-        newLocation.street_address,
-        newLocation.city,
-        newLocation.state,
-        newLocation.zip,
-        newLocation.product_id,
-        result[0].latitude,
-        result[0].longitude
-    ];
+            const queryValues = [
+                newLocation.store,
+                newLocation.street_address,
+                newLocation.city,
+                newLocation.state,
+                newLocation.zip,
+                newLocation.product_id,
+                result[0].latitude,
+                result[0].longitude
+            ];
 
-    pool.query(queryText, queryValues)
-        .then(() => { res.sendStatus(201); })
-        .catch((error) => {
-            console.log(error);
-            res.sendStatus(500);
+            pool.query(queryText, queryValues)
+                .then(() => { res.sendStatus(201); })
+                .catch((error) => {
+                    console.log(error);
+                    res.sendStatus(500);
+                });
         });
 });//end POST
-
 
 router.get('/', (req, res) => {
     console.log('id = ', [req.query.id]);
@@ -58,7 +58,6 @@ router.get('/', (req, res) => {
             res.sendStatus(500);
         });
 });//end GET
-});
 
 router.get('/all', (req, res) => {
     const queryText = `SELECT "products".name, "location".id, "location".store, "location".street_address, "location".city,
