@@ -231,9 +231,9 @@ class Products extends Component {
         
 
         let products = this.props.reduxStore.currentProducts.map((product, i) => {
-            if(product.round=null){
-                product.round=0
-            }
+            // if(product.round=null){
+            //     product.round=0
+            // }
             return (
                 <div>
                     <MuiThemeProvider theme={theme}>

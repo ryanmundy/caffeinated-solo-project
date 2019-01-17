@@ -14,10 +14,10 @@ function* addReview(action) {
         });
         yield dispatch({ type: 'FETCH_REVIEWS', payload: action.payload.product_id });
         yield dispatch({ type: 'FETCH_PRODUCTS' });
-        yield dispatch({ type: 'FETCH_ENERGY' });
-        yield dispatch({ type: 'FETCH_COFFEE' });
-        yield dispatch({ type: 'FETCH_TEA' });
-        yield dispatch({ type: 'FETCH_SHOTS' });
+        // yield dispatch({ type: 'FETCH_ENERGY' });
+        // yield dispatch({ type: 'FETCH_COFFEE' });
+        // yield dispatch({ type: 'FETCH_TEA' });
+        // yield dispatch({ type: 'FETCH_SHOTS' });
     } catch (error) {
         console.log(error);
     }
