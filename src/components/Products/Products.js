@@ -29,6 +29,7 @@ const theme = createMuiTheme({
     },
 });
 
+
 class Products extends Component {
 
     state = {
@@ -227,7 +228,12 @@ class Products extends Component {
             );
         })
 
+        
+
         let products = this.props.reduxStore.currentProducts.map((product, i) => {
+            if(product.round=null){
+                product.round=0
+            }
             return (
                 <div>
                     <MuiThemeProvider theme={theme}>

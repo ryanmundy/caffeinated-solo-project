@@ -58,17 +58,6 @@ const AboutPage = () => (
         </Card>
       </Grid>
     </div>
-    {/* <div>
-      <Grid container
-        direction="row"
-        justify="center"
-        alignItems="center">
-      <Card id="mission" style={cardStyle}>
-        <h2>Citations</h2>
-        
-      </Card>
-      </Grid>
-    </div> */}
   </div>
 );
 
