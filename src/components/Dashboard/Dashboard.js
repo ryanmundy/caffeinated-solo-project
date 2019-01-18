@@ -268,7 +268,7 @@ class Dashboard extends Component {
                         <TableCell id="tableCell">{product.name}</TableCell>
                         <TableCell id="tableCell">{product.round}</TableCell>
                         <TableCell><Button color="primary" variant="contained" onClick={() => this.handleEdit(product)}><Edit /></Button></TableCell>
-                        <TableCell><Button color="primary" variant="contained" onClick={() => this.handleSweetAlert(product)}><DeleteIcon /></Button></TableCell>
+                        <TableCell><Button color="secondary" variant="contained" onClick={() => this.handleSweetAlert(product)}><DeleteIcon /></Button></TableCell>
                     </TableRow>
                     </MuiThemeProvider>
                 );

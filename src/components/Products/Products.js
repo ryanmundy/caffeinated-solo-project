@@ -212,9 +212,9 @@ class Products extends Component {
         }
 
         let productCardStyle = {
-            width: 350,
+            width: 300,
             display: 'inline-block',
-            height: 675,
+            height: 575,
             overflowY: 'auto'
         }
 
@@ -248,7 +248,7 @@ class Products extends Component {
                             />
                             <br />
                             <p><em>Added By: {product.username}</em></p>
-                            <img src={product.image_url} height="300" alt=''></img>
+                            <img src={product.image_url} height="200" alt=''></img>
                             <br />
                             <Gauge value={product.caffeine_content} color="#92E601" max={400} width={150} height={150} label="Caffeine Content" />
                             <p>{product.description}</p>
@@ -284,7 +284,7 @@ class Products extends Component {
                             />
                             <br />
                             <p><em>Added By: {product.username}</em></p>
-                            <img src={product.image_url} height="300" alt=''></img>
+                            <img src={product.image_url} height="200" alt=''></img>
                             <br />
                             <Gauge value={product.caffeine_content} color="#92E601" max={400} width={150} height={150} label="Caffeine Content" />
                             <p>{product.description}</p>
@@ -312,7 +312,7 @@ class Products extends Component {
                             />
                             <br />
                             <p><em>Added By: {product.username}</em></p>
-                            <img src={product.image_url} height="300" alt=''></img>
+                            <img src={product.image_url} height="200" alt=''></img>
                             <br />
                             <Gauge value={product.caffeine_content} color="#92E601" max={400} width={150} height={150} label="Caffeine Content" />
                             <p>{product.description}</p>
@@ -340,7 +340,7 @@ class Products extends Component {
                             />
                             <br />
                             <p><em>Added By: {product.username}</em></p>
-                            <img src={product.image_url} height="300" alt=''></img>
+                            <img src={product.image_url} height="200" alt=''></img>
                             <br />
                             <Gauge value={product.caffeine_content} color="#92E601" max={400} width={150} height={150} label="Caffeine Content" />
                             <p>{product.description}</p>
@@ -368,7 +368,7 @@ class Products extends Component {
                             />
                             <br />
                             <p><em>Added By: {product.username}</em></p>
-                            <img src={product.image_url} height="300" alt=''></img>
+                            <img src={product.image_url} height="200" alt=''></img>
                             <br />
                             <Gauge value={product.caffeine_content} color="#92E601" max={400} width={150} height={150} label="Caffeine Content" />
                             <p>{product.description}</p>
