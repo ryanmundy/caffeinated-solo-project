@@ -244,7 +244,7 @@ class Products extends Component {
                             <StarRatingComponent
                                 name="rate1"
                                 starCount={5}
-                                value={product.round}
+                                value={product.round || 0}
                             />
                             <br />
                             <p><em>Added By: {product.username}</em></p>
@@ -280,7 +280,7 @@ class Products extends Component {
                             <StarRatingComponent
                                 name="rate1"
                                 starCount={5}
-                                value={product.round}
+                                value={product.round || 0}
                             />
                             <br />
                             <p><em>Added By: {product.username}</em></p>
@@ -308,7 +308,7 @@ class Products extends Component {
                             <StarRatingComponent
                                 name="rate1"
                                 starCount={5}
-                                value={product.round}
+                                value={product.round || 0}
                             />
                             <br />
                             <p><em>Added By: {product.username}</em></p>
@@ -336,7 +336,7 @@ class Products extends Component {
                             <StarRatingComponent
                                 name="rate1"
                                 starCount={5}
-                                value={product.round}
+                                value={product.round || 0}
                             />
                             <br />
                             <p><em>Added By: {product.username}</em></p>
@@ -364,7 +364,7 @@ class Products extends Component {
                             <StarRatingComponent
                                 name="rate1"
                                 starCount={5}
-                                value={product.round}
+                                value={product.round || 0}
                             />
                             <br />
                             <p><em>Added By: {product.username}</em></p>
