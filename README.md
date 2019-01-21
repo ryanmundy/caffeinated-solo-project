@@ -22,6 +22,8 @@ Sweet Alert
 Getting Started:
 The developer will want to to install Node.js and PostgreSQL to get this running on their computer.
 
+The developer will also want to follow the instructions in the database.sql file to properly build the database structure.
+
 Prerequisites: Node.js
 
 Download this project. run npm install in terminal run npm run server in terminal run npm run client in a separate terminal window
